@@ -1,15 +1,16 @@
-## NumberKeyboard 数字键盘
+# NumberKeyboard 数字键盘
 
-### 使用指南
+### 引入
+
 ``` javascript
 import { NumberKeyboard } from 'vant';
 
 Vue.use(NumberKeyboard);
 ```
 
-### 代码演示
+## 代码演示
 
-#### 默认样式
+### 默认样式
 
 ```html
 <van-button @touchstart.stop="show = true">
@@ -45,7 +46,7 @@ export default {
 }
 ```
 
-#### 自定义样式
+### 自定义样式
 
 ```html
 <van-number-keyboard
@@ -59,7 +60,9 @@ export default {
 />
 ```
 
-### API
+## API
+
+### Props
 
 | 参数 | 说明 | 类型 | 默认值 | 版本 |
 |------|------|------|------|------|
@@ -75,9 +78,9 @@ export default {
 | hide-on-click-outside | 点击外部时是否收起键盘 | `Boolean` | `true` | - |
 | safe-area-inset-bottom | 是否开启 iPhone X 底部安全区适配，需要在 `viewport` meta 标签中设置 `viewport-fit=cover` | `Boolean` | `false` | 1.6.15 |
 
-### Event
+### Events
 
-| 事件名 | 说明 | 参数 |
+| 事件名 | 说明 | 回调参数 |
 |------|------|------|
 | input | 点击按键时触发 | key: 按键内容 |
 | delete | 点击删除键时触发 | - |
@@ -85,3 +88,9 @@ export default {
 | blur | 点击关闭按钮或非键盘区域时触发 | - |
 | show | 键盘完全弹出时触发 | - |
 | hide | 键盘完全收起时触发 | - |
+
+### Slots
+
+| 名称 | 说明 |
+|------|------|
+| title-left | 自定义标题栏左侧内容 |

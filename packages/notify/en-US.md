@@ -1,4 +1,4 @@
-## Notify
+# Notify
 
 ### Install
 
@@ -8,15 +8,15 @@ import { Notify } from 'vant';
 Vue.use(Notify);
 ```
 
-### Usage
+## Usage
 
-#### Basic Usage
+### Basic Usage
 
 ```js
 Notify('Notify Message');
 ```
 
-#### Custom Config
+### Custom Config
 
 ```js
 Notify({
@@ -26,7 +26,7 @@ Notify({
 });
 ```
 
-#### $notify Method
+### $notify Method
 
 After import the Notify component, the $notify method is automatically mounted on Vue.prototype, making it easy to call within a vue component.
 
@@ -38,6 +38,8 @@ export default {
 }
 ```
 
+## API
+
 ### Methods
 
 | Methods | Attribute | Return value | Description |
@@ -47,7 +49,7 @@ export default {
 | Notify.setDefaultOptions | `options` | `void` | Set default options of all notifies |
 | Notify.resetDefaultOptions | - | `void` | Reset default options of all notifies |
 
-### API
+### Props
 
 | Attribute | Description | Type | Default |
 |------|------|------|------|
@@ -56,3 +58,4 @@ export default {
 | color | Message color | `String` | `#fff` | |
 | background | Background color | `String` | `#f44` |
 | className | Custom className | `String | Array | Object` | - |
+| onClick | Click callback | `Function` | - |

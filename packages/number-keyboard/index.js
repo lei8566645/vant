@@ -1,5 +1,5 @@
 import { use } from '../utils';
-import { stop } from '../utils/event';
+import { stopPropagation } from '../utils/event';
 import Key from './Key';
 
 const [sfc, bem, t] = use('number-keyboard');
@@ -133,8 +133,11 @@ export default sfc({
   },
 
   render(h) {
-    const { theme, onPress, closeButtonText } = this;
+    const { title, theme, onPress, closeButtonText } = this;
+
+    const titleLeftSlot = this.slots('title-left');
     const showTitleClose = closeButtonText && theme === 'default';
+    const showTitle = title || showTitleClose || titleLeftSlot;
 
     return (
       <transition name={this.transition ? 'van-slide-up' : ''}>
@@ -142,13 +145,18 @@ export default sfc({
           vShow={this.show}
           style={{ zIndex: this.zIndex }}
           class={bem([theme, { 'safe-area-inset-bottom': this.safeAreaInsetBottom }])}
-          onTouchstart={stop}
+          onTouchstart={stopPropagation}
           onAnimationend={this.onAnimationEnd}
           onWebkitAnimationEnd={this.onAnimationEnd}
         >
-          {(this.title || showTitleClose) && (
+          {showTitle && (
             <div class={[bem('title'), 'van-hairline--top']}>
-              <span>{this.title}</span>
+              {titleLeftSlot && (
+                <span class={bem('title-left')}>
+                  {titleLeftSlot}
+                </span>
+              )}
+              {title && <span>{title}</span>}
               {showTitleClose && (
                 <span class={bem('close')} onClick={this.onClose}>
                   {closeButtonText}

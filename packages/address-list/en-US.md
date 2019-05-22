@@ -1,4 +1,4 @@
-## AddressList
+# AddressList
 
 ### Install
 ``` javascript
@@ -7,9 +7,9 @@ import { AddressList } from 'vant';
 Vue.use(AddressList);
 ```
 
-### Usage
+## Usage
 
-#### Basic Usage
+### Basic Usage
 
 ```html
 <van-address-list
@@ -63,7 +63,9 @@ export default {
 }
 ```
 
-### API
+## API
+
+### Props
 
 | Attribute | Description | Type | Default |
 |------|------|------|------|
@@ -74,7 +76,7 @@ export default {
 | switchable | Whether to allow switch address | `Boolean` | `true` |
 | add-button-text | Add button text | String | `Add new address` |
 
-### Event
+### Events
 
 | Event | Description | Arguments |
 |------|------|------|
@@ -93,9 +95,9 @@ export default {
 | tel | Phone | `String | Number` |
 | address | Address | `String` |
 
-### Slot
+### Slots
 
-| 名称 | 说明 |
+| Name | Description |
 |------|------|
-| - | Custom content after list |
+| default | Custom content after list |
 | top | Custom content before list |

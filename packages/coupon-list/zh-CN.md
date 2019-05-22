@@ -1,15 +1,16 @@
-## Coupon 优惠券选择器
+# Coupon 优惠券选择器
 
-### 使用指南
+### 引入
+
 ``` javascript
 import { CouponCell, CouponList } from 'vant';
 
 Vue.use(CouponCell).use(CouponList);
 ```
 
-### 代码演示
+## 代码演示
 
-#### 基础用法
+### 基础用法
 
 ```html
 <!-- 优惠券单元格 -->
@@ -65,8 +66,9 @@ export default {
 }
 ```
 
+## API
 
-### CouponCell API
+### CouponCell Props
 
 | 参数 | 说明 | 类型 | 默认值 | 版本 |
 |------|------|------|------|------|
@@ -77,7 +79,7 @@ export default {
 | border | 是否显示内边框 | `Boolean` | `true` | 1.3.10 |
 | currency | 货币符号 |  `String` | `¥` | - | 1.5.0 |
 
-### CouponList API
+### CouponList Props
 
 | 参数 | 说明 | 类型 | 默认值 | 版本 |
 |------|------|------|------|------|
@@ -96,16 +98,14 @@ export default {
 | show-exchange-bar | 是否展示兑换栏 | `Boolean` | `true` | - |
 | currency | 货币符号 |  `String` | `¥` | - | 1.5.0 |
 
-### CouponList Event
+### CouponList Events
 
-| 事件名 | 说明 | 参数 |
+| 事件名 | 说明 | 回调参数 |
 |------|------|------|
 | change | 优惠券切换回调 | index, 选中优惠券的索引 |
 | exchange | 兑换优惠券回调 | code, 兑换码 |
 
-### 数据格式
-
-#### 优惠券字段说明
+### 优惠券字段说明
 
 | key | 说明 | 类型 |
 |------|------|------|

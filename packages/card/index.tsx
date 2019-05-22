@@ -1,10 +1,11 @@
 import { use, isDef } from '../utils';
 import { inherit } from '../utils/functional';
 import Tag from '../tag';
+import Image from '../image';
 
 // Types
 import { CreateElement, RenderContext } from 'vue/types';
-import { DefaultSlots, ScopedSlot } from '../utils/use/sfc';
+import { DefaultSlots, ScopedSlot } from '../utils/types';
 
 export type CardProps = {
   tag?: string;
@@ -46,23 +47,14 @@ function Card(
 ) {
   const { thumb } = props;
 
-  const showThumb = slots.thumb || thumb;
-  const showTag = slots.tag || props.tag;
   const showNum = slots.num || isDef(props.num);
   const showPrice = slots.price || isDef(props.price);
   const showOriginPrice = slots['origin-price'] || isDef(props.originPrice);
   const showBottom = showNum || showPrice || showOriginPrice;
 
-  const Thumb = showThumb && (
-    <a href={props.thumbLink} class={bem('thumb')}>
-      {slots.thumb ? (
-        slots.thumb()
-      ) : props.lazyLoad ? (
-        <img class={bem('img')} vLazy={thumb} />
-      ) : (
-        <img class={bem('img')} src={thumb} />
-      )}
-      {showTag && (
+  function ThumbTag() {
+    if (slots.tag || props.tag) {
+      return (
         <div class={bem('tag')}>
           {slots.tag ? (
             slots.tag()
@@ -72,56 +64,102 @@ function Card(
             </Tag>
           )}
         </div>
-      )}
-    </a>
-  );
+      );
+    }
+  }
 
-  const Title = slots.title
-    ? slots.title()
-    : props.title && <div class={bem('title')}>{props.title}</div>;
+  function Thumb() {
+    if (slots.thumb || thumb) {
+      return (
+        <a href={props.thumbLink} class={bem('thumb')}>
+          {slots.thumb ? (
+            slots.thumb()
+          ) : (
+            <Image
+              src={thumb}
+              width="100%"
+              height="100%"
+              fit="contain"
+              lazy-load={props.lazyLoad}
+            />
+          )}
+          {ThumbTag()}
+        </a>
+      );
+    }
+  }
 
-  const Desc = slots.desc
-    ? slots.desc()
-    : props.desc && <div class={[bem('desc'), 'van-ellipsis']}>{props.desc}</div>;
+  function Title() {
+    if (slots.title) {
+      return slots.title();
+    }
 
-  const Price = showPrice && (
-    <div class={bem('price')}>
-      {slots.price ? slots.price() : `${props.currency} ${props.price}`}
-    </div>
-  );
+    if (props.title) {
+      return <div class={bem('title')}>{props.title}</div>;
+    }
+  }
 
-  const OriginPrice = showOriginPrice && (
-    <div class={bem('origin-price')}>
-      {slots['origin-price']
-        ? slots['origin-price']()
-        : `${props.currency} ${props.originPrice}`}
-    </div>
-  );
+  function Desc() {
+    if (slots.desc) {
+      return slots.desc();
+    }
 
-  const Num = showNum && (
-    <div class={bem('num')}>{slots.num ? slots.num() : `x ${props.num}`}</div>
-  );
+    if (props.desc) {
+      return <div class={[bem('desc'), 'van-ellipsis']}>{props.desc}</div>;
+    }
+  }
 
-  const Footer = slots.footer && <div class={bem('footer')}>{slots.footer()}</div>;
+  function Price() {
+    if (showPrice) {
+      return (
+        <div class={bem('price')}>
+          {slots.price ? slots.price() : `${props.currency} ${props.price}`}
+        </div>
+      );
+    }
+  }
+
+  function OriginPrice() {
+    if (showOriginPrice) {
+      const slot = slots['origin-price'];
+      return (
+        <div class={bem('origin-price')}>
+          {slot ? slot() : `${props.currency} ${props.originPrice}`}
+        </div>
+      );
+    }
+  }
+
+  function Num() {
+    if (showNum) {
+      return <div class={bem('num')}>{slots.num ? slots.num() : `x ${props.num}`}</div>;
+    }
+  }
+
+  function Footer() {
+    if (slots.footer) {
+      return <div class={bem('footer')}>{slots.footer()}</div>;
+    }
+  }
 
   return (
     <div class={bem()} {...inherit(ctx, true)}>
       <div class={bem('header')}>
-        {Thumb}
+        {Thumb()}
         <div class={bem('content', { centered: props.centered })}>
-          {Title}
-          {Desc}
+          {Title()}
+          {Desc()}
           {slots.tags && slots.tags()}
           {showBottom && (
             <div class="van-card__bottom">
-              {Price}
-              {OriginPrice}
-              {Num}
+              {Price()}
+              {OriginPrice()}
+              {Num()}
             </div>
           )}
         </div>
       </div>
-      {Footer}
+      {Footer()}
     </div>
   );
 }

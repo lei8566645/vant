@@ -1,15 +1,16 @@
-## Tag 标记
+# Tag 标记
 
-### 使用指南
+### 引入
+
 ``` javascript
 import { Tag } from 'vant';
 
 Vue.use(Tag);
 ```
 
-### 代码演示
+## 代码演示
 
-#### 基础用法
+### 基础用法
 
 通过 type 属性控制 Tag 颜色，默认为灰色
 
@@ -20,7 +21,7 @@ Vue.use(Tag);
 <van-tag type="success">标签</van-tag>
 ```
 
-#### 空心样式
+### 空心样式
 
 设置`plain`属性设置为空心样式
 
@@ -31,7 +32,7 @@ Vue.use(Tag);
 <van-tag plain type="success">标签</van-tag>
 ```
 
-#### 圆角样式
+### 圆角样式
 
 通过`round`设置为圆角样式
 
@@ -42,7 +43,7 @@ Vue.use(Tag);
 <van-tag round type="success">标签</van-tag>
 ```
 
-#### 标记样式
+### 标记样式
 
 通过`mark`设置为标记样式(半圆角)
 
@@ -53,7 +54,7 @@ Vue.use(Tag);
 <van-tag mark type="success">标签</van-tag>
 ```
 
-#### 自定义颜色
+### 自定义颜色
 
 ```html
 <van-tag color="#f2826a">标签</van-tag>
@@ -63,7 +64,7 @@ Vue.use(Tag);
 <van-tag color="#ffe1e1" text-color="#ad0000">标签</van-tag>
 ```
 
-#### 标签大小
+### 标签大小
 
 ```html
 <van-tag>标签</van-tag>
@@ -71,7 +72,9 @@ Vue.use(Tag);
 <van-tag size="large">标签</van-tag>
 ```
 
-### API
+## API
+
+### Props
 
 | 参数 | 说明 | 类型 | 默认值 | 版本 |
 |------|------|------|------|------|
@@ -83,14 +86,14 @@ Vue.use(Tag);
 | mark | 是否为标记样式 | `Boolean` | `false` | - |
 | text-color | 文本颜色，优先级高于`color`属性 | `String` | `white` | 1.5.0 |
 
-### Slot
+### Slots
 
 | 名称 | 说明 |
 |------|------|
-| - | 自定义 Tag 显示内容 |
+| default | 自定义 Tag 显示内容 |
 
-### Event
+### Events
 
-| 事件名 | 说明 | 参数 |
+| 事件名 | 说明 | 回调参数 |
 |------|------|------|
 | click | 点击时触发 | - |

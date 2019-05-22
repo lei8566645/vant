@@ -1,7 +1,10 @@
-## Dialog 弹出框
-Dialog 组件支持函数调用和组件调用两种形式
+# Dialog 弹出框
 
-### 使用指南
+### 介绍
+
+弹出框组件支持函数调用和组件调用两种形式
+
+### 引入
 
 ```js
 import { Dialog } from 'vant';
@@ -9,9 +12,9 @@ import { Dialog } from 'vant';
 Vue.use(Dialog);
 ```
 
-### 代码演示
+## 代码演示
 
-#### 消息提示
+### 消息提示
 
 用于提示一些消息，只包含一个确认按钮
 
@@ -30,7 +33,7 @@ Dialog.alert({
 });
 ```
 
-#### 消息确认
+### 消息确认
 
 用于确认消息，包含取消和确认按钮
 
@@ -45,7 +48,7 @@ Dialog.confirm({
 });
 ```
 
-#### 异步关闭
+### 异步关闭
 
 ```js
 function beforeClose(action, done) {
@@ -63,7 +66,7 @@ Dialog.confirm({
 });
 ```
 
-#### 全局方法
+### 全局方法
 
 引入 Dialog 组件后，会自动在 Vue 的 prototype 上挂载 $dialog 方法，在所有组件内部都可以直接调用此方法
 
@@ -77,7 +80,7 @@ export default {
 }
 ```
 
-#### 组件调用
+### 组件调用
 
 如果需要在弹窗内嵌入组件或其他自定义内容，可以使用组件调用的方式，调用前需要通过 `Vue.use` 注册组件
 
@@ -101,6 +104,8 @@ export default {
 }
 ```
 
+## API
+
 ### 方法
 
 | 方法名 | 参数 | 返回值 | 介绍 |
@@ -119,7 +124,7 @@ export default {
 | 参数 | 说明 | 类型 | 默认值 | 版本 |
 |------|------|------|------|------|
 | title | 标题 | `String` | - | - |
-| message | 内容 | `String` | - | - |
+| message | 文本内容，支持通过`\n`换行 | `String` | - | - |
 | messageAlign | 内容对齐方式，可选值为`left` `right` | `String` | `center` | 1.5.0 |
 | className | 自定义类名 | `String | Array | Object` | - | 1.1.7 |
 | showConfirmButton | 是否展示确认按钮 | `Boolean` | `true` | - |
@@ -128,15 +133,15 @@ export default {
 | cancelButtonColor | 取消按钮颜色 | `String` | `#000` | 1.6.14 |
 | confirmButtonText | 确认按钮文案 | `String` | `确认` | - |
 | confirmButtonColor | 确认按钮颜色 | `String` | `#1989fa` | 1.6.14 |
-| overlay | 是否展示蒙层 | `Boolean` | `true` | - |
-| closeOnClickOverlay | 点击蒙层时是否关闭弹窗 | `Boolean` | `false` | - |
+| overlay | 是否展示遮罩层 | `Boolean` | `true` | - |
+| closeOnClickOverlay | 点击遮罩层时是否关闭弹窗 | `Boolean` | `false` | - |
 | lockScroll | 是否锁定背景滚动 | `Boolean` | `true` | - |
 | beforeClose | 关闭前的回调函数，<br>调用 done() 后关闭弹窗，<br>调用 done(false) 阻止弹窗关闭 | `(action, done) => void` | - | 1.1.6 |
 | getContainer | 指定挂载的节点，可以传入选择器，<br>或一个返回节点的函数 | `String | () => HTMLElement` | `body` | 1.6.11 |
 
-### API
+### Props
 
-通过组件调用 `Dialog` 时，支持以下 API：
+通过组件调用 `Dialog` 时，支持以下 Props：
 
 | 参数 | 说明 | 类型 | 默认值 | 版本 |
 |------|------|------|------|------|
@@ -150,13 +155,13 @@ export default {
 | cancel-button-color | 取消按钮颜色 | `String` | `#000` | 1.6.14 |
 | confirm-button-text | 确认按钮文案 | `String` | `确认` | - |
 | confirm-button-color | 确认按钮颜色 | `String` | `#1989fa` | 1.6.14 |
-| overlay | 是否展示蒙层 | `Boolean` | `true` | - |
-| close-on-click-overlay | 是否在点击蒙层后关闭 | `Boolean` | `false` | - |
+| overlay | 是否展示遮罩层 | `Boolean` | `true` | - |
+| close-on-click-overlay | 是否在点击遮罩层后关闭 | `Boolean` | `false` | - |
 | lock-scroll | 是否锁定背景滚动 | `Boolean` | `true` | - |
 | before-close | 关闭前的回调函数，<br>调用 done() 后关闭弹窗，<br>调用 done(false) 阻止弹窗关闭 | `(action, done) => void` | - | 1.1.6 |
 | get-container | 指定挂载的节点，可以传入选择器，<br>或一个返回节点的函数 | `String | () => HTMLElement` | `body` | 1.1.6 |
 
-### Event
+### Events
 
 通过组件调用 `Dialog` 时，支持以下事件：
 

@@ -91,9 +91,7 @@
     </demo-block>
 
     <demo-block :title="$t('title8')">
-      <van-tabs
-        animated
-      >
+      <van-tabs animated>
         <van-tab
           :title="$t('tab') + index"
           v-for="index in tabs"
@@ -186,32 +184,12 @@ export default {
   }
 
   .van-tab__pane {
+    padding: 25px 20px;
     background-color: @white;
-    padding: 20px;
   }
 
   .van-tabs--card .van-tab__pane {
     background-color: transparent;
-  }
-
-  .custom-tabwrap .van-tab-active {
-    color: #20a0ff;
-  }
-
-  .custom-tabwrap .van-tabs-nav-bar {
-    background: #20a0ff;
-  }
-
-  .custom-pane {
-    text-align: center;
-    height: 50px;
-    line-height: 50px;
-  }
-
-  .van-doc-demo-block:last-child {
-    .van-tab__pane {
-      padding: 50px 20px;
-    }
   }
 }
 </style>

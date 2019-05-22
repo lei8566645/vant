@@ -1,84 +1,96 @@
 @import '../style/var';
 
 .van-picker {
-  overflow: hidden;
-  user-select: none;
   position: relative;
-  background-color: @white;
+  overflow: hidden;
+  background-color: @picker-background-color;
+  user-select: none;
   -webkit-text-size-adjust: 100%; /* avoid iOS text size adjust */
 
   &__toolbar {
     display: flex;
-    height: 44px;
-    line-height: 44px;
     justify-content: space-between;
+    height: @picker-toolbar-height;
+    line-height: @picker-toolbar-height;
   }
 
   &__cancel,
   &__confirm {
-    color: @blue;
-    padding: 0 15px;
-    font-size: 14px;
+    padding: @picker-action-padding;
+    color: @picker-action-text-color;
+    font-size: @picker-action-font-size;
 
     &:active {
-      background-color: @active-color;
+      background-color: @picker-action-active-color;
     }
   }
 
   &__title {
     max-width: 50%;
-    font-size: 16px;
     font-weight: 500;
+    font-size: @picker-title-font-size;
     text-align: center;
   }
 
   &__columns {
-    display: flex;
     position: relative;
+    display: flex;
   }
 
   &__loading {
+    position: absolute;
     top: 0;
-    left: 0;
     right: 0;
     bottom: 0;
+    left: 0;
     z-index: 2;
-    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-color: rgba(255, 255, 255, .9);
-
-    circle {
-      stroke: @blue;
-    }
   }
 
   &__loading .van-loading,
   &__frame {
+    position: absolute;
     top: 50%;
     left: 0;
+    z-index: 3;
     width: 100%;
-    z-index: 1;
-    position: absolute;
-    pointer-events: none;
     transform: translateY(-50%);
+    pointer-events: none;
+  }
+
+  &__mask {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(180deg, hsla(0, 0%, 100%, .8), hsla(0, 0%, 100%, .6)),
+      linear-gradient(0deg, hsla(0, 0%, 100%, .8), hsla(0, 0%, 100%, .6));
+    background-repeat: no-repeat;
+    background-position: top, bottom;
+    pointer-events: none;
   }
 
   &-column {
     flex: 1;
     overflow: hidden;
-    font-size: 16px;
+    font-size: @picker-option-font-size;
     text-align: center;
 
     &__item {
       padding: 0 5px;
-      color: @gray-dark;
+      color: @picker-option-selected-text-color;
 
       &--selected {
         font-weight: 500;
-        color: @text-color;
       }
 
       &--disabled {
-        opacity: .3;
+        opacity: @picker-option-disabled-opacity;
       }
     }
   }

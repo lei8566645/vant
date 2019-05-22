@@ -6,12 +6,13 @@ import { switchProps, SharedSwitchProps } from '../switch/shared';
 
 // Types
 import { CreateElement, RenderContext } from 'vue/types';
-import { DefaultSlots } from '../utils/use/sfc';
+import { DefaultSlots } from '../utils/types';
 
 export type SwitchCellProps = SharedSwitchProps & {
   size: string;
   title?: string;
   border?: boolean;
+  cellSize?: string;
 };
 
 const [sfc, bem] = use('switch-cell');
@@ -25,9 +26,10 @@ function SwitchCell(
   return (
     <Cell
       center
+      size={props.cellSize}
       title={props.title}
       border={props.border}
-      class={bem()}
+      class={bem([props.cellSize])}
       {...inherit(ctx)}
     >
       <Switch {...{ props, on: ctx.listeners }} />
@@ -38,7 +40,11 @@ function SwitchCell(
 SwitchCell.props = {
   ...switchProps,
   title: String,
-  border: Boolean,
+  cellSize: String,
+  border: {
+    type: Boolean,
+    default: true
+  },
   size: {
     type: String,
     default: '24px'

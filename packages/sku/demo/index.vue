@@ -117,14 +117,17 @@
           >
             <div class="van-sku-actions">
               <van-button
-                bottom-action
+                square
+                size="large"
+                type="warning"
                 @click="onPointClicked"
               >
                 {{ $t('button1') }}
               </van-button>
               <van-button
-                type="primary"
-                bottom-action
+                square
+                size="large"
+                type="danger"
                 @click="props.skuEventBus.$emit('sku:buy')"
               >
                 {{ $t('button2') }}
@@ -223,7 +226,11 @@ export default {
 </script>
 
 <style lang="less">
+@import "../../style/var";
+
 .demo-sku {
+  background-color: @white;
+
   .sku-container {
     padding: 0 15px;
   }

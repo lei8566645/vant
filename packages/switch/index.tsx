@@ -1,11 +1,12 @@
 import { use } from '../utils';
-import Loading from '../loading';
+import { BLUE, GRAY_DARK } from '../utils/color';
 import { switchProps, SharedSwitchProps } from './shared';
 import { emit, inherit } from '../utils/functional';
+import Loading from '../loading';
 
 // Types
 import { CreateElement, RenderContext } from 'vue/types';
-import { DefaultSlots } from '../utils/use/sfc';
+import { DefaultSlots } from '../utils/types';
 
 export type SwitchEvents = {
   onChange?(checked: boolean): void;
@@ -19,20 +20,31 @@ function Switch(
   slots: DefaultSlots,
   ctx: RenderContext<SharedSwitchProps>
 ) {
-  const { value, loading, disabled, activeValue, inactiveValue } = props;
+  const {
+    size,
+    value,
+    loading,
+    disabled,
+    activeColor,
+    activeValue,
+    inactiveColor,
+    inactiveValue
+  } = props;
 
-  const style = {
-    fontSize: props.size,
-    backgroundColor: value ? props.activeColor : props.inactiveColor
+  const switchStyle = {
+    fontSize: size,
+    backgroundColor: value ? activeColor : inactiveColor
   };
 
-  const onClick = () => {
+  const loadingColor = value ? activeColor || BLUE : inactiveColor || GRAY_DARK;
+
+  function onClick() {
     if (!disabled && !loading) {
       const newValue = value === activeValue ? inactiveValue : activeValue;
       emit(ctx, 'input', newValue);
       emit(ctx, 'change', newValue);
     }
-  };
+  }
 
   return (
     <div
@@ -40,12 +52,12 @@ function Switch(
         on: value === activeValue,
         disabled
       })}
-      style={style}
+      style={switchStyle}
       onClick={onClick}
       {...inherit(ctx)}
     >
       <div class={bem('node')}>
-        {loading && <Loading class={bem('loading')} />}
+        {loading && <Loading class={bem('loading')} color={loadingColor} />}
       </div>
     </div>
   );

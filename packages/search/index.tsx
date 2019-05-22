@@ -1,10 +1,11 @@
 import { use } from '../utils';
 import { inherit, emit } from '../utils/functional';
+import { preventDefault } from '../utils/event';
 import Field from '../field';
 
 // Types
 import { CreateElement, RenderContext } from 'vue/types';
-import { DefaultSlots, ScopedSlot } from '../utils/use/sfc';
+import { DefaultSlots, ScopedSlot } from '../utils/types';
 
 const [sfc, bem, t] = use('search');
 
@@ -35,30 +36,28 @@ function Search(
   slots: SearchSlots,
   ctx: RenderContext<SearchProps>
 ) {
-  const Label = () => {
-    if (!slots.label && !props.label) {
-      return null;
+  function Label() {
+    if (slots.label || props.label) {
+      return <div class={bem('label')}>{slots.label ? slots.label() : props.label}</div>;
     }
+  }
 
-    return <div class={bem('label')}>{slots.label ? slots.label() : props.label}</div>;
-  };
-
-  const Action = () => {
+  function Action() {
     if (!props.showAction) {
-      return null;
+      return;
     }
 
-    const onCancel = () => {
+    function onCancel() {
       emit(ctx, 'input', '');
       emit(ctx, 'cancel');
-    };
+    }
 
     return (
       <div class={bem('action')}>
         {slots.action ? slots.action() : <div onClick={onCancel}>{t('cancel')}</div>}
       </div>
     );
-  };
+  }
 
   const fieldData = {
     attrs: ctx.data.attrs,
@@ -70,7 +69,7 @@ function Search(
       keypress(event: KeyboardEvent) {
         // press enter
         if (event.keyCode === 13) {
-          event.preventDefault();
+          preventDefault(event);
           emit(ctx, 'search', props.value);
         }
         emit(ctx, 'keypress', event);

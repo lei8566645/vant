@@ -1,9 +1,10 @@
 import { use } from '../utils';
-import { emit, inherit } from '../utils/functional';
+import { inherit } from '../utils/functional';
+import { preventDefault } from '../utils/event';
 
 // Types
 import { CreateElement, RenderContext } from 'vue/types';
-import { DefaultSlots } from '../utils/use/sfc';
+import { DefaultSlots } from '../utils/types';
 
 export type OverlayProps = {
   zIndex?: number;
@@ -17,6 +18,10 @@ export type OverlayEvents = {
 };
 
 const [sfc, bem] = use('overlay');
+
+function preventTouchMove(event: TouchEvent) {
+  preventDefault(event, true);
+}
 
 function Overlay(
   h: CreateElement,
@@ -35,13 +40,7 @@ function Overlay(
         vShow={props.visible}
         style={style}
         class={[bem(), props.className]}
-        onTouchmove={(event: TouchEvent) => {
-          event.preventDefault();
-          event.stopPropagation();
-        }}
-        onClick={(event: Event) => {
-          emit(ctx, 'click', event);
-        }}
+        onTouchmove={preventTouchMove}
         {...inherit(ctx, true)}
       />
     </transition>

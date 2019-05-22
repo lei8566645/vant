@@ -6,7 +6,7 @@ import Popup from '../popup';
 
 // Types
 import { CreateElement, RenderContext } from 'vue/types';
-import { DefaultSlots } from '../utils/use/sfc';
+import { DefaultSlots } from '../utils/types';
 import { PopupMixinProps } from '../mixins/popup/type';
 
 export type NotifyProps = PopupMixinProps & {
@@ -40,6 +40,9 @@ function Notify(
       class={[bem(), props.className]}
       onInput={(value: boolean) => {
         emit(ctx, 'input', value);
+      }}
+      onClick={(event: Event) => {
+        emit(ctx, 'click', event);
       }}
       {...inherit(ctx)}
     >

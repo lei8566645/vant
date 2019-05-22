@@ -1,15 +1,17 @@
-## Field
+# Field
 
 ### Install
+
 ``` javascript
 import { Field } from 'vant';
 
 Vue.use(Field);
 ```
 
-### Usage
+## Usage
 
-#### Basic Usage
+### Basic Usage
+
 The value of field is bound with v-model.
 
 ```html
@@ -18,7 +20,8 @@ The value of field is bound with v-model.
 </van-cell-group>
 ```
 
-#### Custom type
+### Custom type
+
 Use `type` prop to custom diffrent type fields.
 
 ```html
@@ -43,7 +46,7 @@ Use `type` prop to custom diffrent type fields.
 </van-cell-group>
 ```
 
-#### Disabled
+### Disabled
 
 ```html
 <van-cell-group>
@@ -56,7 +59,8 @@ Use `type` prop to custom diffrent type fields.
 </van-cell-group>
 ```
 
-#### Error info
+### Error info
+
 Use `error` or `error-message` to show error info
 
 ```html
@@ -76,7 +80,8 @@ Use `error` or `error-message` to show error info
 </van-cell-group>
 ```
 
-#### Auto resize
+### Auto resize
+
 Textarea Field can be auto resize when has `autosize` prop
 
 ```html
@@ -92,7 +97,8 @@ Textarea Field can be auto resize when has `autosize` prop
 </van-cell-group>
 ```
 
-#### Insert button
+### Insert button
+
 Use button slot to insert button
 
 ```html
@@ -109,7 +115,9 @@ Use button slot to insert button
 </van-cell-group>
 ```
 
-### API
+## API
+
+### Props
 
 Field support all native properties of input tag，such as `maxlength`、`placeholder`、`autofocus`
 
@@ -127,6 +135,8 @@ Field support all native properties of input tag，such as `maxlength`、`placeh
 | is-link | Whether to show link icon | `Boolean` | `false` |
 | error | Whether to show error info | `Boolean` | `false` |
 | error-message | Error message | `String` | `''` |
+| label-class | Label className | `any` | - |
+| label-width | Label width | `String | Number` | `90px` |
 | label-align | Label text align, can be set to `center` `right` | `String` | `left` |
 | input-align | Input text align, can be set to `center` `right` | `String` | `left` |
 | error-message-align | Error message text align, can be set to `center` `right` | `String` | `left` |
@@ -134,7 +144,7 @@ Field support all native properties of input tag，such as `maxlength`、`placeh
 | left-icon | Left side icon name | `String` | - |
 | right-icon | Right side icon name | `String` | - |
 
-### Event
+### Events
 
 Field support all native events of input tag，such as `focus`、`blur`、`keypress`
 
@@ -154,9 +164,9 @@ Use ref to get field instance and call instance methods
 | focus | - | - | Trigger input focus |
 | blur | - | - | Trigger input blur |
 
-### Slot
+### Slots
 
-| name | Description |
+| Name | Description |
 |------|------|
 | label | Custom label |
 | left-icon | Custom left icon |

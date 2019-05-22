@@ -1,16 +1,31 @@
 <template>
   <demo-section>
-    <demo-block :title="$t('title1')">
+    <demo-block :title="$t('type')">
       <van-loading />
-      <van-loading color="white" />
+      <van-loading type="spinner" />
     </demo-block>
 
-    <demo-block :title="$t('title2')">
-      <van-loading type="spinner" />
+    <demo-block :title="$t('color')">
+      <van-loading color="#1989fa" />
       <van-loading
         type="spinner"
-        color="white"
+        color="#1989fa"
       />
+    </demo-block>
+
+    <demo-block :title="$t('text')">
+      <van-loading size="24px">
+        {{ $t('loading') }}
+      </van-loading>
+    </demo-block>
+
+    <demo-block :title="$t('vertical')">
+      <van-loading
+        size="24px"
+        vertical
+      >
+        {{ $t('loading') }}
+      </van-loading>
     </demo-block>
   </demo-section>
 </template>
@@ -19,12 +34,16 @@
 export default {
   i18n: {
     'zh-CN': {
-      title1: 'Circular',
-      title2: 'Spinner'
+      type: '加载类型',
+      color: '自定义颜色',
+      text: '加载文案',
+      vertical: '垂直排列'
     },
     'en-US': {
-      title1: 'Circular',
-      title2: 'Spinner'
+      type: 'Type',
+      color: 'Color',
+      text: 'Text',
+      vertical: 'Vertical'
     }
   }
 };
@@ -35,12 +54,10 @@ export default {
   .van-loading {
     display: inline-block;
     margin: 5px 0 5px 20px;
-  }
 
-  .van-loading--white {
-    padding: 10px;
-    border-radius: 3px;
-    background-color: rgba(0, 0, 0, .5);
+    &--vertical {
+      display: inline-flex;
+    }
   }
 }
 </style>

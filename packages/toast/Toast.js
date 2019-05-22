@@ -11,15 +11,12 @@ export default sfc({
 
   props: {
     className: null,
+    loadingType: String,
     forbidClick: Boolean,
     message: [String, Number],
     type: {
       type: String,
       default: 'text'
-    },
-    loadingType: {
-      type: String,
-      default: 'circular'
     },
     position: {
       type: String,
@@ -67,26 +64,26 @@ export default sfc({
   },
 
   render(h) {
-    const { type, message } = this;
+    const { type, message, loadingType } = this;
     const style = STYLE.indexOf(type) !== -1 ? 'default' : type;
 
-    const Content = () => {
+    function Content() {
       switch (style) {
         case 'text':
           return <div>{message}</div>;
         case 'html':
           return <div domPropsInnerHTML={message} />;
-        default:
-          return [
-            type === 'loading' ? (
-              <Loading color="white" type={this.loadingType} />
-            ) : (
-              <Icon class={bem('icon')} name={type} />
-            ),
-            isDef(message) && <div class={bem('text')}>{message}</div>
-          ];
       }
-    };
+
+      return [
+        type === 'loading' ? (
+          <Loading color="white" type={loadingType} />
+        ) : (
+          <Icon class={bem('icon')} name={type} />
+        ),
+        isDef(message) && <div class={bem('text')}>{message}</div>
+      ];
+    }
 
     return (
       <transition name="van-fade">

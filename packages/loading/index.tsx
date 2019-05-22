@@ -1,18 +1,52 @@
-import { use } from '../utils';
+import { use, suffixPx } from '../utils';
+import { GRAY } from '../utils/color';
 import { inherit } from '../utils/functional';
 
 // Types
 import { CreateElement, RenderContext } from 'vue/types';
-import { DefaultSlots } from '../utils/use/sfc';
+import { DefaultSlots } from '../utils/types';
+
+export type LoadingType = 'circular' | 'spinner';
 
 export type LoadingProps = {
-  size?: string;
-  type: string;
+  type: LoadingType;
+  size?: string | number;
   color: string;
+  vertical?: boolean;
+  textSize?: string | number;
 };
 
 const [sfc, bem] = use('loading');
-const DEFAULT_COLOR = '#c9c9c9';
+
+function LoadingIcon(h: CreateElement, props: LoadingProps) {
+  if (props.type === 'spinner') {
+    const Spin = [];
+    for (let i = 0; i < 12; i++) {
+      Spin.push(<i />);
+    }
+    return Spin;
+  }
+
+  return (
+    <svg class={bem('circular')} viewBox="25 25 50 50">
+      <circle cx="50" cy="50" r="20" fill="none" />
+    </svg>
+  );
+}
+
+function LoadingText(h: CreateElement, props: LoadingProps, slots: DefaultSlots) {
+  if (slots.default) {
+    const style = props.textSize && {
+      fontSize: suffixPx(props.textSize)
+    };
+
+    return (
+      <span class={bem('text')} style={style}>
+        {slots.default()}
+      </span>
+    );
+  }
+}
 
 function Loading(
   h: CreateElement,
@@ -22,46 +56,34 @@ function Loading(
 ) {
   const { color, size, type } = props;
 
-  const colorType = color === 'white' || color === 'black' ? color : '';
-
-  const style = {
-    color: color === 'black' ? DEFAULT_COLOR : color,
-    width: size,
-    height: size
-  };
-
-  const Spin = [];
-  if (type === 'spinner') {
-    for (let i = 0; i < 12; i++) {
-      Spin.push(<i />);
-    }
+  const style: { [key: string]: string } = { color };
+  if (size) {
+    const iconSize = suffixPx(size) as string;
+    style.width = iconSize;
+    style.height = iconSize;
   }
 
-  const Circular = type === 'circular' && (
-    <svg class={bem('circular')} viewBox="25 25 50 50">
-      <circle cx="50" cy="50" r="20" fill="none" />
-    </svg>
-  );
-
   return (
-    <div class={bem([type, colorType])} style={style} {...inherit(ctx, true)}>
-      <span class={bem('spinner', type)}>
-        {Spin}
-        {Circular}
+    <div class={bem([type, { vertical: props.vertical }])} {...inherit(ctx, true)}>
+      <span class={bem('spinner', type)} style={style}>
+        {LoadingIcon(h, props)}
       </span>
+      {LoadingText(h, props, slots)}
     </div>
   );
 }
 
 Loading.props = {
-  size: String,
+  size: [String, Number],
+  textSize: [String, Number],
+  vertical: Boolean,
   type: {
     type: String,
     default: 'circular'
   },
   color: {
     type: String,
-    default: DEFAULT_COLOR
+    default: GRAY
   }
 };
 

@@ -4,11 +4,15 @@ import { RED, BLUE, GREEN, GRAY_DARK } from '../utils/color';
 
 // Types
 import { CreateElement, RenderContext } from 'vue/types';
-import { DefaultSlots } from '../utils/use/sfc';
+import { DefaultSlots } from '../utils/types';
+
+export type TagType = 'primary' | 'success' | 'danger';
+
+export type TagSize = 'large' | 'medium';
 
 export type TagProps = {
-  size?: string;
-  type?: string;
+  size?: TagSize;
+  type?: TagType;
   mark?: boolean;
   color?: string;
   plain?: boolean;

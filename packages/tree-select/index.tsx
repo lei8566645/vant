@@ -4,7 +4,7 @@ import Icon from '../icon';
 
 // Types
 import { CreateElement, RenderContext } from 'vue/types';
-import { DefaultSlots } from '../utils/use/sfc';
+import { DefaultSlots } from '../utils/types';
 
 export type TreeSelectItem = {
   text: string;
@@ -46,7 +46,7 @@ function TreeSelect(
             key={index}
             class={[
               'van-ellipsis',
-              bem('nitem', {
+              bem('nav-item', {
                 active: mainActiveIndex === index,
                 disabled: item.disabled
               })

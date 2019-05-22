@@ -1,15 +1,17 @@
-## Progress
+# Progress
 
 ### Install
+
 ``` javascript
 import { Progress } from 'vant';
 
 Vue.use(Progress);
 ```
 
-### Usage
+## Usage
 
-#### Basic Usage
+### Basic Usage
+
 Use 'percentage' prop to set current progress
 
 ```html
@@ -17,14 +19,15 @@ Use 'percentage' prop to set current progress
 ```
 
 
-#### Inactive
+### Inactive
 
 ```html
 <van-progress inactive :percentage="50" />
 ```
 
 
-#### Custom Style
+### Custom Style
+
 Use `pivot-text` to custom text，use `color` to custom bar color
 
 ```html
@@ -48,7 +51,9 @@ Use `pivot-text` to custom text，use `color` to custom bar color
 />
 ```
 
-### API
+## API
+
+### Props
 
 | Attribute | Description | Type | Default |
 |------|------|------|------|

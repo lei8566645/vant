@@ -1,52 +1,67 @@
-## NoticeBar
+# NoticeBar
 
 ### Install
+
 ``` javascript
 import { NoticeBar } from 'vant';
 
 Vue.use(NoticeBar);
 ```
 
-### Usage
+## Usage
 
-#### Basic Usage
+### Basic Usage
 
 ```html
 <van-notice-bar
-  text="Only those who have the patience to do simple things perfectly ever acquire the skill to do difficult things easily."
+  text="Notice Content"
   left-icon="volume-o"
 />
 ```
 
-#### Mode
-
-```html
-<van-notice-bar mode="closeable">
-  Only those who have the patience to do simple things perfectly ever acquire the skill to do difficult things easily.
-</van-notice-bar>
-
-<van-notice-bar mode="link">
-  Only those who have the patience to do simple things perfectly ever acquire the skill to do difficult things easily.
-</van-notice-bar>
-```
-
-#### Disable scroll
+### Disable scroll
 
 ```html
 <van-notice-bar :scrollable="false">
-  Only those who have the patience to do simple things perfectly ever acquire the skill to do difficult things easily.
+  Notice Content
 </van-notice-bar>
 ```
 
-#### Wrapable
+### Wrapable
 
 ```html
 <van-notice-bar wrapable :scrollable="false">
-  Only those who have the patience to do simple things perfectly ever acquire the skill to do difficult things easily.
+  Notice Content
 </van-notice-bar>
 ```
 
-### API
+### Mode
+
+```html
+<van-notice-bar mode="closeable">
+  Notice Content
+</van-notice-bar>
+
+<van-notice-bar mode="link">
+  Notice Content
+</van-notice-bar>
+```
+
+### Custom Style
+
+```html
+<van-notice-bar
+  color="#1989fa"
+  background="#ecf9ff"
+  left-icon="info-o"
+>
+  Notice Content
+</van-notice-bar>
+```
+
+## API
+
+### Props
 
 | Attribute | Description | Type | Default |
 |------|------|------|------|
@@ -60,15 +75,17 @@ Vue.use(NoticeBar);
 | color | Text color | `String` | `#f60` |
 | background | Background color | `String` | `#fff7cc` |
 
-### Event
+### Events
 
 | Event | Description | Arguments |
 |------|------|------|
 | click | Triggered when click NoticeBar | - |
-| click | Triggered when closed | - |
+| close | Triggered when closed | - |
 
-### Slot
+### Slots
 
 | Name | Description |
 |------|------|
-| - | Notice text content
+| default | Notice text content |
+| left-icon | Custom left icon |
+| right-icon | Custom right icon |

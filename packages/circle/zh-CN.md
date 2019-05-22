@@ -1,15 +1,15 @@
-## Circle 环形进度条
+# Circle 环形进度条
 
-### 使用指南
+### 引入
 ``` javascript
 import { Circle } from 'vant';
 
 Vue.use(Circle);
 ```
 
-### 代码演示
+## 代码演示
 
-#### 基础用法
+### 基础用法
 通过 `rate` 指定目标进度，`v-model` 代表当前进度，`speed` 控制动画速度
 
 ```html
@@ -36,7 +36,7 @@ export default {
 };
 ```
 
-#### 样式定制
+### 样式定制
 
 ```html
 <van-circle
@@ -53,8 +53,9 @@ export default {
 />
 ```
 
+## API
 
-### API
+### Props
 
 | 参数 | 说明 | 类型 | 默认值 | 版本 |
 |------|------|------|------|------|
@@ -69,8 +70,8 @@ export default {
 | stroke-width | 进度条宽度 | `Number` | `40` | - |
 | clockwise | 是否顺时针增加 | `Boolean` | `true` | - |
 
-### Circle Slot
+### Slots
 
 | 名称 | 说明 |
 |------|------|
-| - | 自定义文字内容 |
+| default | 自定义文字内容 |

@@ -1,24 +1,30 @@
-/* eslint-disable */
-const version = require('../../package.json').version;
+import pkgJson from '../../package.json';
 
-module.exports = {
+const { version } = pkgJson;
+
+export const searchConfig = {
+  apiKey: '90067aecdaa2c85220e2783cd305caac',
+  indexName: 'vant'
+};
+
+export const versions = [version, '1.x'];
+
+export const github = 'https://github.com/youzan/vant';
+
+export default {
   'zh-CN': {
     header: {
       logo: {
         image: 'https://img.yzcdn.cn/public_files/2017/12/18/fd78cf6bb5d12e2a119d0576bedfd230.png',
         title: 'Vant',
-        version,
         href: '#/'
       },
       nav: {
-        'Vue 组件': 'https://youzan.github.io/vant/',
-        '小程序组件': 'https://youzan.github.io/vant-weapp/',
         lang: {
           text: 'En',
           from: 'zh-CN',
           to: 'en-US'
-        },
-        github: 'https://github.com/youzan/vant'
+        }
       }
     },
     nav: [
@@ -90,6 +96,10 @@ module.exports = {
               {
                 path: '/icon',
                 title: 'Icon 图标'
+              },
+              {
+                path: '/image',
+                title: 'Image 图片'
               },
               {
                 path: '/col',
@@ -168,12 +178,16 @@ module.exports = {
             icon: 'passed',
             list: [
               {
-                path: '/actionsheet',
-                title: 'Actionsheet 上拉菜单'
+                path: '/action-sheet',
+                title: 'ActionSheet 上拉菜单'
               },
               {
                 path: '/dialog',
                 title: 'Dialog 弹出框'
+              },
+              {
+                path: '/dropdown-menu',
+                title: 'DropdownMenu 下拉菜单'
               },
               {
                 path: '/loading',
@@ -223,7 +237,7 @@ module.exports = {
               },
               {
                 path: '/notice-bar',
-                title: 'NoticeBar 通告栏'
+                title: 'NoticeBar 通知栏'
               },
               {
                 path: '/panel',
@@ -232,6 +246,10 @@ module.exports = {
               {
                 path: '/progress',
                 title: 'Progress 进度条'
+              },
+              {
+                path: '/skeleton',
+                title: 'Skeleton 骨架屏'
               },
               {
                 path: '/steps',
@@ -252,8 +270,8 @@ module.exports = {
             icon: 'https://img.yzcdn.cn/vant/nav-0401.svg',
             list: [
               {
-                path: '/badge',
-                title: 'Badge 徽章'
+                path: '/index-bar',
+                title: 'IndexBar 索引栏'
               },
               {
                 path: '/nav-bar',
@@ -262,6 +280,10 @@ module.exports = {
               {
                 path: '/pagination',
                 title: 'Pagination 分页'
+              },
+              {
+                path: '/sidebar',
+                title: 'Sidebar 侧边导航'
               },
               {
                 path: '/tab',
@@ -326,9 +348,9 @@ module.exports = {
   'en-US': {
     header: {
       logo: {
-        image: 'https://img.yzcdn.cn/public_files/2017/12/18/fd78cf6bb5d12e2a119d0576bedfd230.png',
+        image:
+          'https://img.yzcdn.cn/public_files/2017/12/18/fd78cf6bb5d12e2a119d0576bedfd230.png',
         title: 'Vant',
-        version,
         href: '#/'
       },
       nav: {
@@ -336,8 +358,7 @@ module.exports = {
           text: '中文',
           from: 'en-US',
           to: 'zh-CN'
-        },
-        github: 'https://github.com/youzan/vant'
+        }
       }
     },
     nav: [
@@ -397,6 +418,10 @@ module.exports = {
               {
                 path: '/icon',
                 title: 'Icon'
+              },
+              {
+                path: '/image',
+                title: 'Image'
               },
               {
                 path: '/col',
@@ -475,12 +500,16 @@ module.exports = {
             icon: 'passed',
             list: [
               {
-                path: '/actionsheet',
-                title: 'Actionsheet'
+                path: '/action-sheet',
+                title: 'ActionSheet'
               },
               {
                 path: '/dialog',
                 title: 'Dialog'
+              },
+              {
+                path: '/dropdown-menu',
+                title: 'DropdownMenu'
               },
               {
                 path: '/loading',
@@ -541,6 +570,10 @@ module.exports = {
                 title: 'Progress'
               },
               {
+                path: '/skeleton',
+                title: 'Skeleton'
+              },
+              {
                 path: '/steps',
                 title: 'Steps'
               },
@@ -559,8 +592,8 @@ module.exports = {
             icon: 'https://img.yzcdn.cn/vant/nav-0401.svg',
             list: [
               {
-                path: '/badge',
-                title: 'Badge'
+                path: '/index-bar',
+                title: 'IndexBar'
               },
               {
                 path: '/nav-bar',
@@ -569,6 +602,10 @@ module.exports = {
               {
                 path: '/pagination',
                 title: 'Pagination'
+              },
+              {
+                path: '/sidebar',
+                title: 'Sidebar'
               },
               {
                 path: '/tab',

@@ -18,22 +18,14 @@ module.exports = {
     modules: false,
     children: false
   },
-  serve: {
+  devServer: {
     open: true,
     host: '0.0.0.0',
-    devMiddleware: {
-      logLevel: 'warn'
-    },
-    hotClient: {
-      logLevel: 'warn',
-      allEntries: true
-    }
+    stats: 'errors-only',
+    clientLogLevel: 'warning'
   },
   resolve: {
-    extensions: ['.js', '.ts', '.tsx', '.vue', '.css'],
-    alias: {
-      packages: path.join(__dirname, '../packages')
-    }
+    extensions: ['.js', '.ts', '.tsx', '.vue', '.css']
   },
   module: {
     rules: [

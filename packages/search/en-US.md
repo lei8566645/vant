@@ -1,15 +1,16 @@
-## Search
+# Search
 
 ### Install
+
 ``` javascript
 import { Search } from 'vant';
 
 Vue.use(Search);
 ```
 
-### Usage
+## Usage
 
-#### Basic Usage
+### Basic Usage
 
 ```html
 <van-search placeholder="Placeholder" v-model="value" />
@@ -23,7 +24,8 @@ export default {
 }
 ```
 
-#### Listen to Events
+### Listen to Events
+
 `search` event will be triggered when click the search button on the keyboard.
 
 `cancel` event will be triggered when click the cancel button.
@@ -42,7 +44,8 @@ Tips: There will be a search button on the keyboard when Search is inside a form
 </form>
 ```
 
-#### Custom Button
+### Custom Button
+
 Use `action` slot to custom right button, `cancel` event will no longer be triggered when use this slot
 
 ```html
@@ -56,7 +59,9 @@ Use `action` slot to custom right button, `cancel` event will no longer be trigg
 </van-search>
 ```
 
-### API
+## API
+
+### Props
 
 Search support all native properties of input tag，such as `maxlength`、`placeholder`、`autofocus`
 
@@ -71,7 +76,7 @@ Search support all native properties of input tag，such as `maxlength`、`place
 | error | Whether to show error info | `Boolean` | `false` |
 | input-align | Input text align, can be set to `center` `right` | `String` | `left` |
 
-### Event
+### Events
 
 Search support all native events of input tag，such as `focus`、`blur`、`keypress`
 
@@ -81,9 +86,9 @@ Search support all native events of input tag，such as `focus`、`blur`、`keyp
 | search | Triggered when confirm search | - |
 | clear | Triggered when click clear icon | - |
 
-### Slot
+### Slots
 
-| name | Description |
+| Name | Description |
 |------|------|
 | action | Custom right button, displayed when `showAction` is true |
 | left-icon | Custom left icon |

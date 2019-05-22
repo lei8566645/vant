@@ -1,15 +1,16 @@
-## Uploader 图片上传
+# Uploader 图片上传
 
-### 使用指南
+### 引入
+
 ``` javascript
 import { Uploader } from 'vant';
 
 Vue.use(Uploader);
 ```
 
-### 代码演示
+## 代码演示
 
-#### 基础用法
+### 基础用法
 
 ```html
 <van-uploader :after-read="onRead">
@@ -27,7 +28,7 @@ export default {
 };
 ```
 
-#### 标识名称
+### 标识名称
 
 ```html
 <van-uploader name="uploader" :after-read="onRead">
@@ -45,7 +46,7 @@ export default {
 };
 ```
 
-#### 设置 Input 属性
+### 设置 Input 属性
 
 可以直接在 Uploader 上设置 accpet、multiple 等原生属性，input 会自动继承该属性
 
@@ -55,7 +56,9 @@ export default {
 </van-uploader>
 ```
 
-### API
+## API
+
+### Props
 
 | 参数 | 说明 | 类型 | 默认值 | 版本 |
 |------|------|------|------|------|
@@ -67,17 +70,17 @@ export default {
 | after-read | 读取完成后的回调函数 | `Function` | - | - |
 | max-size | 文件大小限制，单位为 byte | `Number` | - | - |
 
-### Event
+### Events
 
-| 事件名 | 说明 | 参数 |
+| 事件名 | 说明 | 回调参数 |
 |------|------|------|
 | oversize | 文件大小超过限制时触发 | 同 after-read |
 
-### Slot
+### Slots
 
 | 名称 | 说明 |
 |------|------|
-| - | 自定义 uploader 内容 |
+| default | 自定义 uploader 内容 |
 
 ### before-read、after-read 回调参数
 

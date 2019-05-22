@@ -1,15 +1,16 @@
-## NavBar
+# NavBar
 
 ### Install
+
 ``` javascript
 import { NavBar } from 'vant';
 
 Vue.use(NavBar);
 ```
 
-### Usage
+## Usage
 
-#### Basic Usage
+### Basic Usage
 
 ```html
 <van-nav-bar
@@ -35,7 +36,7 @@ export default {
 }
 ```
 
-#### Advanced Usage
+### Advanced Usage
 
 ```html
 <van-nav-bar title="Title" left-text="Back" left-arrow>
@@ -43,8 +44,9 @@ export default {
 </van-nav-bar>
 ```
 
+## API
 
-### API
+### Props
 
 | Attribute | Description | Type | Default |
 |------|------|------|------|
@@ -56,15 +58,15 @@ export default {
 | border | Whether to show bottom border | `Boolean` | `true` |
 | z-index | Z-index | `Number` | `1` |
 
-### Slot
+### Slots
 
-| name | Description |
+| Name | Description |
 |------|------|
 | title | Custom title |
 | left | Custom left side content |
 | right | Custom right side content |
 
-### Event
+### Events
 
 | Event | Description | Arguments |
 |------|------|------|

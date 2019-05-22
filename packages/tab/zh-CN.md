@@ -1,15 +1,16 @@
-## Tab 标签页
+# Tab 标签页
 
-### 使用指南
+### 引入
+
 ``` javascript
 import { Tab, Tabs } from 'vant';
 
 Vue.use(Tab).use(Tabs);
 ```
 
-### 代码演示
+## 代码演示
 
-#### 基础用法
+### 基础用法
 
 默认情况下启用第一个标签，可以通过`v-model`绑定当前激活的标签索引
 
@@ -32,7 +33,7 @@ export default {
 }
 ```
 
-#### 横向滚动
+### 横向滚动
 
 多于 4 个标签时，Tab 可以横向滚动
 
@@ -44,7 +45,7 @@ export default {
 </van-tabs>
 ```
 
-#### 禁用标签
+### 禁用标签
 
 设置`disabled`属性即可禁用标签。如果需要监听禁用标签的点击事件，可以在`van-tabs`上监听`disabled`事件
 
@@ -66,7 +67,7 @@ export default {
 };
 ```
 
-#### 样式风格
+### 样式风格
 
 `Tab`支持两种样式风格：`line`和`card`，默认为`line`样式，可以通过`type`属性修改样式风格
 
@@ -78,7 +79,7 @@ export default {
 </van-tabs>
 ```
 
-#### 点击事件
+### 点击事件
 
 可以在`van-tabs`上绑定`click`事件，事件传参为标签对应的索引和标题
 
@@ -99,7 +100,7 @@ export default {
 };
 ```
 
-#### 粘性布局
+### 粘性布局
 
 通过`sticky`属性可以开启粘性布局，粘性布局下，当 Tab 滚动到顶部时会自动吸顶
 
@@ -111,7 +112,7 @@ export default {
 </van-tabs>
 ```
 
-#### 自定义标签
+### 自定义标签
 
 通过 title 插槽可以自定义标签内容
 
@@ -126,7 +127,7 @@ export default {
 </van-tabs>
 ```
 
-#### 切换动画
+### 切换动画
 
 通过`animated`属性可以开启切换标签内容时的转场动画
 
@@ -138,7 +139,7 @@ export default {
 </van-tabs>
 ```
 
-#### 滑动切换
+### 滑动切换
 
 通过`swipeable`属性可以开启滑动切换标签页
 
@@ -150,7 +151,9 @@ export default {
 </van-tabs>
 ```
 
-### Tabs API
+## API
+
+### Tabs Props
 
 | 参数 | 说明 | 类型 | 默认值 | 版本 |
 |------|------|------|------|------|
@@ -163,38 +166,39 @@ export default {
 | color | 标签主题色 | `String` | `#f44` | 1.2.0 |
 | title-active-color | 标题选中态颜色 | `String` | - | 1.6.5 |
 | title-inactive-color | 标题默认态颜色 | `String` | - | 1.6.5 |
-| swipeable | 是否开启手势滑动切换 | `Boolean` | `false` | 1.0.0 |
-| sticky | 是否使用粘性定位布局 | `Boolean` | `false` | - |
-| offset-top | 粘性定位布局下与顶部的最小距离，单位 px | `Number` | `0` | 1.1.15 |
 | swipe-threshold | 滚动阈值，标签数量超过多少个可滚动 | `Number` | `4` | - |
+| offset-top | 粘性定位布局下与顶部的最小距离，单位 px | `Number` | `0` | 1.1.15 |
 | animated | 是否开启切换标签内容时的转场动画 | `Boolean` | `false` | 1.4.5 |
+| border | 是否显示标签栏外边框，仅在`type="line"`时有效 | `Boolean` | `true` | 2.0.0 |
 | ellipsis | 是否省略过长的标题文字 | `Boolean` | `true` | 1.5.0 |
+| sticky | 是否使用粘性定位布局 | `Boolean` | `false` | - |
+| swipeable | 是否开启手势滑动切换 | `Boolean` | `false` | 1.0.0 |
 | lazy-render | 是否开启标签页内容延迟渲染 | `Boolean` | `true` | 1.6.6 |
 
-### Tab API
+### Tab Props
 
 | 参数 | 说明 | 类型 | 默认值 | 版本 |
 |------|------|------|------|------|
 | title | 标题 | `String` | - | - |
 | disabled | 是否禁用标签 | `Boolean` | `false` | - |
 
-### Tabs Slot
+### Tabs Slots
 
 | 名称 | 说明 |
 |------|------|
 | nav-left | 标题左侧内容 |
 | nav-right | 标题右侧内容 |
 
-### Tab Slot
+### Tab Slots
 
 | 名称 | 说明 |
 |------|------|
 | default | 标签页内容 |
 | title | 自定义标签 |
 
-### Tabs Event
+### Tabs Events
 
-| 事件名 | 说明 | 参数 |
+| 事件名 | 说明 | 回调参数 |
 |------|------|------|
 | click | 点击标签时触发 | index：标签索引，title：标题 |
 | change | 当前激活的标签改变时触发 | index：标签索引，title：标题 |

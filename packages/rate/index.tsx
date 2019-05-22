@@ -1,11 +1,12 @@
 /* eslint-disable prefer-spread */
 import { use } from '../utils';
 import { emit, inherit } from '../utils/functional';
+import { preventDefault } from '../utils/event';
 import Icon from '../icon';
 
 // Types
 import { CreateElement, RenderContext } from 'vue/types';
-import { DefaultSlots } from '../utils/use/sfc';
+import { DefaultSlots } from '../utils/types';
 
 const [sfc, bem] = use('rate');
 
@@ -74,7 +75,7 @@ function Rate(
       return;
     }
 
-    event.preventDefault();
+    preventDefault(event);
     const { clientX, clientY } = event.touches[0];
     const target = document.elementFromPoint(clientX, clientY) as HTMLElement;
 

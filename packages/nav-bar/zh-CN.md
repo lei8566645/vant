@@ -1,15 +1,16 @@
-## NavBar 导航栏
+# NavBar 导航栏
 
-### 使用指南
+### 引入
+
 ``` javascript
 import { NavBar } from 'vant';
 
 Vue.use(NavBar);
 ```
 
-### 代码演示
+## 代码演示
 
-#### 基础用法
+### 基础用法
 
 ```html
 <van-nav-bar
@@ -35,7 +36,8 @@ export default {
 }
 ```
 
-#### 高级用法
+### 高级用法
+
 通过插槽定制内容
 
 ```html
@@ -44,8 +46,9 @@ export default {
 </van-nav-bar>
 ```
 
+## API
 
-### API
+### Props
 
 | 参数 | 说明 | 类型 | 默认值 | 版本 |
 |------|------|------|------|------|
@@ -57,7 +60,7 @@ export default {
 | border | 是否显示下边框 | `Boolean` | `true` | 1.4.7 |
 | z-index | 元素 z-index | `Number` | `1` | - |
 
-### Slot
+### Slots
 
 | 名称 | 说明 |
 |------|------|
@@ -65,9 +68,9 @@ export default {
 | left | 自定义左侧区域内容 |
 | right | 自定义右侧区域内容 |
 
-### Event
+### Events
 
-| 事件名 | 说明 | 参数 |
+| 事件名 | 说明 | 回调参数 |
 |------|------|------|
 | click-left | 点击左侧按钮时触发 | - |
 | click-right | 点击右侧按钮时触发 | - |

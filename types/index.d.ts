@@ -5,17 +5,14 @@ import { Dialog } from './dialog';
 import { Notify } from './notify';
 import { Locale } from './locale';
 import { Lazyload } from './lazyload';
-import { Waterfall } from './waterfall';
 import { ImagePreview } from './image-preview';
 
 export const version: string;
 export function install (vue: typeof Vue): void
-export class Actionsheet extends VanComponent {}
+export class ActionSheet extends VanComponent {}
 export class AddressEdit extends VanComponent {}
 export class AddressList extends VanComponent {}
 export class Area extends VanComponent {}
-export class Badge extends VanComponent {}
-export class BadgeGroup extends VanComponent {}
 export class Button extends VanComponent {}
 export class Card extends VanComponent {}
 export class Cell extends VanComponent {}
@@ -33,11 +30,16 @@ export class ContactList extends VanComponent {}
 export class CouponCell extends VanComponent {}
 export class CouponList extends VanComponent {}
 export class DatetimePicker extends VanComponent {}
+export class DropdownItem extends VanComponent {}
+export class DropdownMenu extends VanComponent {}
 export class Field extends VanComponent {}
 export class GoodsAction extends VanComponent {}
-export class GoodsActionBigBtn extends VanComponent {}
-export class GoodsActionMiniBtn extends VanComponent {}
+export class GoodsActionButton extends VanComponent {}
+export class GoodsActionIcon extends VanComponent {}
 export class Icon extends VanComponent {}
+export class IndexAnchor extends VanComponent {}
+export class IndexBar extends VanComponent {}
+export class Info extends VanComponent {}
 export class List extends VanComponent {}
 export class Loading extends VanComponent {}
 export class NavBar extends VanComponent {}
@@ -55,6 +57,9 @@ export class RadioGroup extends VanComponent {}
 export class Rate extends VanComponent {}
 export class Row extends VanComponent {}
 export class Search extends VanComponent {}
+export class Sidebar extends VanComponent {}
+export class SidebarItem extends VanComponent {}
+export class Skeleton extends VanComponent {}
 export class Sku extends VanComponent {}
 export class Slider extends VanComponent {}
 export class Step extends VanComponent {}
@@ -78,6 +83,5 @@ export {
   Notify,
   Locale,
   Lazyload,
-  Waterfall,
   ImagePreview
 };

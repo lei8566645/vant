@@ -15,6 +15,7 @@
       <van-steps
         :active="active"
         active-icon="success"
+        inactive-icon="arrow"
         active-color="#38f"
       >
         <van-step>{{ $t('step1') }}</van-step>
@@ -111,8 +112,8 @@ export default {
   p,
   h3 {
     margin: 0;
-    font-size: inherit;
     font-weight: normal;
+    font-size: inherit;
   }
 }
 </style>

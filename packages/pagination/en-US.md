@@ -1,15 +1,16 @@
-## Pagination
+# Pagination
 
 ### Install
+
 ``` javascript
 import { Pagination } from 'vant';
 
 Vue.use(Pagination);
 ```
 
-### Usage
+## Usage
 
-#### Basic Usage
+### Basic Usage
 
 ```html
 <van-pagination 
@@ -29,7 +30,7 @@ export default {
 }
 ```
 
-#### Simple mode
+### Simple mode
 
 ```html
 <van-pagination 
@@ -39,7 +40,7 @@ export default {
 />
 ```
 
-#### Show ellipses
+### Show ellipses
 
 ```html
 <van-pagination 
@@ -50,7 +51,9 @@ export default {
 />
 ```
 
-### API
+## API
+
+### Props
 
 | Attribute | Description | Type | Default |
 |------|------|------|------|
@@ -64,7 +67,7 @@ export default {
 | show-page-size | Count of page size to show | `Number` | `5` |
 | force-ellipses | Whether to show ellipses | `Boolean` | `false` |
 
-### Event
+### Events
 
 | Event | Description | Arguments |
 |------|------|------|

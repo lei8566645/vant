@@ -1,16 +1,20 @@
-## SwitchCell
+# SwitchCell
+
+### Intro
+
 `SwitchCell` component is an encapsulation of `Switch` and `Cell`.
 
 ### Install
+
 ``` javascript
 import { SwitchCell } from 'vant';
 
 Vue.use(SwitchCell);
 ```
 
-### Usage
+## Usage
 
-#### Basic Usage
+### Basic Usage
 
 ```html
 <van-cell-group>
@@ -28,8 +32,7 @@ export default {
 }
 ```
 
-
-#### Disabled
+### Disabled
 
 use `disabled` property to disable the component
 
@@ -39,8 +42,7 @@ use `disabled` property to disable the component
 </van-cell-group>
 ```
 
-
-#### Loading
+### Loading
 
 use `loading` property to keep component in loading state
 
@@ -50,21 +52,25 @@ use `loading` property to keep component in loading state
 </van-cell-group>
 ```
 
-### API
+## API
+
+### Props
 
 | Attribute | Description | Type | Default |
 |------|------|------|------|
 | v-model | on-off state of the switch | `any` | `false` |
-| title | the leftside title |  `String` | `''` |
-| loading | whether switch is loading |  `Boolean` | `false` |
-| disabled | whether to disable switch |  `Boolean` | `false` |
+| title | the left side title | `String` | `''` |
+| border | whether to show cell border | `Boolean` | `true` |
+| cell-size | Cell size，can be set to `large` | `String` | - |
+| loading | whether switch is loading | `Boolean` | `false` |
+| disabled | whether to disable switch | `Boolean` | `false` |
 | size | Size of switch | `String` | `24px` |
 | active-color | Background of switch color when active | `String` | `#1989fa` |
 | inactive-color | Background of switch color when inactive | `String` | `#fff` |
 | active-value | Value when active | `any` | `true` |
 | inactive-value | Value when inactive | `any` | `false` |
 
-### Event
+### Events
 
 | Event | Description | Arguments |
 |------|------|------|

@@ -1,15 +1,17 @@
-## PullRefresh
+# PullRefresh
 
 ### Install
+
 ``` javascript
 import { PullRefresh } from 'vant';
 
 Vue.use(PullRefresh);
 ```
 
-### Usage
+## Usage
 
-#### Basic Usage
+### Basic Usage
+
 The `refresh` event will be triggered when pull refresh, you should set `v-model` to `false` to reset loading status after process refresh event.
 
 ```html
@@ -39,7 +41,9 @@ export default {
 }
 ```
 
-### API
+## API
+
+### Props
 
 | Attribute | Description | Type | Default |
 |------|------|------|------|
@@ -53,19 +57,17 @@ export default {
 | head-height | Height of head | `Number` | `50` |
 | disabled | Whether to disable | `Boolean` | `false` |
 
-
-### Event
+### Events
 
 | Event | Description | Parameters |
 |------|------|------|
 | refresh | Triggered when pull refresh | - |
 
+### Slots
 
-### Slot
-
-| name | Description |
+| Name | Description |
 |------|------|
-| - | Default slot |
+| default | Default slot |
 | normal | Content of head when at normal status |
 | pulling | Content of head when at pulling |
 | loosing | Content of head when at loosing |

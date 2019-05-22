@@ -1,15 +1,16 @@
-## SwipeCell
+# SwipeCell
 
 ### Install
+
 ``` javascript
 import { SwipeCell } from 'vant';
 
 Vue.use(SwipeCell);
 ```
 
-### Usage
+## Usage
 
-#### Basic Usage
+### Basic Usage
 
 ```html
 <van-swipe-cell :right-width="65" :left-width="65">
@@ -21,7 +22,7 @@ Vue.use(SwipeCell);
 </van-swipe-cell>
 ```
 
-#### Async close
+### Async close
 
 ```html
 <van-swipe-cell :right-width="65" :left-width="65" :on-close="onClose">
@@ -56,7 +57,9 @@ export default {
 }
 ```
 
-### API
+## API
+
+### Props
 
 | Attribute | Description | Type | Default |
 |------|------|------|------|
@@ -65,15 +68,15 @@ export default {
 | on-close | Callback function before close | `Function` | - |
 | disabled | Whether to disabled swipe | `Boolean` | `false` |
 
-### Slot
+### Slots
 
-| name | Description |
+| Name | Description |
 |------|------|
-| - | custom content |
+| default | custom content |
 | left | content of left scrollable area |
 | right | content of right scrollabe area |
 
-### Event
+### Events
 
 | Event | Description | Arguments |
 |------|------|------|

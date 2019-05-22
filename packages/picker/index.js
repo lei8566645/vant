@@ -1,7 +1,8 @@
 import { use } from '../utils';
-import { prevent } from '../utils/event';
+import { preventDefault } from '../utils/event';
 import { deepClone } from '../utils/deep-clone';
 import { pickerProps } from './shared';
+import { BLUE } from '../utils/color';
 import Loading from '../loading';
 import PickerColumn from './PickerColumn';
 
@@ -140,6 +141,7 @@ export default sfc({
 
   render(h) {
     const { itemHeight } = this;
+    const wrapHeight = itemHeight * this.visibleItemCount;
     const columns = this.simple ? [this.columns] : this.columns;
 
     const frameStyle = {
@@ -147,7 +149,11 @@ export default sfc({
     };
 
     const columnsStyle = {
-      height: `${itemHeight * this.visibleItemCount}px`
+      height: `${wrapHeight}px`
+    };
+
+    const maskStyle = {
+      backgroundSize: `100% ${(wrapHeight - itemHeight) / 2}px`
     };
 
     const Toolbar = this.showToolbar && (
@@ -170,14 +176,8 @@ export default sfc({
     return (
       <div class={bem()}>
         {Toolbar}
-        {this.loading ? (
-          <div class={bem('loading')}>
-            <Loading />
-          </div>
-        ) : (
-          h()
-        )}
-        <div class={bem('columns')} style={columnsStyle} onTouchmove={prevent}>
+        {this.loading ? <Loading class={bem('loading')} color={BLUE} /> : h()}
+        <div class={bem('columns')} style={columnsStyle} onTouchmove={preventDefault}>
           {columns.map((item, index) => (
             <PickerColumn
               valueKey={this.valueKey}
@@ -191,6 +191,7 @@ export default sfc({
               }}
             />
           ))}
+          <div class={bem('mask')} style={maskStyle} />
           <div class={['van-hairline--top-bottom', bem('frame')]} style={frameStyle} />
         </div>
       </div>

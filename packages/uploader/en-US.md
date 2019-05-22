@@ -1,15 +1,16 @@
-## Uploader
+# Uploader
 
 ### Install
+
 ``` javascript
 import { Uploader } from 'vant';
 
 Vue.use(Uploader);
 ```
 
-### Usage
+## Usage
 
-#### Basic Usage
+### Basic Usage
 
 ```html
 <div class="uploader-container">
@@ -29,7 +30,7 @@ export default {
 };
 ```
 
-#### Name
+### Name
 
 ```html
 <van-uploader name="uploader" :after-read="onRead">
@@ -47,7 +48,7 @@ export default {
 };
 ```
 
-#### Set input attrs
+### Set input attrs
 
 You can set native properties such as `accpet`、`multiple` on Uploader, and the input will automatically inherits the attribute.
 
@@ -57,7 +58,9 @@ You can set native properties such as `accpet`、`multiple` on Uploader, and the
 </van-uploader>
 ```
 
-### API
+## API
+
+### Props
 
 | Attribute | Description | Type | Default |
 |------|------|------|------|
@@ -69,17 +72,17 @@ You can set native properties such as `accpet`、`multiple` on Uploader, and the
 | after-read | Hook after reading the file | `Function` | - |
 | max-size | Max size of file | `Number` | - |
 
-### Event
+### Events
 
 | Event | Description | Arguments |
 |------|------|------|
 | oversize | Triggered when file size over limit | Same as after-read |
 
-### Slot
+### Slots
 
 | Name | Description |
 |------|------|
-| - | Custom icon |
+| default | Custom icon |
 
 ### Parematers of before-read、after-read
 

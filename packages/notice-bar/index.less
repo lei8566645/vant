@@ -1,34 +1,31 @@
 @import '../style/var';
 
 .van-notice-bar {
-  display: flex;
-  height: 40px;
-  padding: 0 15px;
-  font-size: 14px;
-  line-height: 24px;
   position: relative;
+  display: flex;
   align-items: center;
-  color: @orange-dark;
-  background-color: @orange-light;
+  height: @notice-bar-height;
+  padding: @notice-bar-padding;
+  color: @notice-bar-text-color;
+  font-size: @notice-bar-font-size;
+  line-height: @notice-bar-line-height;
+  background-color: @notice-bar-background-color;
 
-  &__left-icon {
-    font-size: 16px;
-    min-width: 22px;
+  &__left-icon,
+  &__right-icon {
+    min-width: @notice-bar-icon-min-width;
+    font-size: @notice-bar-icon-size;
   }
 
   &__right-icon {
-    top: 50%;
-    right: 15px;
-    font-size: 16px;
-    position: absolute;
-    margin-top: -0.5em;
+    text-align: right;
   }
 
   &__wrap {
-    flex: 1;
-    height: 24px;
-    overflow: hidden;
     position: relative;
+    flex: 1;
+    height: @notice-bar-line-height;
+    overflow: hidden;
   }
 
   &__content {
@@ -50,7 +47,7 @@
 
   &--wrapable {
     height: auto;
-    padding: 8px 15px;
+    padding: @notice-bar-wrapable-padding;
 
     .van-notice-bar {
       &__wrap {
@@ -62,11 +59,6 @@
         white-space: normal;
       }
     }
-  }
-
-  &--withicon {
-    position: relative;
-    padding-right: 40px;
   }
 }
 

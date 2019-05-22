@@ -1,16 +1,16 @@
-import { use } from '../utils';
+import { use, suffixPx } from '../utils';
 import { inherit } from '../utils/functional';
 import Info from '../info';
 import { isSrc } from '../utils/validate/src';
 
 // Types
 import { CreateElement, RenderContext } from 'vue/types';
-import { DefaultSlots } from '../utils/use/sfc';
+import { DefaultSlots } from '../utils/types';
 
 export type IconProps = {
   tag: keyof HTMLElementTagNameMap | string;
   name: string;
-  size?: string;
+  size?: string | number;
   color?: string;
   info?: string | number;
   classPrefix: string;
@@ -38,7 +38,7 @@ function Icon(
       ]}
       style={{
         color: props.color,
-        fontSize: props.size
+        fontSize: suffixPx(props.size)
       }}
       {...inherit(ctx, true)}
     >
@@ -51,7 +51,7 @@ function Icon(
 
 Icon.props = {
   name: String,
-  size: String,
+  size: [String, Number],
   color: String,
   info: [String, Number],
   tag: {

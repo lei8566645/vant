@@ -23,7 +23,7 @@
 
 ## 特性
 
-* 50+ 个组件
+* 55+ 个组件
 * 90% 单元测试覆盖率
 * 完善的中英文文档和示例
 * 支持按需引入
@@ -59,18 +59,17 @@ yarn add vant
 
 ## 快速上手
 
-#### 方式一. 使用  [babel-plugin-import](https://github.com/ant-design/babel-plugin-import) (推荐)
+### 方式一. 自动按需引入组件 (推荐)
 
-`babel-plugin-import` 是一款 babel 插件，它会在编译过程中将 import 的写法自动转换为按需引入的方式
-
+[babel-plugin-import](https://github.com/ant-design/babel-plugin-import) 是一款 babel 插件，它会在编译过程中将 import 的写法自动转换为按需引入的方式
 ```bash
-# 安装 babel-plugin-import 插件
+# 安装插件
 npm i babel-plugin-import -D
 ```
 
 ```js
-// 在 .babelrc 或 babel-loader 中添加插件配置
-// 注意：webpack 1 无需设置 libraryDirectory。
+// 在.babelrc 中添加配置
+// 注意：webpack 1 无需设置 libraryDirectory
 {
   "plugins": [
     ["import", {
@@ -80,17 +79,28 @@ npm i babel-plugin-import -D
     }]
   ]
 }
+
+// 对于使用 babel7 的用户，可以在 babel.config.js 中配置
+module.exports = {
+  plugins: [
+    ['import', {
+      libraryName: 'vant',
+      libraryDirectory: 'es',
+      style: true
+    }, 'vant']
+  ]
+};
 ```
 
-接着你可以在代码中直接引入 Vant 组件，插件会自动将代码转化为方式二中的按需引入形式。
-
 ```js
+// 接着你可以在代码中直接引入 Vant 组件
+// 插件会自动将代码转化为方式二中的按需引入形式
 import { Button } from 'vant';
 ```
 
 > 如果你在使用 TypeScript，可以使用 [ts-import-plugin](https://github.com/Brooooooklyn/ts-import-plugin) 实现按需引入
 
-#### 方式二. 按需引入组件
+### 方式二. 手动按需引入组件
 
 在不使用插件的情况下，可以手动引入需要的组件
 
@@ -99,7 +109,9 @@ import Button from 'vant/lib/button';
 import 'vant/lib/button/style';
 ```
 
-#### 方式三. 导入所有组件
+### 方式三. 导入所有组件
+
+Vant 支持一次性导入所有组件，引入所有组件会增加代码包体积，因此不推荐这种做法
 
 ```js
 import Vue from 'vue';
@@ -115,7 +127,7 @@ Vue.use(Vant);
 
 ## 贡献代码
 
-修改代码请阅读我们的 [开发指南](https://www.youzanyun.com/zanui/vant#/zh-CN/contribution)。
+修改代码请阅读我们的 [开发指南](https://youzan.github.io/vant/#/zh-CN/contribution)。
 
 使用过程中发现任何问题都可以提 [Issue](https://github.com/youzan/vant/issues) 给我们，当然，我们也非常欢迎你给我们发 [PR](https://github.com/youzan/vant/pulls)。
 
@@ -129,7 +141,7 @@ Vue.use(Vant);
 * [更新日志](https://youzan.github.io/vant#/zh-CN/changelog)
 * [Vant Demo: 示例工程](https://github.com/youzan/vant-demo)
 * [Vant Weapp: 小程序 UI](https://github.com/youzan/vant-weapp)
-* [Zent: PC 端 React UI](https://www.youzanyun.com/zanui/zent)
+* [Zent: PC 端 React UI](https://youzan.github.io/zent)
 
 ## 手机预览
 

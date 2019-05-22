@@ -6,7 +6,7 @@ import Icon from '../icon';
 
 // Types
 import { CreateElement, RenderContext } from 'vue/types';
-import { ScopedSlot, DefaultSlots } from '../utils/use/sfc';
+import { ScopedSlot, DefaultSlots } from '../utils/types';
 import { Mods } from '../utils/use/bem';
 
 export type CellProps = RouteProps &
@@ -48,19 +48,14 @@ function Cell(
   );
 
   const Title = showTitle && (
-    <div class={[bem('title'), props.titleClass]}>
+    <div class={[bem('title'), props.titleClass]} style={props.titleStyle}>
       {slots.title ? slots.title() : <span>{title}</span>}
       {Label}
     </div>
   );
 
   const Value = showValue && (
-    <div
-      class={[
-        bem('value', { alone: !slots.title && !title }),
-        props.valueClass
-      ]}
-    >
+    <div class={[bem('value', { alone: !slots.title && !title }), props.valueClass]}>
       {slots.default ? slots.default() : <span>{value}</span>}
     </div>
   );
@@ -79,10 +74,10 @@ function Cell(
         />
     );
 
-  const onClick = (event: Event) => {
+  function onClick(event: Event) {
     emit(ctx, 'click', event);
     functionalRoute(ctx);
-  };
+  }
 
   const classes: Mods = {
     center: props.center,

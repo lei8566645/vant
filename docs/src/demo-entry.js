@@ -3,11 +3,10 @@
 import { wrapper } from './demo-common';
 
 export default {
-  'actionsheet': () => wrapper(import('../../packages/actionsheet/demo'), 'actionsheet'),
+  'action-sheet': () => wrapper(import('../../packages/action-sheet/demo'), 'action-sheet'),
   'address-edit': () => wrapper(import('../../packages/address-edit/demo'), 'address-edit'),
   'address-list': () => wrapper(import('../../packages/address-list/demo'), 'address-list'),
   'area': () => wrapper(import('../../packages/area/demo'), 'area'),
-  'badge': () => wrapper(import('../../packages/badge/demo'), 'badge'),
   'button': () => wrapper(import('../../packages/button/demo'), 'button'),
   'card': () => wrapper(import('../../packages/card/demo'), 'card'),
   'cell': () => wrapper(import('../../packages/cell/demo'), 'cell'),
@@ -19,10 +18,13 @@ export default {
   'coupon-list': () => wrapper(import('../../packages/coupon-list/demo'), 'coupon-list'),
   'datetime-picker': () => wrapper(import('../../packages/datetime-picker/demo'), 'datetime-picker'),
   'dialog': () => wrapper(import('../../packages/dialog/demo'), 'dialog'),
+  'dropdown-menu': () => wrapper(import('../../packages/dropdown-menu/demo'), 'dropdown-menu'),
   'field': () => wrapper(import('../../packages/field/demo'), 'field'),
   'goods-action': () => wrapper(import('../../packages/goods-action/demo'), 'goods-action'),
   'icon': () => wrapper(import('../../packages/icon/demo'), 'icon'),
+  'image': () => wrapper(import('../../packages/image/demo'), 'image'),
   'image-preview': () => wrapper(import('../../packages/image-preview/demo'), 'image-preview'),
+  'index-bar': () => wrapper(import('../../packages/index-bar/demo'), 'index-bar'),
   'lazyload': () => wrapper(import('../../packages/lazyload/demo'), 'lazyload'),
   'list': () => wrapper(import('../../packages/list/demo'), 'list'),
   'loading': () => wrapper(import('../../packages/loading/demo'), 'loading'),
@@ -40,6 +42,8 @@ export default {
   'radio': () => wrapper(import('../../packages/radio/demo'), 'radio'),
   'rate': () => wrapper(import('../../packages/rate/demo'), 'rate'),
   'search': () => wrapper(import('../../packages/search/demo'), 'search'),
+  'sidebar': () => wrapper(import('../../packages/sidebar/demo'), 'sidebar'),
+  'skeleton': () => wrapper(import('../../packages/skeleton/demo'), 'skeleton'),
   'sku': () => wrapper(import('../../packages/sku/demo'), 'sku'),
   'slider': () => wrapper(import('../../packages/slider/demo'), 'slider'),
   'stepper': () => wrapper(import('../../packages/stepper/demo'), 'stepper'),
@@ -55,6 +59,5 @@ export default {
   'tag': () => wrapper(import('../../packages/tag/demo'), 'tag'),
   'toast': () => wrapper(import('../../packages/toast/demo'), 'toast'),
   'tree-select': () => wrapper(import('../../packages/tree-select/demo'), 'tree-select'),
-  'uploader': () => wrapper(import('../../packages/uploader/demo'), 'uploader'),
-  'waterfall': () => wrapper(import('../../packages/waterfall/demo'), 'waterfall')
+  'uploader': () => wrapper(import('../../packages/uploader/demo'), 'uploader')
 };

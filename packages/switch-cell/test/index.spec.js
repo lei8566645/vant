@@ -15,3 +15,23 @@ test('change event', () => {
 
   expect(onChange).toHaveBeenCalledWith(true);
 });
+
+test('border prop', () => {
+  const wrapper = mount(SwitchCell, {
+    propsData: {
+      border: false
+    }
+  });
+
+  expect(wrapper).toMatchSnapshot();
+});
+
+test('cell-size prop', () => {
+  const wrapper = mount(SwitchCell, {
+    propsData: {
+      cellSize: 'large'
+    }
+  });
+
+  expect(wrapper).toMatchSnapshot();
+});

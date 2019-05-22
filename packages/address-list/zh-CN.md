@@ -1,15 +1,15 @@
-## AddressList 地址列表
+# AddressList 地址列表
 
-### 使用指南
+### 引入
 ``` javascript
 import { AddressList } from 'vant';
 
 Vue.use(AddressList);
 ```
 
-### 代码演示
+## 代码演示
 
-#### 基础用法
+### 基础用法
 
 ```html
 <van-address-list
@@ -64,8 +64,9 @@ export default {
 }
 ```
 
+## API
 
-### API
+### Props
 
 | 参数 | 说明 | 类型 | 默认值 | 版本 |
 |------|------|------|------|------|
@@ -76,9 +77,9 @@ export default {
 | disabled-text | 不可配送提示文案 | `String` | - | 1.3.0 |
 | switchable | 是否允许切换地址 | `Boolean` | `true` | 1.3.8 |
 
-### Event
+### Events
 
-| 事件名 | 说明 | 参数 | 版本 |
+| 事件名 | 说明 | 回调参数 | 版本 |
 |------|------|------|------|
 | add | 点击新增按钮时触发 | - | - |
 | edit | 点击编辑按钮时触发 | item: 地址对象，index: 索引 | - |
@@ -86,9 +87,7 @@ export default {
 | edit-disabled | 编辑不可配送的地址时触发 | item: 地址对象，index: 索引 | 1.3.0 |
 | select-disabled | 选中不可配送的地址时触发 | item: 地址对象，index: 索引 | 1.3.0 |
 
-### 数据格式
-
-#### 地址列表字段说明
+### 地址列表字段说明
 
 | key | 说明 | 类型 |
 |------|------|------|
@@ -97,9 +96,9 @@ export default {
 | tel | 收货人手机号 | `String | Number` |
 | address | 收货地址 | `String` |
 
-### Slot
+### Slots
 
 | 名称 | 说明 |
 |------|------|
-| - | 在列表下方插入内容 |
+| default | 在列表下方插入内容 |
 | top | 在顶部插入内容 |

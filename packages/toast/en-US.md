@@ -1,4 +1,4 @@
-## Toast
+# Toast
 
 ### Install
 
@@ -8,16 +8,15 @@ import { Toast } from 'vant';
 Vue.use(Toast);
 ```
 
-### Usage
+## Usage
 
-#### Text
+### Text
 
 ```javascript
 Toast('Some messages');
 ```
 
-
-#### Loading
+### Loading
 
 ```javascript
 Toast.loading({
@@ -26,16 +25,14 @@ Toast.loading({
 });
 ```
 
-
-#### Success/Fail
+### Success/Fail
 
 ```javascript
 Toast.success('Success');
 Toast.fail('Fail');
 ```
 
-
-#### Advanced Usage
+### Advanced Usage
 
 ```javascript
 const toast = Toast.loading({
@@ -57,7 +54,8 @@ const timer = setInterval(() => {
 }, 1000);
 ```
 
-#### $toast Method
+### $toast Method
+
 After import the Toast component, the $toast method is automatically mounted on Vue.prototype, making it easy to call within a vue component.
 
 ```js
@@ -68,7 +66,8 @@ export default {
 }
 ```
 
-#### Singleton
+### Singleton
+
 Toast use singleton mode by default, if you need to pop multiple Toast at the same time, you can refer to the following example
 
 ```js
@@ -81,6 +80,8 @@ toast1.clear();
 toast2.clear();
 ```
 
+## API
+
 ### Methods
 
 | Methods | Attribute | Return value | Description |
@@ -89,7 +90,7 @@ toast2.clear();
 | Toast.loading | `options | message` | toast instance | Show loading toast |
 | Toast.success | `options | message` | toast instance | Show success toast |
 | Toast.fail | `options | message` | toast instance | Show fail toast |
-| Toast.clear | `clearAll` | `void` | Close toast |
+| Toast.clear | `clearAll: boolean` | `void` | Close toast |
 | Toast.allowMultiple | - | `void` | Allow multlple toast at the same time |
 | Toast.setDefaultOptions | `options` | `void` | Set default options of all toasts |
 | Toast.resetDefaultOptions | - | `void` | Reset default options of all toasts |

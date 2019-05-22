@@ -2,13 +2,19 @@ import { use, isDef } from '../utils';
 import { raf } from '../utils/raf';
 import { on, off } from '../utils/event';
 import { TouchMixin } from '../mixins/touch';
-import { setScrollTop, getScrollTop, getElementTop, getScrollEventTarget } from '../utils/scroll';
+import { ParentMixin } from '../mixins/relation';
+import {
+  setScrollTop,
+  getScrollTop,
+  getElementTop,
+  getScrollEventTarget
+} from '../utils/scroll';
 
 const [sfc, bem] = use('tabs');
 const tabBem = use('tab')[1];
 
 export default sfc({
-  mixins: [TouchMixin],
+  mixins: [TouchMixin, ParentMixin('vanTabs')],
 
   model: {
     prop: 'active'
@@ -23,6 +29,10 @@ export default sfc({
     background: String,
     titleActiveColor: String,
     titleInactiveColor: String,
+    border: {
+      type: Boolean,
+      default: true
+    },
     ellipsis: {
       type: Boolean,
       default: true
@@ -59,7 +69,6 @@ export default sfc({
 
   data() {
     return {
-      tabs: [],
       position: '',
       curActive: null,
       lineStyle: {
@@ -76,7 +85,7 @@ export default sfc({
   computed: {
     // whether the nav is scrollable
     scrollable() {
-      return this.tabs.length > this.swipeThreshold || !this.ellipsis;
+      return this.children.length > this.swipeThreshold || !this.ellipsis;
     },
 
     wrapStyle() {
@@ -106,7 +115,7 @@ export default sfc({
     trackStyle() {
       if (this.animated) {
         return {
-          left: `${-1 * this.curActive * 100}%`,
+          transform: `translate3d(${-1 * this.curActive * 100}%, 0, 0)`,
           transitionDuration: `${this.duration}s`
         };
       }
@@ -124,7 +133,7 @@ export default sfc({
       this.setLine();
     },
 
-    tabs() {
+    children() {
       this.correctActive(this.curActive || this.active);
       this.scrollIntoView();
       this.setLine();
@@ -218,7 +227,7 @@ export default sfc({
         /* istanbul ignore else */
         if (deltaX > 0 && curActive !== 0) {
           this.setCurActive(curActive - 1);
-        } else if (deltaX < 0 && curActive !== this.tabs.length - 1) {
+        } else if (deltaX < 0 && curActive !== this.children.length - 1) {
           this.setCurActive(curActive + 1);
         }
       }
@@ -283,8 +292,8 @@ export default sfc({
     // correct the value of active
     correctActive(active) {
       active = +active;
-      const exist = this.tabs.some(tab => tab.index === active);
-      const defaultActive = (this.tabs[0] || {}).index || 0;
+      const exist = this.children.some(tab => tab.index === active);
+      const defaultActive = (this.children[0] || {}).index || 0;
       this.setCurActive(exist ? active : defaultActive);
     },
 
@@ -294,7 +303,7 @@ export default sfc({
         this.$emit('input', active);
 
         if (this.curActive !== null) {
-          this.$emit('change', active, this.tabs[active].title);
+          this.$emit('change', active, this.children[active].title);
         }
         this.curActive = active;
       }
@@ -304,8 +313,8 @@ export default sfc({
       const diff = reverse ? -1 : 1;
       let index = active;
 
-      while (index >= 0 && index < this.tabs.length) {
-        if (!this.tabs[index].disabled) {
+      while (index >= 0 && index < this.children.length) {
+        if (!this.children[index].disabled) {
           return index;
         }
         index += diff;
@@ -314,7 +323,7 @@ export default sfc({
 
     // emit event when clicked
     onClick(index) {
-      const { title, disabled } = this.tabs[index];
+      const { title, disabled } = this.children[index];
       if (disabled) {
         this.$emit('disabled', index, title);
       } else {
@@ -400,7 +409,7 @@ export default sfc({
   render(h) {
     const { type, ellipsis, animated, scrollable } = this;
 
-    const Nav = this.tabs.map((tab, index) => (
+    const Nav = this.children.map((tab, index) => (
       <div
         ref="tabs"
         refInFor
@@ -425,7 +434,10 @@ export default sfc({
         <div
           ref="wrap"
           style={this.wrapStyle}
-          class={[bem('wrap', { scrollable }), { 'van-hairline--top-bottom': type === 'line' }]}
+          class={[
+            bem('wrap', { scrollable }),
+            { 'van-hairline--top-bottom': type === 'line' && this.border }
+          ]}
         >
           <div ref="nav" class={bem('nav', [type])} style={this.navStyle}>
             {this.slots('nav-left')}

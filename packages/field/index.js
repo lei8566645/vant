@@ -1,7 +1,9 @@
-import { use, isObj, isDef } from '../utils';
 import Icon from '../icon';
 import Cell from '../cell';
 import { cellProps } from '../cell/shared';
+import { preventDefault } from '../utils/event';
+import { getRootScrollTop } from '../utils/scroll';
+import { use, isObj, isDef, isIOS, suffixPx } from '../utils';
 
 const [sfc, bem] = use('field');
 
@@ -15,9 +17,10 @@ export default sfc({
     rightIcon: String,
     readonly: Boolean,
     clearable: Boolean,
+    labelWidth: [String, Number],
+    labelClass: null,
     labelAlign: String,
     inputAlign: String,
-    onIconClick: Function,
     autosize: [Boolean, Object],
     errorMessage: String,
     errorMessageAlign: String,
@@ -59,6 +62,13 @@ export default sfc({
         focus: this.onFocus,
         blur: this.onBlur
       };
+    },
+
+    labelStyle() {
+      const { labelWidth } = this;
+      if (labelWidth) {
+        return { width: suffixPx(labelWidth) };
+      }
     }
   },
 
@@ -102,6 +112,13 @@ export default sfc({
     onBlur(event) {
       this.focused = false;
       this.$emit('blur', event);
+
+      // Hack for iOS12 page scroll
+      // https://developers.weixin.qq.com/community/develop/doc/00044ae90742f8c82fb78fcae56800
+      /* istanbul ignore next */
+      if (isIOS()) {
+        window.scrollTo(0, getRootScrollTop());
+      }
     },
 
     onClickLeftIcon() {
@@ -109,14 +126,11 @@ export default sfc({
     },
 
     onClickRightIcon() {
-      // compatible old version
-      this.$emit('click-icon');
       this.$emit('click-right-icon');
-      this.onIconClick && this.onIconClick();
     },
 
     onClear(event) {
-      event.preventDefault();
+      preventDefault(event);
       this.$emit('input', '');
       this.$emit('clear');
     },
@@ -127,8 +141,9 @@ export default sfc({
         const allowPoint = String(this.value).indexOf('.') === -1;
         const isValidKey =
           (keyCode >= 48 && keyCode <= 57) || (keyCode === 46 && allowPoint) || keyCode === 45;
+
         if (!isValidKey) {
-          event.preventDefault();
+          preventDefault(event);
         }
       }
 
@@ -199,11 +214,11 @@ export default sfc({
 
     renderRightIcon() {
       const { slots } = this;
-      const showRightIcon = slots('right-icon') || slots('icon') || this.rightIcon || this.icon;
+      const showRightIcon = slots('right-icon') || this.rightIcon;
       if (showRightIcon) {
         return (
           <div class={bem('right-icon')} onClick={this.onClickRightIcon}>
-            {slots('right-icon') || slots('icon') || <Icon name={this.rightIcon || this.icon} />}
+            {slots('right-icon') || <Icon name={this.rightIcon} />}
           </div>
         );
       }
@@ -229,7 +244,8 @@ export default sfc({
         border={this.border}
         isLink={this.isLink}
         required={this.required}
-        titleClass={bem('label', labelAlign)}
+        titleStyle={this.labelStyle}
+        titleClass={[bem('label', labelAlign), this.labelClass]}
         class={bem({
           error: this.error,
           disabled: this.$attrs.disabled,

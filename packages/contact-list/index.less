@@ -1,54 +1,28 @@
 @import '../style/var';
 
 .van-contact-list {
+  box-sizing: border-box;
   height: 100%;
   padding-bottom: 50px;
-  box-sizing: border-box;
 
   &__item {
-    padding: 15px;
+    padding: @contact-list-item-padding;
   }
 
   &__item-value {
-    color: @text-color;
     padding-right: 34px;
-    position: relative;
-  }
-
-  .van-radio__label {
-    margin-left: 27px;
-  }
-
-  .van-radio__icon {
-    top: 50%;
-    left: 0;
-    height: 16px;
-    position: absolute;
-    line-height: 16px;
-    transform: translate(0, -50%);
-
-    .van-icon {
-      width: 16px;
-      height: 16px;
-      font-size: 12px;
-    }
-  }
-
-  .van-radio__icon--checked .van-icon {
-    border-color: @red;
-    background-color: @red;
   }
 
   &__group {
+    box-sizing: border-box;
     height: 100%;
     overflow-y: scroll;
-    box-sizing: border-box;
     -webkit-overflow-scrolling: touch;
   }
 
   &__name {
-    font-size: 14px;
     font-weight: 500;
+    font-size: 14px;
     line-height: 20px;
   }
 
@@ -56,14 +30,14 @@
     position: absolute;
     top: 50%;
     right: 15px;
-    font-size: 16px;
+    font-size: @contact-list-edit-icon-size;
     transform: translate(0, -50%);
   }
 
   &__add {
     position: fixed;
-    left: 0;
     bottom: 0;
-    z-index: 9999;
+    left: 0;
+    z-index: @contact-list-add-button-z-index;
   }
 }

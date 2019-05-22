@@ -1,14 +1,16 @@
-## Sku
+# Sku
 
 ### Install
+
 ```javascript
 import { Sku } from 'vant';
 
 Vue.use(Sku);
 ```
 
-### Usage
-#### Basic Usage
+## Usage
+
+### Basic Usage
 
 ```html
 <van-sku
@@ -29,7 +31,7 @@ Vue.use(Sku);
 />
 ```
 
-#### Custom Stepper Config
+### Custom Stepper Config
 
 ```html
 <van-sku
@@ -46,7 +48,7 @@ Vue.use(Sku);
 />
 ```
 
-#### Advanced Usage
+### Advanced Usage
 
 ```html
 <van-sku
@@ -70,18 +72,35 @@ Vue.use(Sku);
       <span class="van-sku__price-symbol">￥</span><span class="van-sku__price-num">{{ props.price }}</span>
     </div>
   </template>
+
   <!-- custom sku actions -->
   <template slot="sku-actions" slot-scope="props">
     <div class="van-sku-actions">
-      <van-button bottom-action @click="onPointClicked">Button</van-button>
+      <van-button
+        square
+        size="large"
+        type="warning"
+        @click="onPointClicked"
+      >
+        Button
+      </van-button>
       <!-- trigger sku inner event -->
-      <van-button type="primary" bottom-action @click="props.skuEventBus.$emit('sku:buy')">Button</van-button>
+      <van-button
+        square
+        size="large"
+        type="danger"
+        @click="props.skuEventBus.$emit('sku:buy')"
+      >
+        Button
+      </van-button>
     </div>
   </template>
 </van-sku>
 ```
 
-### API
+## API
+
+### Props
 
 | Attribute | Description | Type | Default |
 |------|------|------|------|
@@ -103,7 +122,7 @@ Vue.use(Sku);
 | message-config | Message related config | `Object` | `{}` |
 | get-container | Return the mount node for sku | `String | () => HTMLElement` | - |
 
-### Event
+### Events
 
 | Event | Description | Arguments |
 |------|------|------|
@@ -111,6 +130,8 @@ Vue.use(Sku);
 | buy-clicked | Triggered when click buy button | data: Object |
 | stepper-change | Triggered when stepper value changed | value: number |
 | sku-selected | Triggered when select sku | { skuValue, selectedSku, selectedSkuComb } |
+| open-preview | Triggered when open image preview | data: Object |
+| close-preview | Triggered when close image preview | data: Object |
 
 ### Methods
 
@@ -120,7 +141,7 @@ Use ref to get sku instance and call instance methods
 |------|------|------|------|
 | getSkuData | - | skuData | Get current skuData |
 
-### Slot
+### Slots
 
 | Name | Description | 
 |------|------|
@@ -133,9 +154,7 @@ Use ref to get sku instance and call instance methods
 | sku-messages | Custom messages |
 | sku-actions | Custom button actions |
 
-#### Data Structure
-
-#### Sku Data Structure
+### Sku Data Structure
 
 ```javascript
 sku: {
@@ -184,7 +203,7 @@ sku: {
 }
 ```
 
-#### initialSku Data Structure
+### initialSku Data Structure
 
 ```javascript
 {
@@ -196,7 +215,7 @@ sku: {
 }
 ```
 
-#### Goods Data Structure
+### Goods Data Structure
 
 ```javascript
 goods: {
@@ -206,7 +225,7 @@ goods: {
 ```
 
 
-#### customStepperConfig Data Structure
+### customStepperConfig Data Structure
 
 ```javascript
 customStepperConfig: {
@@ -232,7 +251,7 @@ customStepperConfig: {
 }
 ```
 
-#### messageConfig Data Structure
+### messageConfig Data Structure
 
 ```javascript
 messageConfig: {
@@ -253,7 +272,7 @@ messageConfig: {
 }
 ```
 
-#### Event Params Data Structure
+### Events Params Data Structure
 
 ```javascript
 skuData: {

@@ -1,15 +1,16 @@
-## Rate
+# Rate
 
 ### Install
+
 ``` javascript
 import { Rate } from 'vant';
 
 Vue.use(Rate);
 ```
 
-### Usage
+## Usage
 
-#### Basic Usage
+### Basic Usage
 
 ```html
 <van-rate v-model="value" />
@@ -25,7 +26,7 @@ export default {
 }
 ```
 
-#### Custom Icon
+### Custom Icon
 
 ```html
 <van-rate
@@ -35,7 +36,7 @@ export default {
 />
 ```
 
-#### Custom Style
+### Custom Style
 
 ```html
 <van-rate
@@ -47,7 +48,7 @@ export default {
 />
 ```
 
-#### Half Star
+### Half Star
 
 ```html
 <van-rate
@@ -68,25 +69,27 @@ export default {
 }
 ```
 
-#### Custom Count
+### Custom Count
 
 ```html
 <van-rate v-model="value" :count="6" />
 ```
 
-#### Disabled
+### Disabled
 
 ```html
  <van-rate v-model="value" disabled />
 ```
 
-#### Readonly
+### Readonly
 
 ```html
 <van-rate v-model="value" readonly />
 ```
 
-### API
+## API
+
+### Props
 
 | Attribute | Description | Type | Default |
 |------|------|------|------|
@@ -102,7 +105,7 @@ export default {
 | disabled | Whether to disable rate | `Boolean` | `false` |
 | disabled-color | Disabled color | `String` | `#bdbdbd` | 
 
-### Event
+### Events
 
 | Event | Description | Parameters |
 |------|------|------|

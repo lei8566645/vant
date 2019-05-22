@@ -11,22 +11,18 @@ test('input event', () => {
 });
 
 test('click icon event', () => {
-  const onIconClick = jest.fn();
   const wrapper = mount(Field, {
     propsData: {
       value: 'a',
       leftIcon: 'contact',
-      rightIcon: 'search',
-      onIconClick
+      rightIcon: 'search'
     }
   });
 
   wrapper.find('.van-field__left-icon').trigger('click');
   wrapper.find('.van-field__right-icon').trigger('click');
-  expect(wrapper.emitted('click-icon')).toBeTruthy();
   expect(wrapper.emitted('click-left-icon')).toBeTruthy();
   expect(wrapper.emitted('click-right-icon')).toBeTruthy();
-  expect(onIconClick).toHaveBeenCalled();
 });
 
 test('keypress event', () => {
@@ -179,19 +175,40 @@ test('render label slot', () => {
   expect(wrapper).toMatchSnapshot();
 });
 
-test('render right icon with icon prop for old version', () => {
+test('size prop', () => {
   const wrapper = mount(Field, {
     propsData: {
-      icon: 'success'
+      size: 'large'
     }
   });
   expect(wrapper).toMatchSnapshot();
 });
 
-test('size prop', () => {
+test('label-width prop with unit', () => {
   const wrapper = mount(Field, {
     propsData: {
-      size: 'large'
+      label: 'Label',
+      labelWidth: '10rem'
+    }
+  });
+  expect(wrapper).toMatchSnapshot();
+});
+
+test('label-width prop without unit', () => {
+  const wrapper = mount(Field, {
+    propsData: {
+      label: 'Label',
+      labelWidth: 100
+    }
+  });
+  expect(wrapper).toMatchSnapshot();
+});
+
+test('label-class prop', () => {
+  const wrapper = mount(Field, {
+    propsData: {
+      label: 'Label',
+      labelClass: 'custom-label-class'
     }
   });
   expect(wrapper).toMatchSnapshot();

@@ -1,4 +1,5 @@
 import { use } from '../utils';
+import { RED } from '../utils/color';
 import { emit, inherit } from '../utils/functional';
 import Icon from '../icon';
 import Cell from '../cell';
@@ -6,7 +7,7 @@ import Radio from '../radio';
 
 // Types
 import { CreateElement, RenderContext } from 'vue/types';
-import { DefaultSlots } from '../utils/use/sfc';
+import { DefaultSlots } from '../utils/types';
 
 export type AddressItemData = {
   id: string | number;
@@ -36,6 +37,12 @@ function AddressItem(
 ) {
   const { disabled, switchable } = props;
 
+  function onSelect() {
+    if (props.switchable) {
+      emit(ctx, 'select');
+    }
+  }
+
   const renderRightIcon = () => (
     <Icon
       name="edit"
@@ -54,13 +61,13 @@ function AddressItem(
       <div class={bem('address')}>{data.address}</div>
     ];
 
-    return props.switchable ? <Radio name={data.id}>{Info}</Radio> : Info;
-  };
-
-  const onSelect = () => {
-    if (props.switchable) {
-      emit(ctx, 'select');
-    }
+    return props.switchable ? (
+      <Radio name={data.id} iconSize={16} checkedColor={RED} onClick={onSelect}>
+        {Info}
+      </Radio>
+    ) : (
+      Info
+    );
   };
 
   return (

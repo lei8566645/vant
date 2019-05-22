@@ -1,4 +1,4 @@
-## NumberKeyboard
+# NumberKeyboard
 
 ### Install
 ``` javascript
@@ -7,9 +7,9 @@ import { NumberKeyboard } from 'vant';
 Vue.use(NumberKeyboard);
 ```
 
-### Usage
+## Usage
 
-#### Default Style
+### Default Style
 
 ```html
 <van-button @touchstart.stop="show = true">
@@ -45,7 +45,7 @@ export default {
 }
 ```
 
-#### Custom Style
+### Custom Style
 
 ```html
 <van-number-keyboard
@@ -59,7 +59,9 @@ export default {
 />
 ```
 
-### API
+## API
+
+### Props
 
 | Attribute | Description | Type | Default |
 |------|------|------|------|
@@ -75,7 +77,7 @@ export default {
 | hide-on-click-outside | Whether to hide keyboard when click outside | `Boolean` | `true` |
 | safe-area-inset-bottom | Whether to enable bottom safe area adaptation, to enable those features use `viewport-fit=cover` in the `viewport` meta tag | `Boolean` | `false` |
 
-### Event
+### Events
 
 | Event | Description | Arguments |
 |------|------|------|
@@ -85,3 +87,9 @@ export default {
 | blur | Triggered when click close button or blur keyboard | - |
 | show | Triggered when keyboard is fully displayed. | - |
 | hide | Triggered when keyboard is fully hidden. | - |
+
+### Slots
+
+| Name | Description |
+|------|------|
+| title-left | Custom title left content |

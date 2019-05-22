@@ -1,16 +1,20 @@
-## List
+# List
+
+### Intro
+
 A list component to show items and control loading status.
 
 ### Install
+
 ``` javascript
 import { List } from 'vant';
 
 Vue.use(List);
 ```
 
-### Usage
+## Usage
 
-#### Basic Usage
+### Basic Usage
 
 ```html
 <van-list
@@ -91,7 +95,9 @@ export default {
 }
 ```
 
-### API
+## API
+
+### Props
 
 | Attribute | Description | Type | Default |
 |------|------|------|------|
@@ -103,8 +109,9 @@ export default {
 | finished-text | Finished text | `String` | - |
 | error-text | Error loaded text | `String` | - |
 | immediate-check | Whether to check loading position immediately after mounted | `Boolean` | `true` |
+| direction | Scroll direction，can be set to `up` | `String` | `down` |
 
-### Event
+### Events
 
 | Event | Description | Arguments |
 |------|------|------|
@@ -118,9 +125,9 @@ Use ref to get list instance and call instance methods
 |------|------|------|------|
 | check | - | - | Check scroll position |
 
-### Slot
+### Slots
 
 | Name | Description |
 |------|------|
-| - | List content |
+| default | List content |
 | loading | Custom loading tips |

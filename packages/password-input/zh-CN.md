@@ -1,16 +1,19 @@
-## PasswordInput 密码输入框
+# PasswordInput 密码输入框
+
+### 介绍
+
 密码输入框组件通常与 [数字键盘](#/zh-CN/number-keyboard) 组件配合使用
 
-### 使用指南
+### 引入
 ``` javascript
 import { PasswordInput, NumberKeyboard } from 'vant';
 
 Vue.use(PasswordInput).use(NumberKeyboard);
 ```
 
-### 代码演示
+## 代码演示
 
-#### 基础用法
+### 基础用法
 
 ```html
 <!-- 密码输入框 -->
@@ -49,10 +52,20 @@ export default {
 }
 ```
 
-#### 明文展示
+### 自定义长度
 
 ```html
-<!-- 密码输入框 -->
+<van-password-input
+  :value="value"
+  :length="4"
+  :gutter="15"
+  @focus="showKeyboard = true"
+/>
+```
+
+### 明文展示
+
+```html
 <van-password-input
   :value="value"
   :mask="false"
@@ -60,7 +73,7 @@ export default {
 />
 ```
 
-### API
+### Props
 
 | 参数 | 说明 | 类型 | 默认值 | 版本 |
 |------|------|------|------|------|
@@ -69,9 +82,10 @@ export default {
 | mask | 是否隐藏密码内容 | `Boolean` | `true` | 1.6.6 |
 | info | 输入框下方文字提示 | `String` | - | - |
 | error-info | 输入框下方错误提示 | `String` | - | - |
+| gutter | 输入框格子之间的间距，如 `20px` `2em`，默认单位为`px` | `Number | String` | `0` | 2.0.0 |
 
-### Event
+### Events
 
-| 事件名 | 说明 | 参数 |
+| 事件名 | 说明 | 回调参数 |
 |------|------|------|
 | focus | 输入框聚焦时触发 | - |

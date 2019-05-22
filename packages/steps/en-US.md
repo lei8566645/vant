@@ -1,15 +1,16 @@
-## Steps
+# Steps
 
 ### Install
+
 ``` javascript
 import { Step, Steps } from 'vant';
 
 Vue.use(Step).use(Steps);
 ```
 
-### Usage
+## Usage
 
-#### Basic Usage
+### Basic Usage
 
 ```html
 <van-steps :active="active">
@@ -30,7 +31,7 @@ export default {
 }
 ```
 
-#### Custom Style
+### Custom Style
 
 ```html
 <van-steps
@@ -45,7 +46,7 @@ export default {
 </van-steps>
 ```
 
-#### Vertical Steps
+### Vertical Steps
 
 ```html
 <van-steps direction="vertical" :active="0">
@@ -64,22 +65,22 @@ export default {
 </van-steps>
 ```
 
-### Steps API
+## API
+
+### Steps Props
 
 | Attribute | Description | Type | Default |
 |------|------|------|------|
 | active | Active step | `Number` | 0 |
-| icon | Action step icon | `String` | - |
-| icon-class | Icon class | `String` | - |
-| title | Title | `String` | - |
 | description | Description | `String` | - |
 | direction | Can be set to `vertical` | `String` | `horizontal` |
-| active-icon | Active icon name | `String` | `checked` |
 | active-color | Active step color | `String` | `#07c160` |
+| active-icon | Active icon name | `String` | `checked` |
+| inactive-icon | Active icon name | `String` | - |
 
-### Steps Slot
+### Step Slots
 
 | Name | Description |
 |------|------|
-| icon | Custom icon |
-| message-extra | Extra content |
+| active-icon | Custom active icon |
+| inactive-icon | Custom inactive icon |

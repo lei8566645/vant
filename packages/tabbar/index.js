@@ -1,18 +1,24 @@
 import { use } from '../utils';
+import { ParentMixin } from '../mixins/relation';
 
 const [sfc, bem] = use('tabbar');
 
 export default sfc({
-  data() {
-    return {
-      items: []
-    };
-  },
+  mixins: [ParentMixin('vanTabbar')],
 
   props: {
-    value: Number,
+    route: Boolean,
     activeColor: String,
+    inactiveColor: String,
     safeAreaInsetBottom: Boolean,
+    value: {
+      type: [String, Number],
+      default: 0
+    },
+    border: {
+      type: Boolean,
+      default: true
+    },
     fixed: {
       type: Boolean,
       default: true
@@ -24,7 +30,7 @@ export default sfc({
   },
 
   watch: {
-    items() {
+    children() {
       this.setActiveItem();
     },
 
@@ -35,8 +41,8 @@ export default sfc({
 
   methods: {
     setActiveItem() {
-      this.items.forEach((item, index) => {
-        item.active = index === this.value;
+      this.children.forEach((item, index) => {
+        item.active = (item.name || index) === this.value;
       });
     },
 
@@ -53,7 +59,7 @@ export default sfc({
       <div
         style={{ zIndex: this.zIndex }}
         class={[
-          'van-hairline--top-bottom',
+          { 'van-hairline--top-bottom': this.border },
           bem({
             fixed: this.fixed,
             'safe-area-inset-bottom': this.safeAreaInsetBottom

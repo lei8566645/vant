@@ -3,7 +3,7 @@ import { inherit } from '../utils/functional';
 
 // Types
 import { CreateElement, RenderContext } from 'vue/types';
-import { DefaultSlots } from '../utils/use/sfc';
+import { DefaultSlots } from '../utils/types';
 
 export type InfoProps = {
   info?: string | number;
@@ -17,7 +17,7 @@ function Info(
   slots: DefaultSlots,
   ctx: RenderContext<InfoProps>
 ) {
-  if (!isDef(props.info)) {
+  if (!isDef(props.info) || props.info === '') {
     return;
   }
 

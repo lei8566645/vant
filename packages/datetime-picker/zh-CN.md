@@ -1,16 +1,20 @@
-## DatetimePicker 时间选择
+# DatetimePicker 时间选择
+
+### 介绍
+
 时间选择组件通常与 [弹出层](#/zh-CN/popup) 组件配合使用
 
-### 使用指南
+### 引入
+
 ``` javascript
 import { DatetimePicker } from 'vant';
 
 Vue.use(DatetimePicker);
 ```
 
-### 代码演示
+## 代码演示
 
-#### 选择完整时间
+### 选择完整时间
 
 ```html
 <van-datetime-picker
@@ -35,7 +39,7 @@ export default {
 };
 ```
 
-#### 选择日期（年月日）
+### 选择日期（年月日）
 
 ```html
 <van-datetime-picker
@@ -55,7 +59,7 @@ export default {
 }
 ```
 
-#### 选择日期（年月）
+### 选择日期（年月）
 通过传入 `formatter` 函数对选项文字进行处理
 
 ```html
@@ -88,7 +92,7 @@ export default {
 }
 ```
 
-#### 选择时间
+### 选择时间
 
 ```html
 <van-datetime-picker
@@ -109,7 +113,9 @@ export default {
 }
 ```
 
-### API
+## API
+
+### Props
 
 | 参数 | 说明 | 类型 | 默认值 | 版本 |
 |------|------|------|------|------|
@@ -129,15 +135,15 @@ export default {
 | cancel-button-text | 取消按钮文字 | `String` | `取消` | 1.0.4 |
 | visible-item-count | 可见的选项个数 | `Number` | `5` | 1.0.4 |
 
-### Event
+### Events
 
-| 事件名称 | 说明 | 回调参数 |
+| 事件名 | 说明 | 回调参数 |
 |------|------|------|
 | change | 当值变化时触发的事件 | picker 实例 |
 | confirm | 点击完成按钮时触发的事件 | 当前 value |
 | cancel | 点击取消按钮时触发的事件 | - |
 
-### change事件
+### change 事件
 
 在`change`事件中，可以获取到`picker`实例，对`picker`进行相应的更新等操作：
 

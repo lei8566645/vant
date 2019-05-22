@@ -1,15 +1,15 @@
-## AddressEdit 地址编辑
+# AddressEdit 地址编辑
 
-### 使用指南
+### 引入
 ``` javascript
 import { AddressEdit } from 'vant';
 
 Vue.use(AddressEdit);
 ```
 
-### 代码演示
+## 代码演示
 
-#### 基础用法
+### 基础用法
 
 ```html
 <van-address-edit
@@ -55,7 +55,9 @@ export default {
 }
 ```
 
-### API
+## API
+
+### Props
 
 | 参数 | 说明 | 类型 | 默认值 | 版本 |
 |------|------|------|------|------|
@@ -73,9 +75,9 @@ export default {
 | tel-validator | 手机号格式校验函数 | `string => boolean` | - | - |
 | validator | 自定义校验函数 | `(key, value) => string` | - | 1.3.9 |
 
-### Event
+### Events
 
-| 事件名 | 说明 | 参数 |
+| 事件名 | 说明 | 回调参数 |
 |------|------|------|
 | save | 点击保存按钮时触发 | content：表单内容 |
 | focus | 输入框聚焦时触发 | key: 聚焦的输入框对应的 key |
@@ -86,11 +88,11 @@ export default {
 | change-detail | 修改详细地址时触发 | value: 详细地址内容 |
 | change-default | 切换是否使用默认地址时触发 | value: 是否选中 |
 
-### Slot
+### Slots
 
 | 名称 | 说明 |
 |------|------|
-| - | 在邮政编码下方插入内容 |
+| default | 在邮政编码下方插入内容 |
 
 ### 方法
 
@@ -100,9 +102,7 @@ export default {
 |------|------|------|------|
 | setAddressDetail | addressDetail: string | - | 设置详细地址 |
 
-### 数据格式
-
-#### addressInfo 数据格式
+### addressInfo 数据格式
 
 注意：addressInfo 仅作为初始值传入，表单最终内容可以在 save 事件中获取
 
@@ -119,13 +119,13 @@ export default {
 | postalCode | 邮政编码 | `String` |
 | isDefault | 是否为默认地址 | `Boolean` |
 
-#### searchResult 数据格式
+### searchResult 数据格式
 
 | key | 说明 | 类型 |
 |------|------|------|
 | name | 地名 | `String` |
 | address | 详细地址 | `String` |
 
-#### 省市县列表数据格式
+### 省市县列表数据格式
 
 请参考 [Area](#/zh-CN/area) 组件。

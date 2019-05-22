@@ -3,9 +3,13 @@
     <van-doc
       :base="base"
       :config="config"
-      active="Vue 组件"
+      :lang="$vantLang"
+      :github="github"
+      :versions="versions"
       :simulators="simulators"
+      :search-config="searchConfig"
       :current-simulator="currentSimulator"
+      @switch-version="onSwitchVersion"
     >
       <router-view @changeDemoURL="onChangeDemoURL" />
     </van-doc>
@@ -13,10 +17,15 @@
 </template>
 
 <script>
-import docConfig from './doc.config';
+import pkgJson from '../../package.json';
+import docConfig, { github, versions, searchConfig } from './doc.config';
 
 export default {
   data() {
+    this.github = github;
+    this.versions = versions;
+    this.searchConfig = searchConfig;
+
     return {
       simulators: [`mobile.html${location.hash}`],
       demoURL: ''
@@ -41,6 +50,12 @@ export default {
   methods: {
     onChangeDemoURL(url) {
       this.simulators = [this.simulators[0], url];
+    },
+
+    onSwitchVersion(version) {
+      if (version !== pkgJson.version) {
+        location.href = `https://youzan.github.io/vant/${version}`;
+      }
     }
   }
 };
@@ -48,31 +63,17 @@ export default {
 
 <style lang="less">
 .van-doc-intro {
-  padding-top: 40px;
+  padding-top: 20px;
+  font-family: 'Dosis', 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
   text-align: center;
-  font-family: "Dosis", "Source Sans Pro", "Helvetica Neue", Arial, sans-serif;
-
-  &__youzan {
-    width: 32px;
-    height: 32px;
-    display: block;
-    margin: 25px 0 0;
-  }
 
   &__logo {
     width: 120px;
     height: 120px;
   }
 
-  h2 {
-    font-size: 36px;
-    line-height: 60px;
-    font-weight: normal;
-  }
-
   p {
-    font-size: 15px;
-    color: #455a64;
+    margin-bottom: 20px;
   }
 }
 </style>

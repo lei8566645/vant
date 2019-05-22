@@ -1,4 +1,4 @@
-## Circle
+# Circle
 
 ### Install
 ``` javascript
@@ -7,9 +7,9 @@ import { Circle } from 'vant';
 Vue.use(Circle);
 ```
 
-### Usage
+## Usage
 
-#### Basic Usage
+### Basic Usage
 
 ```html
 <van-circle
@@ -35,7 +35,7 @@ export default {
 };
 ```
 
-#### Custom style
+### Custom style
 
 ```html
 <van-circle
@@ -52,8 +52,9 @@ export default {
 />
 ```
 
+## API
 
-### API
+### Props
 
 | Attribute | Description | Type | Default |
 |------|------|------|------|
@@ -68,8 +69,8 @@ export default {
 | stroke-width | Stroke width | `Number` | `40` |
 | clockwise | Is clockwise | `Boolean` | `true` |
 
-### Cell Slot
+### Slots
 
-| name | Description |
+| Name | Description |
 |------|------|
-| - | custom text content |
+| default | custom text content |

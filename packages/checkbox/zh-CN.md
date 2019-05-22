@@ -1,15 +1,15 @@
-## Checkbox 复选框
+# Checkbox 复选框
 
-### 使用指南
+### 引入
 ``` javascript
 import { Checkbox, CheckboxGroup } from 'vant';
 
 Vue.use(Checkbox).use(CheckboxGroup);
 ```
 
-### 代码演示
+## 代码演示
 
-#### 基础用法
+### 基础用法
 
 通过`v-model`绑定 checkbox 的勾选状态
 
@@ -27,19 +27,19 @@ export default {
 };
 ```
 
-#### 禁用状态
+### 禁用状态
 
 ```html
 <van-checkbox v-model="checked" disabled>复选框</van-checkbox>
 ```
 
-#### 自定义颜色
+### 自定义颜色
 
 ```html
 <van-checkbox v-model="checked" checked-color="#07c160">复选框</van-checkbox>
 ```
 
-#### 自定义图标
+### 自定义图标
 
 通过 icon 插槽自定义图标，可以通过 `slot-scope` 判断是否为选中状态
 
@@ -66,7 +66,7 @@ export default {
 }
 ```
 
-#### 复选框组
+### 复选框组
 
 与`van-checkbox-group`一起使用，选中值是一个数组，通过`v-model`绑定在`van-checkbox-group`上，数组中的项即为选中的`Checkbox`的`name`属性设置的值
 
@@ -93,7 +93,7 @@ export default {
 };
 ```
 
-#### 设置最大可选数
+### 设置最大可选数
 
 ```html
 <van-checkbox-group v-model="result" :max="2">
@@ -107,7 +107,7 @@ export default {
 </van-checkbox-group>
 ```
 
-#### 搭配单元格组件使用
+### 搭配单元格组件使用
 
 此时你需要再引入`Cell`和`CellGroup`组件，并通过 checkbox 的 toggle 方法手动触发切换
 
@@ -137,7 +137,9 @@ export default {
 }
 ```
 
-### Checkbox API
+## API
+
+### Checkbox Props
 
 | 参数 | 说明 | 类型 | 默认值 | 版本 |
 |------|------|------|------|------|
@@ -145,11 +147,12 @@ export default {
 | shape | 形状，可选值为 `square` | `String` | `round` | - |
 | v-model | 是否为选中状态 | `Boolean` | `false` | - |
 | disabled | 是否禁用复选框 | `Boolean` | `false` | - |
+| icon-size | 图标大小，默认单位为`px` | `String | Number` | `20px` | 2.0.0 |
 | label-disabled | 是否禁用复选框文本点击 | `Boolean` | `false` | - |
 | label-position | 文本位置，可选值为 `left` | `String` | `right` | 1.1.11 |
 | checked-color | 选中状态颜色 | `String` | `#1989fa` | 1.4.3 |
 
-### CheckboxGroup API
+### CheckboxGroup Props
 
 | 参数 | 说明 | 类型 | 默认值 | 版本 |
 |------|------|------|------|------|
@@ -157,24 +160,24 @@ export default {
 | disabled | 是否禁用所有复选框 | `Boolean` | `false` | - |
 | max | 设置最大可选数，0 为无限制 | `Number` | `0` | - |
 
-### Checkbox Event
+### Checkbox Events
 
-| 事件名称 | 说明 | 回调参数 |
+| 事件名 | 说明 | 回调参数 |
 |------|------|------|
 | change | 当绑定值变化时触发的事件 | 当前组件的值 |
 | click | 点击复选框时触发 | event: Event |
 
-### CheckboxGroup Event
+### CheckboxGroup Events
 
-| 事件名称 | 说明 | 回调参数 |
+| 事件名 | 说明 | 回调参数 |
 |------|------|------|
 | change | 当绑定值变化时触发的事件 | 当前组件的值 |
 
-### Checkbox 插槽
+### Checkbox Slots
 
 | 名称 | 说明 | slot-scope |
 |------|------|------|
-| - | 自定义文本 | - |
+| default | 自定义文本 | - |
 | icon | 自定义图标 | checked: 是否为选中状态 |
 
 ### Checkbox 方法

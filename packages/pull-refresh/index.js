@@ -1,7 +1,8 @@
 import { use } from '../utils';
-import Loading from '../loading';
+import { preventDefault } from '../utils/event';
 import { TouchMixin } from '../mixins/touch';
 import { getScrollTop, getScrollEventTarget } from '../utils/scroll';
+import Loading from '../loading';
 
 const [sfc, bem, t] = use('pull-refresh');
 const TEXT_STATUS = ['pulling', 'loosing', 'success'];
@@ -90,7 +91,7 @@ export default sfc({
       if (this.ceiling && this.deltaY >= 0) {
         if (this.direction === 'vertical') {
           this.setStatus(this.ease(this.deltaY));
-          event.cancelable && event.preventDefault();
+          preventDefault(event);
         }
       }
     },
@@ -144,17 +145,12 @@ export default sfc({
     const text = this[`${status}Text`] || t(status);
     const style = {
       transition: `${this.duration}ms`,
-      transform: `translate3d(0,${this.height}px, 0)`
+      transform: this.height ? `translate3d(0,${this.height}px, 0)` : ''
     };
 
     const Status = this.slots(status) || [
       TEXT_STATUS.indexOf(status) !== -1 && <div class={bem('text')}>{text}</div>,
-      status === 'loading' && (
-        <div class={bem('loading')}>
-          <Loading />
-          <span>{text}</span>
-        </div>
-      )
+      status === 'loading' && <Loading size="16">{text}</Loading>
     ];
 
     return (

@@ -1,15 +1,19 @@
-import { use } from '../utils';
+import { use, isObj } from '../utils';
 import Icon from '../icon';
 import Info from '../info';
 import { route, routeProps } from '../utils/router';
+import { ChildrenMixin } from '../mixins/relation';
 
 const [sfc, bem] = use('tabbar-item');
 
 export default sfc({
+  mixins: [ChildrenMixin('vanTabbar')],
+
   props: {
     ...routeProps,
     icon: String,
     dot: Boolean,
+    name: [String, Number],
     info: [String, Number]
   },
 
@@ -19,28 +23,31 @@ export default sfc({
     };
   },
 
-  beforeCreate() {
-    this.$parent.items.push(this);
-  },
-
-  destroyed() {
-    this.$parent.items.splice(this.$parent.items.indexOf(this), 1);
+  computed: {
+    routeActive() {
+      const { to, $route } = this;
+      if (to && $route) {
+        const path = isObj(to) ? to.path : to;
+        return $route.path === path;
+      }
+    }
   },
 
   methods: {
     onClick(event) {
-      this.$parent.onChange(this.$parent.items.indexOf(this));
+      this.parent.onChange(this.name || this.index);
       this.$emit('click', event);
       route(this.$router, this);
     }
   },
 
   render(h) {
-    const { icon, slots, active } = this;
-    const style = active ? { color: this.$parent.activeColor } : null;
+    const { icon, slots } = this;
+    const active = this.parent.route ? this.routeActive : this.active;
+    const color = this.parent[active ? 'activeColor' : 'inactiveColor'];
 
     return (
-      <div class={bem({ active })} style={style} onClick={this.onClick}>
+      <div class={bem({ active })} style={{ color }} onClick={this.onClick}>
         <div class={bem('icon', { dot: this.dot })}>
           {slots('icon', { active }) || (icon && <Icon name={icon} />)}
           <Info info={this.info} />

@@ -1,6 +1,6 @@
-## ImagePreview 图片预览
+# ImagePreview 图片预览
 
-### 使用指南
+### 引入
 
 `ImagePreview`和其他组件不同，不是通过HTML结构的方式来使用，而是通过函数调用的方式。使用前需要先引入它。
 
@@ -10,9 +10,9 @@ import { ImagePreview } from 'vant';
 Vue.use(ImagePreview);
 ```
 
-### 代码演示
+## 代码演示
 
-#### 基础用法
+### 基础用法
 
 直接传入图片数组，即可展示图片预览
 
@@ -23,7 +23,7 @@ ImagePreview([
 ]);
 ```
 
-#### 传入配置项
+### 传入配置项
 
 通过传入配置对象，可以指定初始图片的位置、监听关闭事件
 
@@ -40,7 +40,7 @@ ImagePreview({
 });
 ```
 
-#### 异步关闭
+### 异步关闭
 
 通过`asyncClose`属性可以开启异步关闭，开启后异步关闭后，只能通过实例上的 close 方法关闭图片预览
 
@@ -58,7 +58,7 @@ setTimeout(() => {
 }, 1000);
 ```
 
-#### 组件调用
+### 组件调用
 
 如果需要在图片预览内嵌入组件或其他自定义内容，可以使用组件调用的方式，调用前需要通过 `Vue.use` 注册组件
 
@@ -93,6 +93,8 @@ export default {
 }
 ```
 
+## API
+
 ### Options
 
 通过函数调用 `ImagePreview` 时，支持传入以下选项：
@@ -111,9 +113,9 @@ export default {
 | maxZoom | 手势缩放时，最大缩放比例 | `Number` | `3` | 1.6.14 |
 | minZoom | 手势缩放时，最小缩放比例 | `Number` | `1/3` | 1.6.14 |
 
-### API
+### Props
 
-通过组件调用 `ImagePreview` 时，支持以下 API：
+通过组件调用 `ImagePreview` 时，支持以下 Props：
 
 | 参数 | 说明 | 类型 | 默认值 | 版本 |
 |------|------|------|------|------|
@@ -128,7 +130,7 @@ export default {
 | max-zoom | 手势缩放时，最大缩放比例 | `Number` | `3` | 1.6.14 |
 | min-zoom | 手势缩放时，最小缩放比例 | `Number` | `1/3` | 1.6.14 |
 
-### Event
+### Events
 
 通过组件调用 `ImagePreview` 时，支持以下事件：
 
@@ -137,14 +139,13 @@ export default {
 | close | 关闭时触发 | { index: 索引, url: 图片链接 } |
 | change | 切换当前图片时触发 | index, 当前图片的索引 |
 
-### Slot
+### Slots
 
 通过组件调用 `ImagePreview` 时，支持以下插槽：
 
 | 名称 | 说明 |
 |------|------|
 | index | 自定义页码内容 |
-
 
 ### onClose 回调参数
 

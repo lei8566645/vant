@@ -1,6 +1,7 @@
-## Radio
+# Radio
 
 ### Install
+
 ``` javascript
 import { RadioGroup, Radio } from 'vant';
 
@@ -8,9 +9,9 @@ Vue.use(RadioGroup);
 Vue.use(Radio);
 ```
 
-### Usage
+## Usage
 
-#### Basic Usage
+### Basic Usage
 
 Use `v-model` to bind the name of checked radio
 
@@ -31,7 +32,7 @@ export default {
 };
 ```
 
-#### Disabled
+### Disabled
 
 ```html
 <van-radio-group v-model="radio" disabled>
@@ -40,13 +41,13 @@ export default {
 </van-radio-group>
 ```
 
-#### Custom Color
+### Custom Color
 
 ```html
 <van-radio checked-color="#07c160">Radio</van-radio>
 ```
 
-#### Custom Icon
+### Custom Icon
 
 Use icon slot to custom icon
 
@@ -73,7 +74,7 @@ export default {
 }
 ```
 
-#### Inside a Cell
+### Inside a Cell
 
 ```html
 <van-radio-group v-model="radio">
@@ -88,39 +89,42 @@ export default {
 </van-radio-group>
 ```
 
-### Radio API
+## API
+
+### Radio Props
 
 | Attribute | Description | Type | Default |
 |------|------|------|------|
 | name | Radio name | `any` | - |
 | shape | Can be set to `square` | `String` | `round` |
 | disabled | Whether to disable radio | `Boolean` | `false` |
+| icon-size | Icon size | `String | Number` | `20px` |
 | label-disabled | Whether to disable label click | `Boolean` | `false` |
 | label-position | Can be set to `left` | `String` | `right` |
 | checked-color | Checked color | `String` | `#1989fa` | - |
 
-### RadioGroup API
+### RadioGroup Props
 
 | Attribute | Description | Type | Default |
 |------|------|------|------|
 | v-model | Name of checked radio | `any` | - |
 | disabled | Diable all radios | `Boolean` | `false` |
 
-### Radio Event
+### Radio Events
 
 | Event | Description | Parameters |
 |------|------|------|
 | click | Triggered when click radio | event: Event |
 
-### RadioGroup Event
+### RadioGroup Events
 
 | Event | Description | Parameters |
 |------|------|------|
 | change | Triggered when value changed | current value |
 
-### Radio Slot
+### Radio Slots
 
 | Name | Description | slot-scope |
 |------|------|------|
-| - | Custom label | - |
+| default | Custom label | - |
 | icon | Custom icon | checked: whether to be checked |

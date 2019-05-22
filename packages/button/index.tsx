@@ -1,11 +1,11 @@
 import { use } from '../utils';
 import { emit, inherit } from '../utils/functional';
 import { routeProps, RouteProps, functionalRoute } from '../utils/router';
-import Loading from '../loading';
+import Loading, { LoadingType } from '../loading';
 
 // Types
 import { CreateElement, RenderContext } from 'vue/types';
-import { DefaultSlots } from '../utils/use/sfc';
+import { DefaultSlots } from '../utils/types';
 
 export type ButtonType = 'default' | 'primary' | 'info' | 'warning' | 'danger';
 
@@ -25,8 +25,8 @@ export type ButtonProps = RouteProps & {
   disabled?: boolean;
   nativeType?: string;
   loadingSize: string;
+  loadingType?: LoadingType;
   loadingText?: string;
-  bottomAction?: boolean;
 };
 
 export type ButtonEvents = {
@@ -43,16 +43,16 @@ function Button(
 ) {
   const { tag, type, disabled, loading, hairline, loadingText } = props;
 
-  const onClick = (event: Event) => {
+  function onClick(event: Event) {
     if (!loading && !disabled) {
       emit(ctx, 'click', event);
       functionalRoute(ctx);
     }
-  };
+  }
 
-  const onTouchstart = (event: TouchEvent) => {
+  function onTouchstart(event: TouchEvent) {
     emit(ctx, 'touchstart', event);
-  };
+  }
 
   const classes = [
     bem([
@@ -65,8 +65,7 @@ function Button(
         block: props.block,
         plain: props.plain,
         round: props.round,
-        square: props.square,
-        'bottom-action': props.bottomAction
+        square: props.square
       }
     ]),
     { 'van-hairline--surround': hairline }
@@ -85,6 +84,7 @@ function Button(
         [
           <Loading
             size={props.loadingSize}
+            type={props.loadingType}
             color={type === 'default' ? undefined : ''}
           />,
           loadingText && <span class={bem('loading-text')}>{loadingText}</span>
@@ -108,7 +108,7 @@ Button.props = {
   disabled: Boolean,
   nativeType: String,
   loadingText: String,
-  bottomAction: Boolean,
+  loadingType: String,
   tag: {
     type: String,
     default: 'button'

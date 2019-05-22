@@ -2,27 +2,27 @@
 
 .van-search {
   display: flex;
-  padding: 10px 16px;
   align-items: center;
   box-sizing: border-box;
+  padding: @search-padding;
 
   &__content {
     display: flex;
     flex: 1;
+    padding-left: 10px;
     background-color: @search-background-color;
     border-radius: 2px;
-    padding-left: 10px;
 
     &--round {
-      border-radius: 17px;
+      border-radius: @search-input-height / 2;
     }
   }
 
   &__label {
-    font-size: 14px;
-    color: @text-color;
-    line-height: 34px;
-    padding: 0 5px;
+    padding: @search-label-padding;
+    color: @search-label-color;
+    font-size: @search-label-font-size;
+    line-height: @search-input-height;
   }
 
   .van-cell {
@@ -31,7 +31,7 @@
     background-color: transparent;
 
     &__left-icon {
-      color: @gray-dark;
+      color: @search-left-icon-color;
     }
   }
 
@@ -49,10 +49,10 @@
   }
 
   &__action {
-    padding: 0 10px;
-    font-size: 14px;
-    line-height: 34px;
-    color: @text-color;
+    padding: @search-action-padding;
+    color: @search-action-text-color;
+    font-size: @search-action-font-size;
+    line-height: @search-input-height;
 
     &:active {
       background-color: @active-color;

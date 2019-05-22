@@ -1,15 +1,16 @@
-## Sku 商品规格
+# Sku 商品规格
 
-### 使用指南
+### 引入
+
 ```javascript
 import { Sku } from 'vant';
 
 Vue.use(Sku);
 ```
 
-### 代码演示
+## 代码演示
 
-#### 基础用法
+### 基础用法
 
 ```html
 <van-sku
@@ -30,7 +31,7 @@ Vue.use(Sku);
 />
 ```
 
-#### 自定义步进器
+### 自定义步进器
 
 ```html
 <van-sku
@@ -47,7 +48,7 @@ Vue.use(Sku);
 />
 ```
 
-#### 高级用法
+### 高级用法
 
 ```html
 <van-sku
@@ -71,18 +72,35 @@ Vue.use(Sku);
       <span class="van-sku__price-symbol">￥</span><span class="van-sku__price-num">{{ props.price }}</span>
     </div>
   </template>
+
   <!-- 自定义 sku actions -->
   <template slot="sku-actions" slot-scope="props">
     <div class="van-sku-actions">
-      <van-button bottom-action @click="onPointClicked">积分兑换</van-button>
+      <van-button
+        square
+        size="large"
+        type="warning"
+        @click="onPointClicked"
+      >
+        积分兑换
+      </van-button>
       <!-- 直接触发 sku 内部事件，通过内部事件执行 onBuyClicked 回调 -->
-      <van-button type="primary" bottom-action @click="props.skuEventBus.$emit('sku:buy')">买买买</van-button>
+      <van-button
+        square
+        size="large"
+        type="danger"
+        @click="props.skuEventBus.$emit('sku:buy')"
+      >
+        买买买
+      </van-button>
     </div>
   </template>
 </van-sku>
 ```
 
-### API
+## API
+
+### Props
 
 | 参数 | 说明 | 类型 | 默认值 | 版本 |
 |------|------|------|------|------|
@@ -98,7 +116,7 @@ Vue.use(Sku);
 | reset-stepper-on-hide | 隐藏时重置选择的商品数量 | `Boolean` | `false` | - |
 | reset-selected-sku-on-hide | 隐藏时重置已选择的 sku | `Boolean` | `false` | - |
 | disable-stepper-input | 是否禁用步进器输入 | `Boolean` | `false` | - |
-| close-on-click-overlay | 是否在点击蒙层后关闭 | `Boolean` | `false` | - |
+| close-on-click-overlay | 是否在点击遮罩层后关闭 | `Boolean` | `false` | - |
 | stepper-title | 数量选择组件左侧文案 | `String` | `购买数量` | - |
 | custom-stepper-config | 步进器相关自定义配置 | `Object` | `{}` | - |
 | message-config | 留言相关配置 | `Object` | `{}` | - |
@@ -106,14 +124,16 @@ Vue.use(Sku);
 | initial-sku | 默认选中的sku，具体参考高级用法 | `Object` | `{}` | - |
 | show-soldout-sku | 是否展示售罄的sku，如果展示，则为置灰不可选状态，不展示则直接隐藏 | `Boolean` | `true` | - |
 
-### Event
+### Events
 
-| 事件名 | 说明 | 参数 |
+| 事件名 | 说明 | 回调参数 |
 |------|------|------|
 | add-cart | 点击添加购物车回调 | skuData: Object |
 | buy-clicked | 点击购买回调 | skuData: Object |
 | stepper-change | 购买数量变化时触发 | value: number |
 | sku-selected | 切换规格类目时触发 | { skuValue, selectedSku, selectedSkuComb } |
+| open-preview | 打开商品图片预览时触发 | data: Object |
+| close-preview | 关闭商品图片预览时触发 | data: Object |
 
 ### 方法
 
@@ -123,7 +143,7 @@ Vue.use(Sku);
 |------|------|------|------|
 | getSkuData | - | skuData | 获取当前 skuData |
 
-### Slot
+### Slots
 
 Sku 组件默认划分好了若干区块，这些区块都定义成了插槽，可以按需进行替换。区块顺序见下表：
 
@@ -138,9 +158,7 @@ Sku 组件默认划分好了若干区块，这些区块都定义成了插槽，�
 | sku-messages | 商品留言区 |
 | sku-actions | 操作按钮区 |
 
-### 数据结构
-
-#### sku 对象结构
+### sku 对象结构
 
 ```javascript
 sku: {
@@ -193,7 +211,7 @@ sku: {
 }
 ```
 
-#### initialSku 对象结构
+### initialSku 对象结构
 
 ```javascript
 {
@@ -206,7 +224,7 @@ sku: {
 }
 ```
 
-#### goods 对象结构
+### goods 对象结构
 
 ```javascript
 goods: {
@@ -217,7 +235,7 @@ goods: {
 }
 ```
 
-#### customStepperConfig 对象结构
+### customStepperConfig 对象结构
 
 ```javascript
 customStepperConfig: {
@@ -243,7 +261,7 @@ customStepperConfig: {
 }
 ```
 
-#### messageConfig Data Structure
+### messageConfig Data Structure
 
 ```javascript
 messageConfig: {
@@ -264,7 +282,7 @@ messageConfig: {
 }
 ```
 
-#### 添加购物车和点击购买回调函数接收的 skuData 对象结构
+### 添加购物车和点击购买回调函数接收的 skuData 对象结构
 
 ```javascript
 skuData: {

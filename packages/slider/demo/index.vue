@@ -54,7 +54,10 @@
       </van-slider>
     </demo-block>
 
-    <demo-block :title="$t('vertical')">
+    <demo-block
+      v-if="!$attrs.weapp"
+      :title="$t('vertical')"
+    >
       <div :style="{ height: '120px', paddingLeft: '30px' }">
         <van-slider
           v-model="value7"
@@ -127,8 +130,8 @@ export default {
     font-size: 10px;
     line-height: 18px;
     text-align: center;
-    border-radius: 100px;
     background-color: @red;
+    border-radius: 100px;
   }
 
   .van-doc-demo-block__title {

@@ -35,7 +35,10 @@
       </van-row>
     </demo-block>
 
-    <demo-block :title="$t('title3')">
+    <demo-block
+      v-if="!$attrs.weapp"
+      :title="$t('title3')"
+    >
       <van-row type="flex">
         <van-col span="6">span: 6</van-col>
         <van-col span="6">span: 6</van-col>
@@ -109,11 +112,11 @@ export default {
   }
 
   .van-col {
+    margin-bottom: 10px;
     color: @white;
     font-size: 13px;
     line-height: 30px;
     text-align: center;
-    margin-bottom: 10px;
     background-clip: content-box;
 
     &:nth-child(odd) {

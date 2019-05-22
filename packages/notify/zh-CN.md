@@ -1,21 +1,22 @@
-## Notify 消息提示
+# Notify 消息提示
 
-### 使用指南
+### 引入
+
 ``` javascript
 import { Notify } from 'vant';
 
 Vue.use(Notify);
 ```
 
-### 代码演示
+## 代码演示
 
-#### 基础用法
+### 基础用法
 
 ```js
 Notify('通知内容');
 ```
 
-#### 自定义配置
+### 自定义配置
 
 ```js
 Notify({
@@ -25,7 +26,7 @@ Notify({
 });
 ```
 
-#### 组件内调用
+### 组件内调用
 
 引入 Notify 组件后，会自动在 Vue 的 prototype 上挂载 $notify 方法，便于在组件内调用。
 
@@ -36,6 +37,8 @@ export default {
   }
 }
 ```
+
+## API
 
 ### 方法
 
@@ -50,8 +53,9 @@ export default {
 
 | 参数 | 说明 | 类型 | 默认值 | 版本 |
 |------|------|------|------|------|
-| message | 展示文案 | `String` | - | 1.4.7 |
+| message | 展示文案，支持通过`\n`换行 | `String` | - | 1.4.7 |
 | duration | 展示时长(ms)，值为 0 时，notify 不会消失 | `Number` | `3000` | 1.4.7 |
 | color | 字体颜色 | `String` | `#fff` | 1.4.7 |
 | background | 背景颜色 | `String` | `#f44` | 1.4.7 |
 | className | 自定义类名 | `String | Array | Object` | - | 1.6.0 |
+| onClick | 点击时的回调函数 | `Function` | - | 2.0.0 |

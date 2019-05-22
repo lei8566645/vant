@@ -22,7 +22,10 @@
       />
     </demo-block>
 
-    <demo-block :title="$t('halfStar')">
+    <demo-block
+      v-if="!$attrs.weapp"
+      :title="$t('halfStar')"
+    >
       <van-rate
         v-model="value4"
         :size="25"

@@ -1,15 +1,16 @@
-## Coupon
+# Coupon
 
 ### Install
+
 ``` javascript
 import { CouponCell, CouponList } from 'vant';
 
 Vue.use(CouponCell).use(CouponList);
 ```
 
-### Usage
+## Usage
 
-#### Basic Usage
+### Basic Usage
 
 ```html
 <!-- Coupon Cell -->
@@ -65,7 +66,9 @@ export default {
 }
 ```
 
-### CouponCell API
+## API
+
+### CouponCell Props
 
 | Attribute | Description | Type | Default |
 |------|------|------|------|
@@ -76,7 +79,7 @@ export default {
 | border | Whether to show innner border | `Boolean` | `true` |
 | currency | Currency symbol |  `String` | `¥` |
 
-### CouponList API
+### CouponList Props
 
 | Attribute | Description | Type | Default |
 |------|------|------|------|
@@ -93,7 +96,7 @@ export default {
 | input-placeholder | Input placeholder | `String` | `Coupon code` |
 | currency | Currency symbol |  `String` | `¥` |
 
-### CouponList Event
+### CouponList Events
 
 | Event | Description | Arguments |
 |------|------|------|

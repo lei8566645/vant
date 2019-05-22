@@ -1,15 +1,16 @@
-## Stepper 步进器
+# Stepper 步进器
 
-### 使用指南
+### 引入
+
 ``` javascript
 import { Stepper } from 'vant';
 
 Vue.use(Stepper);
 ```
 
-### 代码演示
+## 代码演示
 
-#### 基础用法
+### 基础用法
 
 ```html
 <van-stepper v-model="value" />
@@ -25,7 +26,7 @@ export default {
 }
 ```
 
-#### 禁用状态
+### 禁用状态
 
 通过设置`disabled`属性来禁用 stepper
 
@@ -33,7 +34,7 @@ export default {
 <van-stepper v-model="value" disabled />
 ```
 
-#### 异步变更
+### 异步变更
 
 ```html
 <van-stepper
@@ -67,7 +68,7 @@ export default {
 }
 ```
 
-#### 高级用法
+### 高级用法
 
 可以对组件设置`step`、`min`、`max`属性
 
@@ -81,7 +82,9 @@ export default {
 />
 ```
 
-### API
+## API
+
+### Props
 
 | 参数 | 说明 | 类型 | 默认值 | 版本 |
 |------|------|------|------|------|
@@ -95,9 +98,9 @@ export default {
 | async-change | 是否开启异步变更，开启后需要手动控制输入值 | `Boolean` | `false` | - |
 | input-width | 输入框宽度，须指定单位 | `String` | `30px` | 1.6.13 |
 
-### Event
+### Events
 
-| 事件名称 | 说明 | 回调参数 |
+| 事件名 | 说明 | 回调参数 |
 |------|------|------|
 | change | 当绑定值变化时触发的事件 | 当前组件的值 |
 | overlimit | 点击不可用的按钮时触发 | - |

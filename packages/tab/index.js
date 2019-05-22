@@ -1,11 +1,11 @@
 /* eslint-disable object-shorthand */
 import { use } from '../utils';
-import { FindParentMixin } from '../mixins/find-parent';
+import { ChildrenMixin } from '../mixins/relation';
 
 const [sfc, bem] = use('tab');
 
 export default sfc({
-  mixins: [FindParentMixin],
+  mixins: [ChildrenMixin('vanTabs')],
 
   props: {
     title: String,
@@ -19,10 +19,6 @@ export default sfc({
   },
 
   computed: {
-    index() {
-      return this.parent.tabs.indexOf(this);
-    },
-
     selected() {
       return this.index === this.parent.curActive;
     }
@@ -38,32 +34,32 @@ export default sfc({
     }
   },
 
-  created() {
-    this.findParent('van-tabs');
-  },
-
   mounted() {
-    const { tabs } = this.parent;
-    const index = this.parent.slots().indexOf(this.$vnode);
-    tabs.splice(index === -1 ? tabs.length : index, 0, this);
-
     if (this.slots('title')) {
       this.parent.renderTitle(this.$refs.title, this.index);
     }
-  },
-
-  beforeDestroy() {
-    this.parent.tabs.splice(this.index, 1);
   },
 
   render(h) {
     const { slots } = this;
     const shouldRender = this.inited || !this.parent.lazyRender;
 
+    const Content = [
+      shouldRender ? slots() : h(),
+      slots('title') && <div ref="title">{slots('title')}</div>
+    ];
+
+    if (this.parent.animated) {
+      return (
+        <div class={bem('pane-wrapper', { inactive: !this.selected })}>
+          <div class={bem('pane')}>{Content}</div>
+        </div>
+      );
+    }
+
     return (
-      <div vShow={this.selected || this.parent.animated} class={bem('pane')}>
-        {shouldRender ? slots() : h()}
-        {slots('title') && <div ref="title">{slots('title')}</div>}
+      <div vShow={this.selected} class={bem('pane')}>
+        {Content}
       </div>
     );
   }

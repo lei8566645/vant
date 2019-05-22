@@ -1,4 +1,5 @@
 import { use } from '../utils';
+import { RED } from '../utils/color';
 import { emit, inherit } from '../utils/functional';
 import Icon from '../icon';
 import Cell from '../cell';
@@ -8,7 +9,7 @@ import RadioGroup from '../radio-group';
 
 // Types
 import { CreateElement, RenderContext } from 'vue/types';
-import { DefaultSlots } from '../utils/use/sfc';
+import { DefaultSlots } from '../utils/types';
 
 export type ContactListItem = {
   id: string | number;
@@ -30,35 +31,39 @@ function ContactList(
   slots: DefaultSlots,
   ctx: RenderContext<ContactListProps>
 ) {
-  const List = props.list.map((item, index) => (
-    <Cell
-      key={item.id}
-      isLink
-      class={bem('item')}
-      valueClass={bem('item-value')}
-      scopedSlots={{
-        default: () => (
-          <Radio name={item.id}>
-            <div class={bem('name')}>{`${item.name}，${item.tel}`}</div>
-          </Radio>
-        ),
-        'right-icon': () => (
-          <Icon
-            name="edit"
-            class={bem('edit')}
-            onClick={event => {
-              event.stopPropagation();
-              emit(ctx, 'edit', item, index);
-            }}
-          />
-        )
-      }}
-      onClick={() => {
-        emit(ctx, 'input', item.id);
-        emit(ctx, 'select', item, index);
-      }}
-    />
-  ));
+  const List = props.list.map((item, index) => {
+    const onClick = () => {
+      emit(ctx, 'input', item.id);
+      emit(ctx, 'select', item, index);
+    };
+
+    return (
+      <Cell
+        key={item.id}
+        isLink
+        class={bem('item')}
+        valueClass={bem('item-value')}
+        scopedSlots={{
+          default: () => (
+            <Radio name={item.id} iconSize={16} checkedColor={RED} onClick={onClick}>
+              <div class={bem('name')}>{`${item.name}，${item.tel}`}</div>
+            </Radio>
+          ),
+          'right-icon': () => (
+            <Icon
+              name="edit"
+              class={bem('edit')}
+              onClick={event => {
+                event.stopPropagation();
+                emit(ctx, 'edit', item, index);
+              }}
+            />
+          )
+        }}
+        onClick={onClick}
+      />
+    );
+  });
 
   return (
     <div class={bem()} {...inherit(ctx)}>
