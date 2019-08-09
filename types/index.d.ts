@@ -17,6 +17,8 @@ export class Button extends VanComponent {}
 export class Card extends VanComponent {}
 export class Cell extends VanComponent {}
 export class CellGroup extends VanComponent {}
+export class CountDown extends VanComponent {}
+export class Divider extends VanComponent {}
 export class SwipeCell extends VanComponent {}
 export class Checkbox extends VanComponent {}
 export class CheckboxGroup extends VanComponent {}
@@ -33,10 +35,13 @@ export class DatetimePicker extends VanComponent {}
 export class DropdownItem extends VanComponent {}
 export class DropdownMenu extends VanComponent {}
 export class Field extends VanComponent {}
+export class Grid extends VanComponent {}
+export class GridItem extends VanComponent {}
 export class GoodsAction extends VanComponent {}
 export class GoodsActionButton extends VanComponent {}
 export class GoodsActionIcon extends VanComponent {}
 export class Icon extends VanComponent {}
+export class Image extends VanComponent {}
 export class IndexAnchor extends VanComponent {}
 export class IndexBar extends VanComponent {}
 export class Info extends VanComponent {}
@@ -65,6 +70,7 @@ export class Slider extends VanComponent {}
 export class Step extends VanComponent {}
 export class Stepper extends VanComponent {}
 export class Steps extends VanComponent {}
+export class Sticky extends VanComponent {}
 export class SubmitBar extends VanComponent {}
 export class Swipe extends VanComponent {}
 export class SwipeItem extends VanComponent {}

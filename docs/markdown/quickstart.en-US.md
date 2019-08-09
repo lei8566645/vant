@@ -15,29 +15,18 @@ vue create hello-world
 vue ui
 ```
 
-<img width="100%" style="border-radius: 3px; box-shadow: 0 1px 1px rgba(0, 0, 0, .1);" src="https://img.yzcdn.cn/vant/vue-cli-demo-201809030812.png" >
+![](https://img.yzcdn.cn/vant/vue-cli-demo-201809030812.png)
 
 In the GUI, click on 'Dependencies' -> `Install Dependencies` and add `vant` to the dependencies.
 
 ### Install
 
 ```bash
-# npm
+# Using npm
 npm i vant -S
 
-# yarn
+# Using yarn
 yarn add vant
-```
-
-### CDN
-
-```html
-<!-- import style -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vant@1.6/lib/index.css" />
-
-<!-- import script -->
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vant@1.6/lib/vant.min.js"></script>
 ```
 
 ## Usage
@@ -101,6 +90,28 @@ Vue.use(Vant);
 ```
 
 > If you configured babel-plugin-import, you won't be allowed to import all components.
+
+### 4. CDN
+
+```html
+<!-- import style -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vant@2.0/lib/index.css" />
+
+<!-- import script -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vant@2.0/lib/vant.min.js"></script>
+
+<script>
+var Vue = window.Vue;
+var vant = window.vant;
+
+// Register components
+Vue.use(vant);
+
+// Call function components
+vant.Toast('message');
+</script>
+```
 
 ## Other
 
