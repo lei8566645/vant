@@ -11,7 +11,8 @@ export default createComponent({
   props: {
     ...routeProps,
     info: [Number, String],
-    title: String
+    title: String,
+    activeColor: String
   },
 
   computed: {
@@ -33,6 +34,11 @@ export default createComponent({
     return (
       <a
         class={[bem({ select: this.select }), 'van-hairline']}
+        style={
+          this.select
+            ? 'border-color:' + this.activeColor + ';color: ' + this.activeColor + ';'
+            : ''
+        }
         onClick={this.onClick}
       >
         <div class={bem('text')}>
