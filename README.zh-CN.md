@@ -1,5 +1,5 @@
 <p align="center">
-    <img alt="logo" src="https://img.yzcdn.cn/public_files/2017/12/18/fd78cf6bb5d12e2a119d0576bedfd230.png" width="120" style="margin-bottom: 10px;">
+    <img alt="logo" src="https://img.yzcdn.cn/vant/logo.png" width="120" style="margin-bottom: 10px;">
 </p>
 <h3 align="center" style="margin: 30px 0 35px;">轻量、可靠的移动端 Vue 组件库</h3>
 
@@ -14,16 +14,18 @@
 </p>
 
 <p align="center">
-  🇬🇧 <a href="./README.md">访问英文版</a>
+  🔥 <a href="https://youzan.github.io/vant">文档网站</a>
   &nbsp;
-  🚀 <a href="https://github.com/youzan/vant-weapp" target="_blank">Vant Weapp - 小程序版</a>
+  🇬🇧 <a href="./README.md">英文版介绍</a>
+  &nbsp;
+  🚀 <a href="https://github.com/youzan/vant-weapp" target="_blank">小程序版</a>
 </p>
 
 ---
 
 ## 特性
 
-* 50+ 个组件
+* 60+ 个组件
 * 90% 单元测试覆盖率
 * 完善的中英文文档和示例
 * 支持按需引入
@@ -34,88 +36,29 @@
 
 ## 安装
 
-#### NPM
-
-```shell
+```bash
+# 通过 npm 安装
 npm i vant -S
-```
 
-#### YARN
-
-```shell
+# 通过 yarn 安装
 yarn add vant
-```
-
-#### CDN
-
-```html
-<!-- 引入样式 -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vant@1.6/lib/index.css">
-
-<!-- 引入组件 -->
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vant@1.6/lib/vant.min.js"></script>
 ```
 
 ## 快速上手
 
-#### 方式一. 使用  [babel-plugin-import](https://github.com/ant-design/babel-plugin-import) (推荐)
-
-`babel-plugin-import` 是一款 babel 插件，它会在编译过程中将 import 的写法自动转换为按需引入的方式
-
-```bash
-# 安装 babel-plugin-import 插件
-npm i babel-plugin-import -D
-```
-
-```js
-// 在 .babelrc 或 babel-loader 中添加插件配置
-// 注意：webpack 1 无需设置 libraryDirectory。
-{
-  "plugins": [
-    ["import", {
-      "libraryName": "vant",
-      "libraryDirectory": "es",
-      "style": true
-    }]
-  ]
-}
-```
-
-接着你可以在代码中直接引入 Vant 组件，插件会自动将代码转化为方式二中的按需引入形式。
-
-```js
-import { Button } from 'vant';
-```
-
-> 如果你在使用 TypeScript，可以使用 [ts-import-plugin](https://github.com/Brooooooklyn/ts-import-plugin) 实现按需引入
-
-#### 方式二. 按需引入组件
-
-在不使用插件的情况下，可以手动引入需要的组件
-
-```js
-import Button from 'vant/lib/button';
-import 'vant/lib/button/style';
-```
-
-#### 方式三. 导入所有组件
-
 ```js
 import Vue from 'vue';
-import Vant from 'vant';
+import { Button } from 'vant';
 import 'vant/lib/index.css';
 
-Vue.use(Vant);
+Vue.use(Button);
 ```
 
-> 注意：配置 babel-plugin-import 插件后将不允许导入所有组件
-
-更多内容请参考 [快速上手](https://youzan.github.io/vant#/zh-CN/quickstart).
+vant 也支持按需引入、CDN 引入等方式，详细说明见 [快速上手](https://youzan.github.io/vant#/zh-CN/quickstart).
 
 ## 贡献代码
 
-修改代码请阅读我们的 [开发指南](https://www.youzanyun.com/zanui/vant#/zh-CN/contribution)。
+修改代码请阅读我们的 [开发指南](https://youzan.github.io/vant/#/zh-CN/contribution)。
 
 使用过程中发现任何问题都可以提 [Issue](https://github.com/youzan/vant/issues) 给我们，当然，我们也非常欢迎你给我们发 [PR](https://github.com/youzan/vant/pulls)。
 
@@ -123,13 +66,26 @@ Vue.use(Vant);
 
 现代浏览器以及 Android 4.0+, iOS 6+.
 
+## 加入我们
+
+**有赞前端团队**是由一群年轻、皮实、对技术饱含热情的小伙伴组成的，目前共有 100 多名前端工程师，分布在业务中台、电商、零售、美业、资产、赋能等业务线。
+
+我们热爱分享和开源，崇尚用工程师的方式解决问题，因此造了很多工具来解决我们遇到的问题，目前我们维护的开源产品有：
+
+<img src="https://img.yzcdn.cn/public_files/2019/07/22/f4b70763c55c8710c52c667ecf192c05.jpeg" width="320" height="303">
+
+我们正在寻找更多优秀的小伙伴，一起拓展前端技术的边界，期待你的加入！
+
+- <a target="_blank" href="https://app.mokahr.com/apply/youzan/6252#/job/96f5d2c7-e657-4d31-9244-195edc443a7f?_k=jf2141">职位详情</a>（Base: 杭州/深圳）
+- <a target="_blank" href="https://tech.youzan.com/tag/front-end/">团队博客</a>
+- <a target="_blank" href="https://github.com/youzan">开源项目</a>
+
 ## 链接
 
 * [详细文档](https://youzan.github.io/vant)
 * [更新日志](https://youzan.github.io/vant#/zh-CN/changelog)
-* [Vant Demo: 示例工程](https://github.com/youzan/vant-demo)
-* [Vant Weapp: 小程序 UI](https://github.com/youzan/vant-weapp)
-* [Zent: PC 端 React UI](https://www.youzanyun.com/zanui/zent)
+* [Vant 示例仓库](https://github.com/youzan/vant-demo)
+* [VantWeapp 小程序组件](https://github.com/youzan/vant-weapp)
 
 ## 手机预览
 

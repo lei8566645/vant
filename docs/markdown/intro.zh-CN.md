@@ -1,12 +1,14 @@
-<div class="van-doc-intro">
-  <img class="van-doc-intro__logo" src="//img.yzcdn.cn/public_files/2017/12/18/fd78cf6bb5d12e2a119d0576bedfd230.png">
-  <h2>Vant</h2>
-  <p>轻量、可靠的移动端 Vue 组件库</p>
+<div class="card">
+  <div class="van-doc-intro">
+    <img class="van-doc-intro__logo" style="width: 120px; height: 120px; box-shadow: none;" src="https://img.yzcdn.cn/vant/logo.png">
+    <h2 style="margin: 0; font-size: 36px; line-height: 60px;">Vant</h2>
+    <p>轻量、可靠的移动端 Vue 组件库</p>
+  </div>
 </div>
- 
+
 ### 特性
 
-* 50+ 个组件
+* 60+ 个组件
 * 90% 单元测试覆盖率
 * 完善的中英文文档和示例
 * 支持按需引入
@@ -29,15 +31,27 @@
 
 现代浏览器以及 Android 4.0+, iOS 6+
 
+### 加入我们
+
+**有赞前端团队**是由一群年轻、皮实、对技术饱含热情的小伙伴组成的，目前共有 100 多名前端工程师，分布在业务中台、电商、零售、美业、资产、赋能等业务线。
+
+我们热爱分享和开源，崇尚用工程师的方式解决问题，因此造了很多工具来解决我们遇到的问题，目前我们维护的开源产品有：
+
+<img src="https://img.yzcdn.cn/public_files/2019/07/22/f4b70763c55c8710c52c667ecf192c05.jpeg" style="width: 320px; height: 303px; box-shadow: none;">
+
+我们正在寻找更多优秀的小伙伴，一起拓展前端技术的边界，期待你的加入！
+
+- <a target="_blank" href="https://app.mokahr.com/apply/youzan/6252#/job/96f5d2c7-e657-4d31-9244-195edc443a7f?_k=jf2141">职位详情</a>（Base: 杭州/深圳）
+- <a target="_blank" href="https://tech.youzan.com/tag/front-end/">团队博客</a>
+- <a target="_blank" href="https://github.com/youzan">开源项目</a>
+
+
 ### 链接
 
 * [意见反馈](https://github.com/youzan/vant/issues)
-* [加入我们](https://job.youzan.com)
 * [更新日志](#/zh-CN/changelog)
-* [React 组件库](https://www.youzanyun.com/zanui/zent)
-* [微信小程序组件库](https://github.com/youzan/zanui-weapp)
-* [vant-demo](https://github.com/youzan/vant-demo)
-* [vue-cli-template-vant](https://github.com/youzan/vue-cli-template-vant)
+* [Vant 示例仓库](https://github.com/youzan/vant-demo)
+* [VantWeapp 小程序组件](https://github.com/youzan/vant-weapp)
 
 ### 开源协议
 

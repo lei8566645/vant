@@ -1,39 +1,26 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const { VueLoaderPlugin } = require('vue-loader');
 
 module.exports = {
   mode: 'development',
   entry: {
-    'vant-docs': './docs/src/index.js',
-    'vant-mobile': './docs/src/mobile.js'
+    'vant-docs': './docs/site/desktop/main.js',
+    'vant-mobile': './docs/site/mobile/main.js'
   },
   output: {
     path: path.join(__dirname, '../docs/dist'),
     publicPath: '/',
     chunkFilename: 'async_[name].js'
   },
-  stats: {
-    modules: false,
-    children: false
-  },
-  serve: {
+  devServer: {
     open: true,
+    progress: true,
     host: '0.0.0.0',
-    devMiddleware: {
-      logLevel: 'warn'
-    },
-    hotClient: {
-      logLevel: 'warn',
-      allEntries: true
-    }
+    stats: 'errors-only'
   },
   resolve: {
-    extensions: ['.js', '.ts', '.tsx', '.vue', '.css'],
-    alias: {
-      packages: path.join(__dirname, '../packages')
-    }
+    extensions: ['.js', '.ts', '.tsx', '.vue', '.less']
   },
   module: {
     rules: [
@@ -57,6 +44,7 @@ module.exports = {
       },
       {
         test: /\.less$/,
+        sideEffects: true,
         use: [
           'style-loader',
           'css-loader',
@@ -71,29 +59,21 @@ module.exports = {
       },
       {
         test: /\.md$/,
-        use: [
-          'vue-loader',
-          '@vant/markdown-loader'
-        ]
-      },
-      {
-        test: /\.(ttf|svg)$/,
-        loader: 'url-loader'
+        use: ['vue-loader', '@vant/markdown-loader']
       }
     ]
   },
   plugins: [
     new VueLoaderPlugin(),
-    new ProgressBarPlugin(),
     new HtmlWebpackPlugin({
       chunks: ['vant-docs'],
-      template: 'docs/src/index.tpl',
+      template: 'docs/site/desktop/index.html',
       filename: 'index.html',
       inject: true
     }),
     new HtmlWebpackPlugin({
       chunks: ['vant-mobile'],
-      template: 'docs/src/index.tpl',
+      template: 'docs/site/mobile/index.html',
       filename: 'mobile.html',
       inject: true
     })
