@@ -34,7 +34,7 @@ exports[`empty-image prop 1`] = `
 `;
 
 exports[`render coupon cell 1`] = `
-<div class="van-cell van-cell--clickable van-coupon-cell">
+<div role="button" tabindex="0" class="van-cell van-cell--clickable van-coupon-cell">
   <div class="van-cell__title"><span>优惠券</span></div>
   <div class="van-cell__value"><span>使用优惠</span></div><i class="van-icon van-icon-arrow van-cell__right-icon">
     <!----></i>
@@ -42,7 +42,7 @@ exports[`render coupon cell 1`] = `
 `;
 
 exports[`render coupon cell with coupon 1`] = `
-<div class="van-cell van-cell--clickable van-coupon-cell">
+<div role="button" tabindex="0" class="van-cell van-cell--clickable van-coupon-cell">
   <div class="van-cell__title"><span>优惠券</span></div>
   <div class="van-cell__value van-coupon-cell--selected"><span>-¥1.00</span></div><i class="van-icon van-icon-arrow van-cell__right-icon">
     <!----></i>
@@ -91,7 +91,7 @@ exports[`render coupon list 1`] = `
                 <h2 class="van-coupon__name">name</h2>
                 <p>有效期：2017.03.10 - 2017.12.30</p>
                 <div role="checkbox" tabindex="0" aria-checked="true" class="van-checkbox van-coupon__corner">
-                  <div class="van-checkbox__icon van-checkbox__icon--round van-checkbox__icon--checked"><i class="van-icon van-icon-success" style="border-color: #f44; background-color: rgb(255, 68, 68);">
+                  <div class="van-checkbox__icon van-checkbox__icon--round van-checkbox__icon--checked"><i class="van-icon van-icon-success" style="border-color: #ee0a24; background-color: rgb(238, 10, 36);">
                       <!----></i></div>
                 </div>
               </div>

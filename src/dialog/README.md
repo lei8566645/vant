@@ -3,6 +3,7 @@
 ### Install
 
 ```js
+import Vue from 'vue';
 import { Dialog } from 'vant';
 
 Vue.use(Dialog);
@@ -104,55 +105,56 @@ export default {
 
 ### Methods
 
-| Name | Attribute | Return value | Description |
+| Name | Description | Attribute | Return value |
 |------|------|------|------|
-| Dialog | `options` | `Promise` | Show dialog |
-| Dialog.alert | `options` | `Promise` | Show alert dialog |
-| Dialog.confirm | `options` | `Promise` | Show confim dialog |
-| Dialog.setDefaultOptions | `options` | `void` | Set default options of all dialogs |
-| Dialog.resetDefaultOptions | - | `void` | Reset default options of all dialogs |
-| Dialog.close | - | `void` | Close dialog |
+| Dialog | Show dialog | `options` | `Promise` |
+| Dialog.alert | Show alert dialog | `options` | `Promise` |
+| Dialog.confirm | Show confim dialog | `options` | `Promise` |
+| Dialog.setDefaultOptions | Set default options of all dialogs | `options` | `void` |
+| Dialog.resetDefaultOptions | Reset default options of all dialogs | - | `void` |
+| Dialog.close | Close dialog | - | `void` |
 
 ### Options
 
-| Attribute | Description | Type | Default |
-|------|------|------|------|
-| title | Title | `string` | - |
-| message | Message | `string` | - |
-| messageAlign | Message text align，can be set to `left` `right` | `string` | `center` |
-| className | Custom className | `any` | - |
-| showConfirmButton | Whether to show confirm button | `boolean` | `true` |
-| showCancelButton | Whether to show cancel button | `boolean` | `false` |
-| cancelButtonText | Cancel button text | `string` | `Cancel` |
-| cancelButtonColor | Cancel button color | `string` | `#000` |
-| confirmButtonText | Confirm button text | `string` | `Confirm` |
-| confirmButtonColor | Confirm button color | `string` | `#1989fa` |
-| overlay | Whether to show overlay | `boolean` | `true` |
-| closeOnPopstate | Whether to close when popstate | `boolean` | `false` |
-| closeOnClickOverlay | Whether to close when click overlay | `boolean` | `false` |
-| lockScroll | Whether to lock body scroll | `boolean` | `true` |
-| beforeClose | Callback before close,<br>call done() to close dialog,<br>call done(false) to cancel loading | (action: string, done: Function) => void | - |
-| getContainer | Return the mount node for Dialog | `string | () => HTMLElement` | `body` |
+| Attribute | Description | Type | Default | Version |
+|------|------|------|------|------|
+| title | Title | *string* | - | - |
+| message | Message | *string* | - | - |
+| messageAlign | Message text align，can be set to `left` `right` | *string* | `center` | - |
+| className | Custom className | *any* | - | - |
+| showConfirmButton | Whether to show confirm button | *boolean* | `true` | - |
+| showCancelButton | Whether to show cancel button | *boolean* | `false` | - |
+| cancelButtonText | Cancel button text | *string* | `Cancel` | - |
+| cancelButtonColor | Cancel button color | *string* | `#000` | - |
+| confirmButtonText | Confirm button text | *string* | `Confirm` | - |
+| confirmButtonColor | Confirm button color | *string* | `#1989fa` | - |
+| overlay | Whether to show overlay | *boolean* | `true` | - |
+| closeOnPopstate | Whether to close when popstate | *boolean* | `false` | 2.0.5 |
+| closeOnClickOverlay | Whether to close when click overlay | *boolean* | `false` | - |
+| lockScroll | Whether to lock body scroll | *boolean* | `true` | - |
+| beforeClose | Callback before close,<br>call done() to close dialog,<br>call done(false) to cancel loading | (action: string, done: Function) => void | - | - |
+| getContainer | Return the mount node for Dialog | *string \| () => Element* | `body` | - |
 
 ### Props
 
-| Attribute | Description | Type | Default |
-|------|------|------|------|
-| v-model | Whether to show dialog | `boolean` | - |
-| title | Title | `string` | - |
-| message | Message | `string` | - |
-| message-align | Message align，can be set to `left` `right` | `string` | `center` |
-| show-confirm-button | Whether to show confirm button | `boolean` |  `true` |
-| show-cancel-button | Whether to show cancel button | `boolean` |  `false` |
-| cancel-button-text | Cancel button text | `string` | `Cancel` |
-| cancel-button-color | Cancel button color | `string` | `#000` |
-| confirm-button-text | Confirm button text | `string` | `Confirm` |
-| confirm-button-color | Confirm button color | `string` | `#1989fa` |
-| overlay | Whether to show overlay | `boolean` | `true` |
-| close-on-click-overlay | Whether to close when click overlay | `boolean` | `false` |
-| lock-scroll | Whether to lock background scroll | `boolean` | `true` |
-| before-close | Callback before close,<br>call done() to close dialog,<br>call done(false) to cancel loading | (action: string, done: Function) => void | - |
-| get-container | Return the mount node for Dialog | `string | () => HTMLElement` | - |
+| Attribute | Description | Type | Default | Version |
+|------|------|------|------|------|
+| v-model | Whether to show dialog | *boolean* | - | - |
+| title | Title | *string* | - | - |
+| message | Message | *string* | - | - |
+| message-align | Message align，can be set to `left` `right` | *string* | `center` | - |
+| show-confirm-button | Whether to show confirm button | *boolean* |  `true` | - |
+| show-cancel-button | Whether to show cancel button | *boolean* | `false` | - |
+| cancel-button-text | Cancel button text | *string* | `Cancel` | - |
+| cancel-button-color | Cancel button color | *string* | `#000` | - |
+| confirm-button-text | Confirm button text | *string* | `Confirm` | - |
+| confirm-button-color | Confirm button color | *string* | `#1989fa` | - |
+| overlay | Whether to show overlay | *boolean* | `true` | - |
+| close-on-popstate | Whether to close when popstate | *boolean* | `false` | 2.0.5 |
+| close-on-click-overlay | Whether to close when click overlay | *boolean* | `false` | - |
+| lock-scroll | Whether to lock background scroll | *boolean* | `true` | - |
+| before-close | Callback before close,<br>call done() to close dialog,<br>call done(false) to cancel loading | (action: string, done: Function) => void | - | - |
+| get-container | Return the mount node for Dialog | *string \| () => Element* | - | - |
 
 ### Events
 

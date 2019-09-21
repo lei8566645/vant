@@ -10,13 +10,14 @@ import { DefaultSlots, ScopedSlot } from '../utils/types';
 const [createComponent, bem, t] = createNamespace('search');
 
 export type SearchProps = {
-  shape: string;
+  shape: 'sqaure' | 'round';
   value?: string;
   label?: string;
   leftIcon: string;
   rightIcon?: string;
   clearable: boolean;
   background: string;
+  actionText?: string;
   showAction?: boolean;
 };
 
@@ -52,13 +53,17 @@ function Search(
     }
 
     function onCancel() {
+      if (slots.action) {
+        return;
+      }
+
       emit(ctx, 'input', '');
       emit(ctx, 'cancel');
     }
 
     return (
-      <div class={bem('action')}>
-        {slots.action ? slots.action() : <div onClick={onCancel}>{t('cancel')}</div>}
+      <div class={bem('action')} role="button" tabindex="0" onClick={onCancel}>
+        {slots.action ? slots.action() : props.actionText || t('cancel')}
       </div>
     );
   }
@@ -67,9 +72,6 @@ function Search(
     attrs: ctx.data.attrs,
     on: {
       ...ctx.listeners,
-      input(value: string) {
-        emit(ctx, 'input', value);
-      },
       keypress(event: KeyboardEvent) {
         // press enter
         if (event.keyCode === 13) {
@@ -115,6 +117,7 @@ Search.props = {
   value: String,
   label: String,
   rightIcon: String,
+  actionText: String,
   showAction: Boolean,
   shape: {
     type: String,

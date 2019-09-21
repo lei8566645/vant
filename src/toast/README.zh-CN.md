@@ -3,6 +3,7 @@
 ### 引入
 
 ```js
+import Vue from 'vue';
 import { Toast } from 'vant';
 
 Vue.use(Toast);
@@ -98,31 +99,32 @@ toast2.clear();
 
 ### 方法
 
-| 方法名 | 参数 | 返回值 | 介绍 |
+| 方法名 | 说明 | 参数 | 返回值 |
 |------|------|------|------|
-| Toast | `options | message` | toast 实例 | 展示提示 |
-| Toast.loading | `options | message` | toast 实例 | 展示加载提示 |
-| Toast.success | `options | message` | toast 实例 | 展示成功提示 |
-| Toast.fail | `options | message` | toast 实例 | 展示失败提示 |
-| Toast.clear | `clearAll: boolean` | `void` | 关闭提示 |
-| Toast.allowMultiple | - | `void` | 允许同时存在多个 Toast |
-| Toast.setDefaultOptions | `options` | `void` | 修改默认配置，对所有 Toast 生效 |
-| Toast.resetDefaultOptions | - | `void` | 重置默认配置，对所有 Toast 生效 |
+| Toast | 展示提示 | `options | message` | toast 实例 |
+| Toast.loading | 展示加载提示 | `options | message` | toast 实例 |
+| Toast.success | 展示成功提示 | `options | message` | toast 实例 |
+| Toast.fail | 展示失败提示 | `options | message` | toast 实例 |
+| Toast.clear | 关闭提示 | `clearAll: boolean` | `void` |
+| Toast.allowMultiple | 允许同时存在多个 Toast | - | `void` |
+| Toast.setDefaultOptions | 修改默认配置，对所有 Toast 生效 | `options` | `void` |
+| Toast.resetDefaultOptions | 重置默认配置，对所有 Toast 生效 | - | `void` |
 
 ### Options
 
 | 参数 | 说明 | 类型 | 默认值 | 版本 |
 |------|------|------|------|------|
-| type | 提示类型，可选值为 `loading` `success`<br>`fail` `html` | `string` | `text` | - |
-| position | 位置，可选值为 `top` `bottom` | `string` | `middle` | - |
-| message | 文本内容，支持通过`\n`换行 | `string` | `''` | - | - |
-| icon | 自定义图标，支持传入图标名称或图片链接，可选值见 Icon 组件 | `string` | - | 2.0.1 |
-| iconPrefix | 图标类名前缀 | `string` | `van-icon` | 2.0.9 |
-| mask | 是否显示背景遮罩层 | `boolean` | `false` | - |
-| forbidClick | 是否禁止背景点击 | `boolean` | `false` | - |
-| loadingType | 加载图标类型, 可选值为 `spinner` | `string` | `circular` | - |
-| duration | 展示时长(ms)，值为 0 时，toast 不会消失 | `number` | `3000` | - |
-| className | 自定义类名 | `any` | - | 1.6.0 |
-| onOpened | 完全展示后的回调函数 | `Function` | - | 2.0.0 |
-| onClose | 关闭时的回调函数 | `Function` | - | 1.6.10 |
-| getContainer | 指定挂载的节点，可以传入选择器，<br>或一个返回节点的函数 | `string | () => HTMLElement` | `body` | 1.6.3 |
+| type | 提示类型，可选值为 `loading` `success`<br>`fail` `html` | *string* | `text` | - |
+| position | 位置，可选值为 `top` `bottom` | *string* | `middle` | - |
+| message | 文本内容，支持通过`\n`换行 | *string* | `''` | - | - |
+| icon | 自定义图标，支持传入图标名称或图片链接，可选值见 [Icon 组件](/#/zh-CN/icon) | *string* | - | 2.0.1 |
+| iconPrefix | 图标类名前缀 | *string* | `van-icon` | 2.0.9 |
+| mask | 是否显示背景遮罩层 | *boolean* | `false` | - |
+| forbidClick | 是否禁止背景点击 | *boolean* | `false` | - |
+| closeOnClick | 是否在点击后关闭 | *boolean* | `false` | 2.1.5 |
+| loadingType | 加载图标类型, 可选值为 `spinner` | *string* | `circular` | - |
+| duration | 展示时长(ms)，值为 0 时，toast 不会消失 | *number* | `3000` | - |
+| className | 自定义类名 | *any* | - | - |
+| onOpened | 完全展示后的回调函数 | *Function* | - | - |
+| onClose | 关闭时的回调函数 | *Function* | - | - |
+| getContainer | 指定挂载的节点，可以传入选择器，<br>或一个返回节点的函数 | *string \| () => Element* | `body` | - |

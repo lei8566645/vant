@@ -1,8 +1,10 @@
 import { createNamespace, isDef, addUnit } from '../utils';
 import { scrollLeftTo } from './utils';
+import { route } from '../utils/router';
 import { isHidden } from '../utils/dom/style';
 import { ParentMixin } from '../mixins/relation';
 import { BindEventMixin } from '../mixins/bind-event';
+import { BORDER_TOP_BOTTOM } from '../utils/constant';
 import { setRootScrollTop, getElementTop } from '../utils/dom/scroll';
 import Title from './Title';
 import Content from './Content';
@@ -13,7 +15,7 @@ const [createComponent, bem] = createNamespace('tabs');
 export default createComponent({
   mixins: [
     ParentMixin('vanTabs'),
-    BindEventMixin(function (bind) {
+    BindEventMixin(function(bind) {
       bind(window, 'resize', this.setLine, true);
     })
   ],
@@ -99,20 +101,21 @@ export default createComponent({
   },
 
   watch: {
+    color: 'setLine',
+
     active(name) {
       if (name !== this.currentName) {
         this.setCurrentIndexByName(name);
       }
     },
 
-    color() {
-      this.setLine();
-    },
-
     children() {
       this.setCurrentIndexByName(this.currentName || this.active);
-      this.scrollIntoView();
       this.setLine();
+
+      this.$nextTick(() => {
+        this.scrollIntoView(true);
+      });
     },
 
     currentIndex() {
@@ -150,7 +153,12 @@ export default createComponent({
       this.$nextTick(() => {
         const { titles } = this.$refs;
 
-        if (!titles || !titles[this.currentIndex] || this.type !== 'line' || isHidden(this.$el)) {
+        if (
+          !titles ||
+          !titles[this.currentIndex] ||
+          this.type !== 'line' ||
+          isHidden(this.$el)
+        ) {
           return;
         }
 
@@ -270,6 +278,7 @@ export default createComponent({
         swipeThreshold={this.swipeThreshold}
         onClick={() => {
           this.onClick(index);
+          route(item.$router, item);
         }}
       />
     ));
@@ -279,7 +288,7 @@ export default createComponent({
         ref="wrap"
         class={[
           bem('wrap', { scrollable }),
-          { 'van-hairline--top-bottom': type === 'line' && this.border }
+          { [BORDER_TOP_BOTTOM]: type === 'line' && this.border }
         ]}
       >
         <div ref="nav" role="tablist" class={bem('nav', [type])} style={this.navStyle}>

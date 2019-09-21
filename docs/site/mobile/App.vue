@@ -4,8 +4,18 @@
       v-show="title"
       class="van-doc-nav-bar"
       :title="title"
+      :border="false"
       :left-arrow="showNav"
       @click-left="onBack"
+    />
+    <van-notice-bar
+      v-if="weapp"
+      v-show="title"
+      wrapable
+      :text="tips"
+      background="#ecf9ff"
+      color="rgba(52, 73, 94, 0.8)"
+      style="font-size: 12px;"
     />
     <keep-alive>
       <router-view :weapp="weapp" />
@@ -41,6 +51,10 @@ export default {
     }
   },
 
+  beforeCreate() {
+    this.tips = 'Tips: 当前预览的是 Vue 版 Vant 的示例，少部分功能可能与小程序版有出入，请以文档描述和实际效果为准。';
+  },
+
   methods: {
     onBack() {
       history.back();
@@ -53,6 +67,7 @@ export default {
 @import '../../../src/style/var';
 
 body {
+  min-width: 100vw;
   color: @text-color;
   font-family: 'PingFang SC', Helvetica, 'STHeiti STXihei', 'Microsoft YaHei', Tohoma, Arial, sans-serif;
   line-height: 1;

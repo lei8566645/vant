@@ -23,6 +23,7 @@
     display: block;
     box-sizing: border-box;
     width: 100%;
+    min-width: 0; // for flex-shrink in field__button
     margin: 0;
     padding: 0;
     color: @field-input-text-color;
@@ -37,6 +38,7 @@
 
     &:disabled {
       color: @field-input-disabled-text-color;
+      -webkit-text-fill-color: @field-input-disabled-text-color;
       background-color: transparent;
       opacity: 1;
     }
@@ -49,11 +51,16 @@
       text-align: right;
     }
 
-    /* for ios wechat */
+    // for ios wechat
     &[type="date"],
     &[type="time"],
     &[type="datetime-local"] {
       min-height: @cell-line-height;
+    }
+
+    // for safari
+    &[type="search"] {
+      -webkit-appearance: none;
     }
   }
 
@@ -76,26 +83,12 @@
     font-size: @field-clear-icon-size;
   }
 
-  &__left-icon,
-  &__right-icon {
-    position: relative;
-
-    .van-icon {
-      display: block;
-      min-width: 1em;
-      font-size: @field-icon-size;
-      line-height: inherit;
-    }
-
-    // increase clickable area size
-    &::after {
-      position: absolute;
-      top: -5px;
-      right: -5px;
-      bottom: -5px;
-      left: -5px;
-      content: '';
-    }
+  &__left-icon .van-icon,
+  &__right-icon .van-icon {
+    display: block;
+    min-width: 1em;
+    font-size: @field-icon-size;
+    line-height: inherit;
   }
 
   &__left-icon {

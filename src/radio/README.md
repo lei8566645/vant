@@ -3,6 +3,7 @@
 ### Install
 
 ``` javascript
+import Vue from 'vue';
 import { RadioGroup, Radio } from 'vant';
 
 Vue.use(RadioGroup);
@@ -78,13 +79,15 @@ Use icon slot to custom icon
 ```js
 export default {
   data() {
-    radio: '1',
-    icon: {
-      active: 'https://img.yzcdn.cn/vant/user-active.png',
-      inactive: 'https://img.yzcdn.cn/vant/user-inactive.png'
-    }
+    return {
+      radio: '1',
+      icon: {
+        active: 'https://img.yzcdn.cn/vant/user-active.png',
+        inactive: 'https://img.yzcdn.cn/vant/user-inactive.png'
+      }
+    };
   }
-}
+};
 ```
 
 ### Inside a Cell
@@ -106,22 +109,22 @@ export default {
 
 ### Radio Props
 
-| Attribute | Description | Type | Default |
-|------|------|------|------|
-| name | Radio name | `any` | - |
-| shape | Can be set to `square` | `string` | `round` |
-| disabled | Whether to disable radio | `boolean` | `false` |
-| icon-size | Icon size | `string | number` | `20px` |
-| label-disabled | Whether to disable label click | `boolean` | `false` |
-| label-position | Can be set to `left` | `string` | `right` |
-| checked-color | Checked color | `string` | `#1989fa` | - |
+| Attribute | Description | Type | Default | Version |
+|------|------|------|------|------|
+| name | Radio name | *any* | - | - |
+| shape | Can be set to `square` | *string* | `round` | - |
+| disabled | Whether to disable radio | *boolean* | `false` | - |
+| icon-size | Icon size | *string \| number* | `20px` | - |
+| label-disabled | Whether to disable label click | *boolean* | `false` | - |
+| label-position | Can be set to `left` | *string* | `right` | - |
+| checked-color | Checked color | *string* | `#1989fa` | - | - |
 
 ### RadioGroup Props
 
-| Attribute | Description | Type | Default |
-|------|------|------|------|
-| v-model | Name of checked radio | `any` | - |
-| disabled | Diable all radios | `boolean` | `false` |
+| Attribute | Description | Type | Default | Version |
+|------|------|------|------|------|
+| v-model | Name of checked radio | *any* | - | - |
+| disabled | Disable all radios | *boolean* | `false` | - |
 
 ### Radio Events
 

@@ -1,4 +1,5 @@
 import { createNamespace, addUnit } from '../utils';
+import { BORDER } from '../utils/constant';
 import { ChildrenMixin } from '../mixins/relation';
 import { route, routeProps } from '../utils/router';
 import Icon from '../icon';
@@ -10,8 +11,10 @@ export default createComponent({
 
   props: {
     ...routeProps,
+    dot: Boolean,
+    text: String,
     icon: String,
-    text: String
+    info: [Number, String]
   },
 
   computed: {
@@ -66,7 +69,10 @@ export default createComponent({
       }
 
       return [
-        this.slots('icon') || (this.icon && <Icon name={this.icon} class={bem('icon')} />),
+        this.slots('icon') ||
+          (this.icon && (
+            <Icon name={this.icon} dot={this.dot} info={this.info} class={bem('icon')} />
+          )),
         this.slots('text') || (this.text && <span class={bem('text')}>{this.text}</span>)
       ];
     }
@@ -76,9 +82,11 @@ export default createComponent({
     const { center, border, square, gutter, clickable } = this.parent;
 
     return (
-      <div class={[bem({ square })]} style={this.style} onClick={this.onClick}>
+      <div class={[bem({ square })]} style={this.style}>
         <div
           style={this.contentStyle}
+          role={clickable ? 'button' : null}
+          tabindex={clickable ? 0 : null}
           class={[
             bem('content', {
               center,
@@ -86,8 +94,9 @@ export default createComponent({
               clickable,
               surround: border && gutter
             }),
-            { 'van-hairline': border }
+            { [BORDER]: border }
           ]}
+          onClick={this.onClick}
         >
           {this.renderContent()}
         </div>

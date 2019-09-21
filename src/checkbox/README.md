@@ -1,7 +1,9 @@
 # Checkbox
 
 ### Install
+
 ``` javascript
+import Vue from 'vue';
 import { Checkbox, CheckboxGroup } from 'vant';
 
 Vue.use(Checkbox).use(CheckboxGroup);
@@ -55,13 +57,15 @@ Use icon slot to custom icon
 ```js
 export default {
   data() {
-    checked: true,
-    icon: {
-      active: 'https://img.yzcdn.cn/vant/user-active.png',
-      inactive: 'https://img.yzcdn.cn/vant/user-inactive.png'
-    }
+    return {
+      checked: true,
+      icon: {
+        active: 'https://img.yzcdn.cn/vant/user-active.png',
+        inactive: 'https://img.yzcdn.cn/vant/user-inactive.png'
+      }
+    };
   }
-}
+};
 ```
 
 ### Checkbox Group
@@ -141,24 +145,24 @@ export default {
 
 ### Checkbox Props
 
-| Attribute | Description | Type | Default |
-|------|------|------|------|
-| name | Checkbox name | `any` | - |
-| shape | Can be set to `square` | `string` | `round` |
-| v-model | Check status | `boolean` | `false` |
-| disabled | Diable checkbox | `boolean` | `false` |
-| icon-size | Icon size | `string | number` | `20px` |
-| label-disabled | Whether to disable label click | `boolean` | `false` |
-| label-position | Can be set to `left` | `string` | `right` |
-| checked-color | Checked color | `string` | `#1989fa` | - |
+| Attribute | Description | Type | Default | Version |
+|------|------|------|------|------|
+| name | Checkbox name | *any* | - | - |
+| shape | Can be set to `square` | *string* | `round` | - |
+| v-model | Check status | *boolean* | `false` | - |
+| disabled | Disable checkbox | *boolean* | `false` | - |
+| icon-size | Icon size | *string \| number* | `20px` | - |
+| label-disabled | Whether to disable label click | *boolean* | `false` | - |
+| label-position | Can be set to `left` | *string* | `right` | - |
+| checked-color | Checked color | *string* | `#1989fa` | - | - |
 
 ### CheckboxGroup Props
 
-| Attribute | Description | Type | Default |
-|------|------|------|------|
-| v-model | Names of all checked checkboxes | `any[]` | - |
-| disabled | Disable all checkboxes | `boolean` | `false` |
-| max | Maximum amount of checked options | `number` | `0`(Unlimited) |
+| Attribute | Description | Type | Default | Version |
+|------|------|------|------|------|
+| v-model | Names of all checked checkboxes | *any[]* | - | - |
+| disabled | Disable all checkboxes | *boolean* | `false` | - |
+| max | Maximum amount of checked options | *number* | `0`(Unlimited) | - |
 
 ### Checkbox Events
 
@@ -184,6 +188,6 @@ export default {
 
 Use ref to get checkbox instance and call instance methods
 
-| Name | Attribute | Return value | Description |
+| Name | Description | Attribute | Return value |
 |------|------|------|------|
-| toggle | - | - | Toggle check status |
+| toggle | Toggle check status | - | - |

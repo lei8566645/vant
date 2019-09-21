@@ -1,5 +1,6 @@
 import { createNamespace } from '../utils';
 import { inherit } from '../utils/functional';
+import { BORDER_SURROUND } from '../utils/constant';
 
 // Types
 import { CreateElement, RenderContext } from 'vue/types';
@@ -10,8 +11,8 @@ export type TagType = 'default' | 'primary' | 'success' | 'danger';
 export type TagSize = 'large' | 'medium';
 
 export type TagProps = {
+  type: TagType;
   size?: TagSize;
-  type?: TagType;
   mark?: boolean;
   color?: string;
   plain?: boolean;
@@ -46,9 +47,7 @@ function Tag(
       style={style}
       class={[
         bem([classes, type]),
-        {
-          'van-hairline--surround': plain
-        }
+        { [BORDER_SURROUND]: plain }
       ]}
       {...inherit(ctx, true)}
     >

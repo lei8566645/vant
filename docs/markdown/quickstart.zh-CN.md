@@ -19,16 +19,6 @@ vue ui
 
 在图形化界面中，点击`依赖` -> `安装依赖`，然后将 `vant` 添加到依赖中即可。
 
-### 示例工程
-
-我们提供了一个基于 Vue Cli 3 的示例工程，仓库地址为 [Vant Demo](https://github.com/youzan/vant-demo)，示例工程会帮助你了解如下内容：
-
-- 基于 vant 搭建单页面应用，配置按需引入
-- 配置 rem 适配方案
-- 配置 viewport 适配方案
-- 配置 TypeScript 工程
-- 配置自定义主题色方案
-
 ### 安装
 
 ```bash
@@ -104,27 +94,29 @@ import 'vant/lib/index.css';
 Vue.use(Vant);
 ```
 
-> 注意：配置 babel-plugin-import 插件后将不允许导入所有组件
+> 注意：配置 babel-plugin-import 插件后，将不允许以这种方式导入组件
 
 ### 方式四. 通过 CDN 引入
 
-```html
-<!-- 引入样式 -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vant@2.0/lib/index.css">
+使用 Vant 最简单的方法是直接在 html 文件中引入 CDN 链接，之后你可以通过全局变量`vant`访问到所有组件。
 
-<!-- 引入组件 -->
+```html
+<!-- 引入样式文件 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vant@2.2/lib/index.css">
+
+<!-- 引入 Vue 和 Vant 的 JS 文件 -->
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vant@2.0/lib/vant.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vant@2.2/lib/vant.min.js"></script>
 
 <script>
-var Vue = window.Vue;
-var vant = window.vant;
+  // 在 #app 标签下渲染一个按钮组件
+  new Vue({
+    el: '#app',
+    template: `<van-button>按钮</van-button>`
+  });
 
-// 注册组件
-Vue.use(vant);
-
-// 调用函数式组件
-vant.Toast('提示');
+  // 调用函数组件，弹出一个 Toast
+  vant.Toast('提示');
 </script>
 ```
 
@@ -132,10 +124,12 @@ vant.Toast('提示');
 
 ### Rem 适配
 
-Vant 中的样式默认使用`px`作为单位，如果需要使用`rem`单位，推荐使用以下两个工具
+Vant 中的样式默认使用`px`作为单位，如果需要使用`rem`单位，推荐使用以下两个工具：
 
 - [postcss-pxtorem](https://github.com/cuth/postcss-pxtorem) 是一款 postcss 插件，用于将单位转化为 rem
 - [lib-flexible](https://github.com/amfe/lib-flexible) 用于设置 rem 基准值
+
+#### PostCSS 配置
 
 下面提供了一份基本的 postcss 配置，可以在此配置的基础上根据项目需求进行修改
 
@@ -153,11 +147,25 @@ module.exports = {
 }
 ```
 
-> 注意：在配置 postcss-loader 时，应避免 ignore node_modules 目录，这会导致 Vant 的样式无法被编译
+> 注意：在配置 postcss-loader 时，应避免 ignore node_modules 目录，这会导致 Vant 的样式无法被编译
+
+### 底部安全区适配
+
+iPhone X 等机型底部存在底部指示条，指示条的操作区域与页面底部存在重合，容易导致用户误操作，因此我们需要针对这些机型进行底部安全区适配。Vant 中部分组件提供了`safe-area-inset-bottom`属性，设置该属性后，即可在对应的机型上开启适配，如下示例：
+
+```html
+<!-- 在 head 标签中添加 meta 标签，并设置 viewport-fit=cover 值 -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+
+<!-- 开启 safe-area-inset-bottom 属性 -->
+<van-number-keyboard safe-area-inset-bottom />
+```
+
+<img src="https://b.yzcdn.cn/vant/safearea.png" style="margin-top: 30px;">
 
 ### 在桌面端使用
 
-Vant 组件默认只适配了移动端设备，如果你需要在桌面端使用 vant，可以引入我们提供的 [@vant/touch-emulator](https://github.com/chenjiahan/vant-touch-emulator).
+Vant 组件默认只适配了移动端设备，如果你需要在桌面端使用 vant，可以引入我们提供的 [@vant/touch-emulator](https://github.com/youzan/vant/tree/dev/packages/vant-touch-emulator).
 
 ```bash
 # 安装模块

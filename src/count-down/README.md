@@ -3,6 +3,7 @@
 ### Install
 
 ``` javascript
+import Vue from 'vue';
 import { CountDown } from 'vant';
 
 Vue.use(CountDown);
@@ -110,12 +111,12 @@ export default {
 
 ### Props
 
-| Attribute | Description | Type | Default |
+| Attribute | Description | Type | Default | Version |
 |------|------|------|------|------|
-| time | Total time | `number` | - |
-| format | Time format，DD-day，HH-hour，mm-minute，ss-second，SSS-millisecond | `string` | `HH:mm:ss` |
-| auto-start | Whether to auto start count down | `boolean` | `true` |
-| millisecond | Whether to enable millisecond render | `boolean` | `false` |
+| time | Total time | *number* | - | - |
+| format | Time format，DD-day，HH-hour，mm-minute，ss-second，SSS-millisecond | *string* | `HH:mm:ss` | - |
+| auto-start | Whether to auto start count down | *boolean* | `true` | - |
+| millisecond | Whether to enable millisecond render | *boolean* | `false` | - |
 
 ### Events
 
@@ -133,18 +134,18 @@ export default {
 
 | Name | Description | Type |
 |------|------|------|
-| days | Remain days | `number` |
-| hours | Remain hours | `number` |
-| minutes | Remain minutes | `number` |
-| seconds | Remain seconds | `number` |
-| milliseconds | Remain milliseconds | `number` |
+| days | Remain days | *number* |
+| hours | Remain hours | *number* |
+| minutes | Remain minutes | *number* |
+| seconds | Remain seconds | *number* |
+| milliseconds | Remain milliseconds | *number* |
 
 ### Methods
 
 Use ref to get CountDown instance and call instance methods
 
-| Name | Attribute | Return value | Description |
+| Name | Description | Attribute | Return value |
 |------|------|------|------|
-| start | - | - | Start count down |
-| pause | - | - | Pause count down |
-| reset | - | - | Reset count down |
+| start | Start count down | - | - |
+| pause | Pause count down | - | - |
+| reset | Reset count down | - | - |

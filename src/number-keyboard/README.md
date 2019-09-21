@@ -1,7 +1,9 @@
 # NumberKeyboard
 
 ### Install
+
 ``` javascript
+import Vue from 'vue';
 import { NumberKeyboard } from 'vant';
 
 Vue.use(NumberKeyboard);
@@ -92,21 +94,21 @@ export default {
 
 ### Props
 
-| Attribute | Description | Type | Default |
-|------|------|------|------|
-| v-model | Current value | `string` | - |
-| show | Whether to show keyboard | `boolean` | - |
-| theme | Keyboard theme，can be set to `default` `custom` | `string` | `default` |
-| title | Keyboard title | `string` | - |
-| maxlength | Value maxlength | `number | string` | - |
-| transition | Whether to show transition animation | `boolean` | `true` |
-| z-index | Keyboard z-index | `number` | `100` |
-| extra-key | Content of bottom left key | `string` | `''` |
-| close-button-text | Close button text | `string` | `-` |
-| delete-button-text | Delete button text | `string` | `delete` |
-| show-delete-key | Whether to show delete button | `boolean` | `true` |
-| hide-on-click-outside | Whether to hide keyboard when click outside | `boolean` | `true` |
-| safe-area-inset-bottom | Whether to enable bottom safe area adaptation, to enable those features use `viewport-fit=cover` in the `viewport` meta tag | `boolean` | `false` |
+| Attribute | Description | Type | Default | Version |
+|------|------|------|------|------|
+| v-model | Current value | *string* | - | 2.0.2 |
+| show | Whether to show keyboard | *boolean* | - | - |
+| theme | Keyboard theme，can be set to `default` `custom` | *string* | `default` | - |
+| title | Keyboard title | *string* | - | - |
+| maxlength | Value maxlength | *string \| number* | - | 2.0.2 |
+| transition | Whether to show transition animation | *boolean* | `true` | - |
+| z-index | Keyboard z-index | *number* | `100` | - |
+| extra-key | Content of bottom left key | *string* | `''` | - |
+| close-button-text | Close button text | *string* | `-` | - |
+| delete-button-text | Delete button text | *string* | `delete` | - |
+| show-delete-key | Whether to show delete button | *boolean* | `true` | - |
+| hide-on-click-outside | Whether to hide keyboard when click outside | *boolean* | `true` | - |
+| safe-area-inset-bottom | Whether to enable bottom safe area adaptation | *boolean* | `false` | - |
 
 ### Events
 
@@ -114,7 +116,7 @@ export default {
 |------|------|------|
 | input | Triggered when keydown | key: Content of the key |
 | delete | Triggered when press delete key | - |
-| blur | Triggered when click close button | - |
+| close | Triggered when click close button | - |
 | blur | Triggered when click close button or blur keyboard | - |
 | show | Triggered when keyboard is fully displayed. | - |
 | hide | Triggered when keyboard is fully hidden. | - |

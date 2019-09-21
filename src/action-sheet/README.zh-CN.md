@@ -1,7 +1,9 @@
 # ActionSheet 上拉菜单
 
 ### 引入
+
 ``` javascript
+import Vue from 'vue';
 import { ActionSheet } from 'vant';
 
 Vue.use(ActionSheet);
@@ -94,24 +96,31 @@ export default {
 </van-action-sheet>
 ```
 
+## 常见问题
+
+### 引入时提示 dependencies not found？
+
+在 1.x 版本中，上拉菜单的组件名为`Actionsheet`，从 2.0 版本开始更名为`ActionSheet`，请注意区分。
+
+
 ## API
 
 ### Props
 
 | 参数 | 说明 | 类型 | 默认值 | 版本 |
 |------|------|------|------|------|
-| actions | 菜单选项 | `Action[]` | `[]` | - |
-| title | 标题 | `string` | - | - |
-| cancel-text | 取消按钮文字 | `string` | - | - |
-| overlay | 是否显示遮罩层 | `boolean` | `true` | - |
-| round | 是否显示圆角 | `boolean` | `false` | 2.0.9 |
-| close-on-click-action | 是否在点击选项后关闭 | `boolean` | `false` | 2.0.0 |
-| close-on-click-overlay | 是否在点击遮罩层后关闭 | `boolean` | `true` | - |
-| lazy-render | 是否在显示弹层时才渲染节点 | `boolean` | `true` | - |
-| lock-scroll | 是否锁定背景滚动 | `boolean` | `true` | 2.0.0 |
-| duration | 动画时长，单位秒 | `number` | `0.3` | 2.0.3 |
-| get-container | 指定挂载的节点，可以传入选择器，<br>或一个返回节点的函数 | `string | () => HTMLElement` | - | - |
-| safe-area-inset-bottom | 是否开启 iPhone X 底部安全区适配，需要在 `viewport` meta 标签中设置 `viewport-fit=cover` | `boolean` | `false` | 1.6.15 |
+| actions | 菜单选项 | *Action[]* | `[]` | - |
+| title | 标题 | *string* | - | - |
+| cancel-text | 取消按钮文字 | *string* | - | - |
+| overlay | 是否显示遮罩层 | *boolean* | `true` | - |
+| round | 是否显示圆角 | *boolean* | `false` | 2.0.9 |
+| close-on-click-action | 是否在点击选项后关闭 | *boolean* | `false` | - |
+| close-on-click-overlay | 是否在点击遮罩层后关闭 | *boolean* | `true` | - |
+| lazy-render | 是否在显示弹层时才渲染节点 | *boolean* | `true` | - |
+| lock-scroll | 是否锁定背景滚动 | *boolean* | `true` | - |
+| duration | 动画时长，单位秒 | *number* | `0.3` | 2.0.3 |
+| get-container | 指定挂载的节点，可以传入选择器，<br>或一个返回节点的函数 | *string \| () => Element* | - | - |
+| safe-area-inset-bottom | 是否开启底部安全区适配，[详细说明](#/zh-CN/quickstart#di-bu-an-quan-qu-gua-pei) | *boolean* | `true` | - |
 
 ### Events
 
@@ -127,13 +136,13 @@ export default {
 
 ### Action 数据结构
 
-`Props`中的`actions`为一个对象数组，数组中的每一个对象配置每一列，每一列有以下`key`：
+`actions`属性为一个对象数组，数组中的每个对象配置一列，对象可以包含以下值：
 
 | 键名 | 说明 | 类型 |
 |------|------|------|
-| name | 标题 | `string` |
-| subname | 二级标题 | `string` |
-| color | 选项文字颜色 | `string` |
-| className | 为对应列添加额外的 class | `any` |
-| loading | 是否为加载状态 | `boolean` |
-| disabled | 是否为禁用状态 | `boolean` |
+| name | 标题 | *string* |
+| subname | 二级标题 | *string* |
+| color | 选项文字颜色 | *string* |
+| className | 为对应列添加额外的 class | *any* |
+| loading | 是否为加载状态 | *boolean* |
+| disabled | 是否为禁用状态 | *boolean* |

@@ -1,4 +1,4 @@
-import { createNamespace, isObj } from '../utils';
+import { createNamespace, isObj, isDef } from '../utils';
 import Icon from '../icon';
 import Info from '../info';
 import { route, routeProps } from '../utils/router';
@@ -27,8 +27,11 @@ export default createComponent({
     routeActive() {
       const { to, $route } = this;
       if (to && $route) {
-        const path = isObj(to) ? to.path : to;
-        return $route.path === path;
+        const config = isObj(to) ? to : { path: to };
+        const pathMatched = config.path === $route.path;
+        const nameMatched = isDef(config.name) && config.name === $route.name;
+
+        return pathMatched || nameMatched;
       }
     }
   },
@@ -48,9 +51,9 @@ export default createComponent({
 
     return (
       <div class={bem({ active })} style={{ color }} onClick={this.onClick}>
-        <div class={bem('icon', { dot: this.dot })}>
+        <div class={bem('icon')}>
           {slots('icon', { active }) || (icon && <Icon name={icon} />)}
-          <Info info={this.info} />
+          <Info dot={this.dot} info={this.info} />
         </div>
         <div class={bem('text')}>{slots('default', { active })}</div>
       </div>

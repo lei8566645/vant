@@ -1,4 +1,4 @@
-import { createNamespace, addUnit } from '../utils';
+import { createNamespace, addUnit, noop } from '../utils';
 import { toArray, readFile, isOversize, isImageFile } from './utils';
 import Icon from '../icon';
 import Image from '../image';
@@ -18,6 +18,7 @@ export default createComponent({
     uploadText: String,
     afterRead: Function,
     beforeRead: Function,
+    beforeDelete: Function,
     previewSize: [Number, String],
     name: {
       type: [Number, String],
@@ -43,6 +44,14 @@ export default createComponent({
       type: Boolean,
       default: true
     },
+    previewFullImage: {
+      type: Boolean,
+      default: true
+    },
+    imageFit: {
+      type: String,
+      default: 'cover'
+    },
     resultType: {
       type: String,
       default: 'dataUrl'
@@ -50,18 +59,19 @@ export default createComponent({
   },
 
   computed: {
-    detail() {
-      return {
-        name: this.name
-      };
-    },
-
     previewSizeWithUnit() {
       return addUnit(this.previewSize);
     }
   },
 
   methods: {
+    getDetail(index = this.fileList.length) {
+      return {
+        name: this.name,
+        index
+      };
+    },
+
     onChange(event) {
       let { files } = event.target;
 
@@ -72,7 +82,7 @@ export default createComponent({
       files = files.length === 1 ? files[0] : [].slice.call(files);
 
       if (this.beforeRead) {
-        const response = this.beforeRead(files, this.detail);
+        const response = this.beforeRead(files, this.getDetail());
 
         if (!response) {
           this.resetInput();
@@ -120,7 +130,7 @@ export default createComponent({
 
     onAfterRead(files, oversize) {
       if (oversize) {
-        this.$emit('oversize', files, this.detail);
+        this.$emit('oversize', files, this.getDetail());
         return;
       }
 
@@ -128,16 +138,37 @@ export default createComponent({
       this.$emit('input', [...this.fileList, ...toArray(files)]);
 
       if (this.afterRead) {
-        this.afterRead(files, this.detail);
+        this.afterRead(files, this.getDetail());
       }
     },
 
     onDelete(file, index) {
+      if (this.beforeDelete) {
+        const response = this.beforeDelete(file, this.getDetail(index));
+
+        if (!response) {
+          return;
+        }
+
+        if (response.then) {
+          response
+            .then(() => {
+              this.deleteFile(file, index);
+            })
+            .catch(noop);
+          return;
+        }
+      }
+
+      this.deleteFile(file, index);
+    },
+
+    deleteFile(file, index) {
       const fileList = this.fileList.slice(0);
       fileList.splice(index, 1);
 
       this.$emit('input', fileList);
-      this.$emit('delete', file);
+      this.$emit('delete', file, this.getDetail(index));
     },
 
     resetInput() {
@@ -148,57 +179,79 @@ export default createComponent({
     },
 
     onPreviewImage(item) {
+      if (!this.previewFullImage) {
+        return;
+      }
+
       const imageFiles = this.fileList
         .filter(item => isImageFile(item))
         .map(item => item.content || item.url);
 
       ImagePreview({
         images: imageFiles,
-        startPosition: imageFiles.indexOf(item.content || item.url)
+        closeOnPopstate: true,
+        startPosition: imageFiles.indexOf(item.content || item.url),
+        onClose: () => {
+          this.$emit('close-preview');
+        }
       });
     },
 
-    renderPreview() {
-      if (!this.previewImage) {
-        return;
-      }
+    renderPreviewItem(item, index) {
+      const DeleteIcon = (
+        <Icon
+          name="delete"
+          class={bem('preview-delete')}
+          onClick={event => {
+            event.stopPropagation();
+            this.onDelete(item, index);
+          }}
+        />
+      );
 
-      return this.fileList.map((item, index) => (
-        <div class={bem('preview')}>
-          {isImageFile(item) ? (
-            <Image
-              fit="cover"
-              src={item.content || item.url}
-              class={bem('preview-image')}
-              width={this.previewSize}
-              height={this.previewSize}
-              onClick={() => {
-                this.onPreviewImage(item);
-              }}
-            />
-          ) : (
-            <div
-              class={bem('file')}
-              style={{
-                width: this.previewSizeWithUnit,
-                height: this.previewSizeWithUnit
-              }}
-            >
-              <Icon class={bem('file-icon')} name="description" />
-              <div class={[bem('file-name'), 'van-ellipsis']}>
-                {item.file ? item.file.name : item.url}
-              </div>
-            </div>
-          )}
-          <Icon
-            name="delete"
-            class={bem('preview-delete')}
-            onClick={() => {
-              this.onDelete(item, index);
-            }}
-          />
+      const Preview = isImageFile(item) ? (
+        <Image
+          fit={this.imageFit}
+          src={item.content || item.url}
+          class={bem('preview-image')}
+          width={this.previewSize}
+          height={this.previewSize}
+          onClick={() => {
+            this.onPreviewImage(item);
+          }}
+        />
+      ) : (
+        <div
+          class={bem('file')}
+          style={{
+            width: this.previewSizeWithUnit,
+            height: this.previewSizeWithUnit
+          }}
+        >
+          <Icon class={bem('file-icon')} name="description" />
+          <div class={[bem('file-name'), 'van-ellipsis']}>
+            {item.file ? item.file.name : item.url}
+          </div>
         </div>
-      ));
+      );
+
+      return (
+        <div
+          class={bem('preview')}
+          onClick={() => {
+            this.$emit('click-preview', item, this.getDetail(index));
+          }}
+        >
+          {Preview}
+          {DeleteIcon}
+        </div>
+      );
+    },
+
+    renderPreviewList() {
+      if (this.previewImage) {
+        return this.fileList.map(this.renderPreviewItem);
+      }
     },
 
     renderUpload() {
@@ -252,7 +305,7 @@ export default createComponent({
     return (
       <div class={bem()}>
         <div class={bem('wrapper')}>
-          {this.renderPreview()}
+          {this.renderPreviewList()}
           {this.renderUpload()}
         </div>
       </div>

@@ -15,7 +15,7 @@ export default {
   'zh-CN': {
     header: {
       logo: {
-        image: 'https://img.yzcdn.cn/vant/logo.png',
+        image: 'https://b.yzcdn.cn/vant/logo-white.png',
         title: 'Vant',
         href: '#/'
       },
@@ -28,7 +28,7 @@ export default {
         logoLink: [
           {
             image: 'https://b.yzcdn.cn/vant/logo/weapp.svg',
-            url: 'https://youzan.github.io/vant-weapp'
+            url: '/vant-weapp'
           },
           {
             image: 'https://b.yzcdn.cn/vant/logo/github.svg',
@@ -77,7 +77,7 @@ export default {
               },
               {
                 path: '/demo',
-                title: '示例页面'
+                title: '示例工程'
               },
               {
                 path: '/locale',
@@ -123,7 +123,7 @@ export default {
           },
           {
             groupName: '表单组件',
-            icon: 'https://img.yzcdn.cn/vant/form-0401.svg',
+            icon: 'orders-o',
             list: [
               {
                 path: '/checkbox',
@@ -185,7 +185,7 @@ export default {
           },
           {
             groupName: '反馈组件',
-            icon: 'passed',
+            icon: 'gift-card-o',
             list: [
               {
                 path: '/action-sheet',
@@ -293,7 +293,7 @@ export default {
           },
           {
             groupName: '导航组件',
-            icon: 'https://img.yzcdn.cn/vant/nav-0401.svg',
+            icon: 'peer-pay',
             list: [
               {
                 path: '/grid',
@@ -331,7 +331,7 @@ export default {
           },
           {
             groupName: '业务组件',
-            icon: 'ellipsis',
+            icon: 'other-pay',
             list: [
               {
                 path: '/address-edit',
@@ -378,8 +378,7 @@ export default {
   'en-US': {
     header: {
       logo: {
-        image:
-          'https://img.yzcdn.cn/vant/logo.png',
+        image: 'https://b.yzcdn.cn/vant/logo-white.png',
         title: 'Vant',
         href: '#/'
       },
@@ -422,10 +421,6 @@ export default {
               {
                 path: '/theme',
                 title: 'Custom Theme'
-              },
-              {
-                path: '/demo',
-                title: 'Demo pages'
               },
               {
                 path: '/locale',
@@ -471,7 +466,7 @@ export default {
           },
           {
             groupName: 'Form Components',
-            icon: 'https://img.yzcdn.cn/vant/form-0401.svg',
+            icon: 'orders-o',
             list: [
               {
                 path: '/checkbox',
@@ -533,7 +528,7 @@ export default {
           },
           {
             groupName: 'Action Components',
-            icon: 'passed',
+            icon: 'gift-card-o',
             list: [
               {
                 path: '/action-sheet',
@@ -641,7 +636,7 @@ export default {
           },
           {
             groupName: 'Navigation Components',
-            icon: 'https://img.yzcdn.cn/vant/nav-0401.svg',
+            icon: 'peer-pay',
             list: [
               {
                 path: '/grid',
@@ -679,7 +674,7 @@ export default {
           },
           {
             groupName: 'Business Components',
-            icon: 'ellipsis',
+            icon: 'other-pay',
             list: [
               {
                 path: '/address-edit',

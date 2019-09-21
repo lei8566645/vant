@@ -7,6 +7,7 @@ The Picker component is usually used with [Popup](#/en-US/popup) Component.
 ### Install
 
 ``` javascript
+import Vue from 'vue';
 import { Picker } from 'vant';
 
 Vue.use(Picker);
@@ -183,19 +184,20 @@ When Picker columns data is acquired asynchronously, use `loading` prop to show 
 
 ### Props
 
-| Attribute | Description | Type | Default |
-|------|------|------|------|
-| columns | Columns data | `Column[]` | `[]` |
-| show-toolbar | Whether to show toolbar | `boolean` | `false` |
-| toolbar-position | Toolbar position, cat be set to `bottom` | `string` | `top` |
-| title | Toolbar title | `string` | `''` |
-| loading | Whether to show loading prompt | `boolean` | `false` |
-| value-key | Key of option text | `string` | `text` |
-| item-height | Option height | `number` | `44` |
-| confirm-button-text | Text of confirm button | `string` | `Confirm` |
-| cancel-button-text | Text of cancel button | `string` | `Cancel` |
-| visible-item-count | Count of visible columns | `number` | `5` |
-| default-index | Default value index of single column picker | `number` | `0` |
+| Attribute | Description | Type | Default | Version |
+|------|------|------|------|------|
+| columns | Columns data | *Column[]* | `[]` | - |
+| show-toolbar | Whether to show toolbar | *boolean* | `false` | - |
+| toolbar-position | Toolbar position, cat be set to `bottom` | *string* | `top` | - |
+| title | Toolbar title | *string* | `''` | - |
+| loading | Whether to show loading prompt | *boolean* | `false` | - |
+| value-key | Key of option text | *string* | `text` | - |
+| item-height | Option height | *number* | `44` | - |
+| confirm-button-text | Text of confirm button | *string* | `Confirm` | - |
+| cancel-button-text | Text of cancel button | *string* | `Cancel` | - |
+| visible-item-count | Count of visible columns | *number* | `5` | - |
+| allow-html | Whether to allow HTML in option text | *boolean* | `true` | 2.1.8 |
+| default-index | Default value index of single column picker | *number* | `0` | - |
 
 ### Events
 
@@ -217,23 +219,23 @@ Picker events will pass different parameters according to the columns are single
 
 | Key | Description | Type |
 |------|------|------|
-| values | Value of column | `string[]` |
-| defaultIndex | Default value index | `number` |
-| className | ClassName for this column | `any` |
+| values | Value of column | *string[]* |
+| defaultIndex | Default value index | *number* |
+| className | ClassName for this column | *any* |
 
 ### Methods
 
 Use ref to get picker instance and call instance methods
 
-| Name | Attribute | Return value | Description |
+| Name | Description | Attribute | Return value |
 |------|------|------|------|
-| getValues | - | values | Get current values of all columns |
-| setValues | values | - |  Set current values of all columns |
-| getIndexes | - | indexes | Get current indexes of all columns |
-| setIndexes | indexes | - | Set current indexes of all columns |
-| getColumnValue | columnIndex | value | Get current value of the column |
-| setColumnValue | columnIndex, value | - | Set current value of the column |
-| getColumnIndex | columnIndex | optionIndex | Get current index of the column |
-| setColumnIndex | columnIndex, optionIndex | - | Set current index of the column |
-| getColumnValues | columnIndex | values | Get columns data of the column |
-| setColumnValues | columnIndex, values | - | Set columns data of the column |
+| getValues | Get current values of all columns | - | values |
+| setValues | Set current values of all columns | values | - |
+| getIndexes | Get current indexes of all columns | - | indexes |
+| setIndexes | Set current indexes of all columns | indexes | - |
+| getColumnValue | Get current value of the column | columnIndex | value |
+| setColumnValue | Set current value of the column | columnIndex, value | - |
+| getColumnIndex | Get current index of the column | columnIndex | optionIndex |
+| setColumnIndex | Set current index of the column | columnIndex, optionIndex | - |
+| getColumnValues | Get columns data of the column | columnIndex | values |
+| setColumnValues | Set columns data of the column | columnIndex, values | - |

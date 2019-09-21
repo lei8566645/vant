@@ -13,7 +13,8 @@ import { createNamespace, isDef } from '../utils';
 import { isAllSelected, isSkuChoosable, getSkuComb, getSelectedSkuValues } from './utils/skuHelper';
 import { LIMIT_TYPE, UNSELECTED_SKU_VALUE_ID } from './constants';
 
-const [createComponent] = createNamespace('sku');
+const namespace = createNamespace('sku');
+const [createComponent, bem, t] = namespace;
 const { QUOTA_LIMIT } = LIMIT_TYPE;
 
 export default createComponent({
@@ -34,6 +35,7 @@ export default createComponent({
     customSkuValidator: Function,
     closeOnClickOverlay: Boolean,
     disableStepperInput: Boolean,
+    safeAreaInsetBottom: Boolean,
     resetSelectedSkuOnHide: Boolean,
     quota: {
       type: Number,
@@ -46,6 +48,10 @@ export default createComponent({
     initialSku: {
       type: Object,
       default: () => ({})
+    },
+    stockThreshold: {
+      type: Number,
+      default: 50,
     },
     showSoldoutSku: {
       type: Boolean,
@@ -105,9 +111,12 @@ export default createComponent({
       this.show = val;
     },
 
-    skuTree(val) {
-      this.resetSelectedSku(val);
-    }
+    skuTree: 'resetSelectedSku',
+
+    initialSku() {
+      this.resetStepper();
+      this.resetSelectedSku(this.skuTree);
+    },
   },
 
   computed: {
@@ -186,17 +195,17 @@ export default createComponent({
       const imageList = [this.goods.picture];
 
       if (this.skuTree.length > 0) {
-        const treeItem = this.skuTree.filter(item => item.k_s === 's1')[0] || {};
-
-        if (!treeItem.v) {
-          return imageList;
-        }
-
-        treeItem.v.forEach(vItem => {
-          const img = vItem.imgUrl || vItem.img_url;
-          if (img) {
-            imageList.push(img);
+        this.skuTree.forEach(treeItem => {
+          if (!treeItem.v) {
+            return;
           }
+
+          treeItem.v.forEach(vItem => {
+            const img = vItem.imgUrl || vItem.img_url;
+            if (img) {
+              imageList.push(img);
+            }
+          });
         });
       }
 
@@ -218,7 +227,13 @@ export default createComponent({
       const { stockFormatter } = this.customStepperConfig;
       if (stockFormatter) return stockFormatter(this.stock);
 
-      return `剩余 ${this.stock}件`;
+      return [
+        `${t('stock')} `,
+        <span class={bem('stock-num', { highlight: this.stock < this.stockThreshold })}>
+          {this.stock}
+        </span>,
+        ` ${t('stockUnit')}`
+      ];
     },
 
     quotaText() {
@@ -231,7 +246,7 @@ export default createComponent({
       if (quotaText) {
         text = quotaText;
       } else if (this.quota > 0) {
-        text = `每人限购${this.quota}件`;
+        text = t('quotaLimit', this.quota);
       }
 
       return text;
@@ -239,7 +254,7 @@ export default createComponent({
 
     selectedText() {
       if (this.selectedSkuComb) {
-        return `已选 ${this.selectedSkuValues.map(item => item.name).join('；')}`;
+        return `${t('selected')} ${this.selectedSkuValues.map(item => item.name).join('；')}`;
       }
 
       const unselected = this.skuTree
@@ -247,7 +262,7 @@ export default createComponent({
         .map(item => item.k)
         .join('；');
 
-      return `选择 ${unselected}`;
+      return `${t('select')} ${unselected}`;
     }
   },
 
@@ -255,7 +270,6 @@ export default createComponent({
     const skuEventBus = new Vue();
     this.skuEventBus = skuEventBus;
 
-    skuEventBus.$on('sku:close', this.onClose);
     skuEventBus.$on('sku:select', this.onSelect);
     skuEventBus.$on('sku:numChange', this.onNumChange);
     skuEventBus.$on('sku:previewImage', this.onPreviewImage);
@@ -318,7 +332,7 @@ export default createComponent({
 
     validateSku() {
       if (this.selectedNum === 0) {
-        return '商品已经无法购买啦';
+        return t('unavailable');
       }
 
       if (this.isSkuCombSelected) {
@@ -331,11 +345,7 @@ export default createComponent({
         if (err) return err;
       }
 
-      return '请先选择商品规格';
-    },
-
-    onClose() {
-      this.show = false;
+      return t('selectSku');
     },
 
     onSelect(skuValue) {
@@ -370,6 +380,7 @@ export default createComponent({
       ImagePreview({
         images: this.imageList,
         startPosition: index,
+        closeOnPopstate: true,
         onClose: () => {
           this.$emit('close-preview', params);
         }
@@ -386,14 +397,14 @@ export default createComponent({
       }
 
       if (action === 'minus') {
-        Toast('至少选择一件');
+        Toast(t('minusTip'));
       } else if (action === 'plus') {
         if (limitType === QUOTA_LIMIT) {
-          let msg = `限购${quota}件`;
-          if (quotaUsed > 0) msg += `，${`你已购买${quotaUsed}件`}`;
+          let msg = t('quotaLimit', quota);
+          if (quotaUsed > 0) msg += `，${t('quotaCount', quotaUsed)}`;
           Toast(msg);
         } else {
-          Toast('库存不足');
+          Toast(t('soldout'));
         }
       }
     },
@@ -465,7 +476,7 @@ export default createComponent({
         )}
         {slots('sku-header-origin-price') || (
           originPrice && (
-            <SkuHeaderItem>原价 ￥{originPrice}</SkuHeaderItem>
+            <SkuHeaderItem>{t('originPrice')} ￥{originPrice}</SkuHeaderItem>
           )
         )}
         {!this.hideStock && (
@@ -541,11 +552,13 @@ export default createComponent({
     return (
       <Popup
         vModel={this.show}
+        round
+        closeable
         position="bottom"
         class="van-sku-container"
         getContainer={this.getContainer}
         closeOnClickOverlay={this.closeOnClickOverlay}
-        round
+        safeAreaInsetBottom={this.safeAreaInsetBottom}
       >
         {Header}
         <div class="van-sku-body" style={this.bodyStyle}>
