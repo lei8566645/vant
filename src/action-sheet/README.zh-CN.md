@@ -74,7 +74,7 @@ export default {
 
 ### 展示取消按钮
 
-设置`cancelText`属性后，会在底部展示取消按钮，点击后关闭当前菜单
+设置`cancel-text`属性后，会在底部展示取消按钮，点击后关闭当前菜单
 
 ```html
 <van-action-sheet
@@ -113,7 +113,7 @@ export default {
 | title | 标题 | *string* | - | - |
 | cancel-text | 取消按钮文字 | *string* | - | - |
 | overlay | 是否显示遮罩层 | *boolean* | `true` | - |
-| round | 是否显示圆角 | *boolean* | `false` | 2.0.9 |
+| round | 是否显示圆角 | *boolean* | `true` | 2.0.9 |
 | close-on-click-action | 是否在点击选项后关闭 | *boolean* | `false` | - |
 | close-on-click-overlay | 是否在点击遮罩层后关闭 | *boolean* | `true` | - |
 | lazy-render | 是否在显示弹层时才渲染节点 | *boolean* | `true` | - |
