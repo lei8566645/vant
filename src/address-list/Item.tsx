@@ -3,6 +3,7 @@ import { emit, inherit } from '../utils/functional';
 import Icon from '../icon';
 import Cell from '../cell';
 import Radio from '../radio';
+import Tag from '../tag';
 
 // Types
 import { CreateElement, RenderContext } from 'vue/types';
@@ -13,12 +14,14 @@ export type AddressItemData = {
   tel: string | number;
   name: string;
   address: string;
+  isDefault: boolean;
 };
 
 export type AddressItemProps = {
   data: AddressItemData;
   disabled?: boolean;
   switchable?: boolean;
+  defaultTagText?: string;
 };
 
 export type AddressItemEvents = {
@@ -45,7 +48,7 @@ function AddressItem(
     emit(ctx, 'click');
   }
 
-  const renderRightIcon = () => (
+  const genRightIcon = () => (
     <Icon
       name="edit"
       class={bem('edit')}
@@ -57,30 +60,46 @@ function AddressItem(
     />
   );
 
-  const renderContent = () => {
+  function genTag() {
+    if (props.data.isDefault && props.defaultTagText) {
+      return (
+        <Tag type="danger" round class={bem('tag')}>
+          {props.defaultTagText}
+        </Tag>
+      );
+    }
+  }
+
+  function genContent() {
     const { data } = props;
     const Info = [
-      <div class={bem('name')}>{`${data.name}，${data.tel}`}</div>,
+      <div class={bem('name')}>
+        {`${data.name} ${data.tel}`}
+        {genTag()}
+      </div>,
       <div class={bem('address')}>{data.address}</div>
     ];
 
-    return switchable && !disabled ? (
-      <Radio name={data.id} iconSize={16}>
-        {Info}
-      </Radio>
-    ) : (
-      Info
-    );
-  };
+    if (switchable && !disabled) {
+      return (
+        <Radio name={data.id} iconSize={16}>
+          {Info}
+        </Radio>
+      );
+    }
+
+    return Info;
+  }
 
   return (
     <Cell
       class={bem({ disabled })}
       valueClass={bem('value')}
+      border={false}
       clickable={switchable && !disabled}
       scopedSlots={{
-        default: renderContent,
-        'right-icon': renderRightIcon
+        default: genContent,
+        'right-icon': genRightIcon
       }}
       onClick={onClick}
       {...inherit(ctx)}
@@ -91,7 +110,10 @@ function AddressItem(
 AddressItem.props = {
   data: Object,
   disabled: Boolean,
-  switchable: Boolean
+  switchable: Boolean,
+  defaultTagText: String
 };
 
-export default createComponent<AddressItemProps, AddressItemEvents>(AddressItem);
+export default createComponent<AddressItemProps, AddressItemEvents>(
+  AddressItem
+);

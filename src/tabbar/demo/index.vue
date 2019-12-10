@@ -11,54 +11,19 @@
 
     <demo-block :title="$t('matchByName')">
       <van-tabbar v-model="activeName">
-        <van-tabbar-item
-          name="home"
-          icon="home-o"
-        >
-          {{ $t('tab') }}
-        </van-tabbar-item>
-        <van-tabbar-item
-          name="search"
-          icon="search"
-        >
-          {{ $t('tab') }}
-        </van-tabbar-item>
-        <van-tabbar-item
-          name="friends"
-          icon="friends-o"
-        >
-          {{ $t('tab') }}
-        </van-tabbar-item>
-        <van-tabbar-item
-          name="setting"
-          icon="setting-o"
-        >
-          {{ $t('tab') }}
-        </van-tabbar-item>
+        <van-tabbar-item name="home" icon="home-o">{{ $t('tab') }}</van-tabbar-item>
+        <van-tabbar-item name="search" icon="search">{{ $t('tab') }}</van-tabbar-item>
+        <van-tabbar-item name="friends" icon="friends-o">{{ $t('tab') }}</van-tabbar-item>
+        <van-tabbar-item name="setting" icon="setting-o">{{ $t('tab') }}</van-tabbar-item>
       </van-tabbar>
     </demo-block>
 
     <demo-block :title="$t('badge')">
       <van-tabbar v-model="active2">
         <van-tabbar-item icon="home-o">{{ $t('tab') }}</van-tabbar-item>
-        <van-tabbar-item
-          icon="search"
-          dot
-        >
-          {{ $t('tab') }}
-        </van-tabbar-item>
-        <van-tabbar-item
-          icon="friends-o"
-          info="5"
-        >
-          {{ $t('tab') }}
-        </van-tabbar-item>
-        <van-tabbar-item
-          icon="setting-o"
-          info="20"
-        >
-          {{ $t('tab') }}
-        </van-tabbar-item>
+        <van-tabbar-item icon="search" dot>{{ $t('tab') }}</van-tabbar-item>
+        <van-tabbar-item icon="friends-o" info="5">{{ $t('tab') }}</van-tabbar-item>
+        <van-tabbar-item icon="setting-o" info="20">{{ $t('tab') }}</van-tabbar-item>
       </van-tabbar>
     </demo-block>
 
@@ -67,7 +32,7 @@
         <van-tabbar-item info="3">
           <span>{{ $t('custom') }}</span>
           <template #icon="{ active }">
-            <img :src="active ? icon.active : icon.normal">
+            <img :src="active ? icon.active : icon.inactive">
           </template>
         </van-tabbar-item>
         <van-tabbar-item icon="search">{{ $t('tab') }}</van-tabbar-item>
@@ -76,15 +41,20 @@
     </demo-block>
 
     <demo-block :title="$t('customColor')">
-      <van-tabbar
-        v-model="active4"
-        active-color="#07c160"
-        inactive-color="#000"
-      >
+      <van-tabbar v-model="active4" active-color="#07c160" inactive-color="#000">
         <van-tabbar-item icon="home-o">{{ $t('tab') }}</van-tabbar-item>
         <van-tabbar-item icon="search">{{ $t('tab') }}</van-tabbar-item>
         <van-tabbar-item icon="friends-o">{{ $t('tab') }}</van-tabbar-item>
         <van-tabbar-item icon="setting-o">{{ $t('tab') }}</van-tabbar-item>
+      </van-tabbar>
+    </demo-block>
+
+    <demo-block :title="$t('switchEvent')">
+      <van-tabbar v-model="active5" @change="onChange">
+        <van-tabbar-item icon="home-o">{{ $t('tab') + 1 }}</van-tabbar-item>
+        <van-tabbar-item icon="search">{{ $t('tab') + 2 }}</van-tabbar-item>
+        <van-tabbar-item icon="friends-o">{{ $t('tab') + 3 }}</van-tabbar-item>
+        <van-tabbar-item icon="setting-o">{{ $t('tab') + 4 }}</van-tabbar-item>
       </van-tabbar>
     </demo-block>
   </demo-section>
@@ -97,13 +67,17 @@ export default {
       badge: '提示信息',
       customIcon: '自定义图标',
       customColor: '自定义颜色',
-      matchByName: '通过名称匹配'
+      matchByName: '通过名称匹配',
+      switchEvent: '监听切换事件',
+      selectTip: '你切换到了'
     },
     'en-US': {
       badge: 'Show Badge',
       customIcon: 'Custom Icon',
       customColor: 'Custom Color',
-      matchByName: 'Match by name'
+      matchByName: 'Match by name',
+      switchEvent: 'Change Event',
+      selectTip: 'You select '
     }
   },
 
@@ -113,12 +87,22 @@ export default {
       active2: 0,
       active3: 0,
       active4: 0,
+      active5: 0,
       activeName: 'home',
       icon: {
-        normal: 'https://img.yzcdn.cn/public_files/2017/10/13/c547715be149dd3faa817e4a948b40c4.png',
-        active: 'https://img.yzcdn.cn/public_files/2017/10/13/793c77793db8641c4c325b7f25bf130d.png'
+        active: 'https://img.yzcdn.cn/vant/user-active.png',
+        inactive: 'https://img.yzcdn.cn/vant/user-inactive.png'
       }
     };
+  },
+
+  methods: {
+    onChange(index) {
+      this.$notify({
+        type: 'primary',
+        message: `${this.$t('selectTip')} ${this.$t('tab')}${index + 1}`
+      });
+    }
   }
 };
 </script>

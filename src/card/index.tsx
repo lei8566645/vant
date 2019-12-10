@@ -32,6 +32,7 @@ export type CardSlots = DefaultSlots & {
   bottom?: ScopedSlot;
   footer?: ScopedSlot;
   'origin-price'?: ScopedSlot;
+  'price-top'?: ScopedSlot;
 };
 
 export type CardEvents = {
@@ -51,7 +52,7 @@ function Card(
   const showNum = slots.num || isDef(props.num);
   const showPrice = slots.price || isDef(props.price);
   const showOriginPrice = slots['origin-price'] || isDef(props.originPrice);
-  const showBottom = showNum || showPrice || showOriginPrice;
+  const showBottom = showNum || showPrice || showOriginPrice || slots.bottom;
 
   function onThumbClick(event: MouseEvent) {
     emit(ctx, 'click-thumb', event);
@@ -100,7 +101,11 @@ function Card(
     }
 
     if (props.title) {
-      return <div class={bem('title')}>{props.title}</div>;
+      return (
+        <div class={[bem('title'), 'van-multi-ellipsis--l2']}>
+          {props.title}
+        </div>
+      );
     }
   }
 
@@ -114,11 +119,22 @@ function Card(
     }
   }
 
+  function PriceContent() {
+    const priceArr = props.price!.toString().split('.');
+    return (
+      <div>
+        {props.currency}
+        <span class={bem('price-integer')}>{priceArr[0]}</span>.
+        <span class={bem('price-decimal')}>{priceArr[1]}</span>
+      </div>
+    );
+  }
+
   function Price() {
     if (showPrice) {
       return (
         <div class={bem('price')}>
-          {slots.price ? slots.price() : `${props.currency} ${props.price}`}
+          {slots.price ? slots.price() : PriceContent()}
         </div>
       );
     }
@@ -137,7 +153,11 @@ function Card(
 
   function Num() {
     if (showNum) {
-      return <div class={bem('num')}>{slots.num ? slots.num() : `x ${props.num}`}</div>;
+      return (
+        <div class={bem('num')}>
+          {slots.num ? slots.num() : `x${props.num}`}
+        </div>
+      );
     }
   }
 
@@ -152,11 +172,14 @@ function Card(
       <div class={bem('header')}>
         {Thumb()}
         <div class={bem('content', { centered: props.centered })}>
-          {Title()}
-          {Desc()}
-          {slots.tags && slots.tags()}
+          <div>
+            {Title()}
+            {Desc()}
+            {slots.tags && slots.tags()}
+          </div>
           {showBottom && (
             <div class="van-card__bottom">
+              {slots['price-top'] && slots['price-top']()}
               {Price()}
               {OriginPrice()}
               {Num()}

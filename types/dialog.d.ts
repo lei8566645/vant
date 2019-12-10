@@ -3,11 +3,15 @@ type DialogDone = (close?: boolean) => void;
 
 export type DialogOptions = {
   title?: string;
+  width?: string | number;
   message?: string;
   overlay?: boolean;
   className?: any;
   lockScroll?: boolean;
+  transition?: string;
   messageAlign?: string;
+  overlayClass?: string;
+  overlayStyle?: object;
   closeOnPopstate?: boolean;
   cancelButtonText?: string;
   cancelButtonColor?: string;

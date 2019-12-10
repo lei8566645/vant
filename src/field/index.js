@@ -18,12 +18,14 @@ export default createComponent({
     leftIcon: String,
     rightIcon: String,
     clearable: Boolean,
-    labelClass: null,
+    maxlength: [Number, String],
     labelWidth: [Number, String],
+    labelClass: null,
     labelAlign: String,
     inputAlign: String,
     errorMessage: String,
     errorMessageAlign: String,
+    showWordLimit: Boolean,
     type: {
       type: String,
       default: 'text'
@@ -100,9 +102,9 @@ export default createComponent({
       }
 
       let { value } = target;
-      const { maxlength } = this.$attrs;
+      const { maxlength } = this;
 
-      if (this.type === 'number' && isDef(maxlength) && value.length > maxlength) {
+      if (isDef(maxlength) && value.length > maxlength) {
         value = value.slice(0, maxlength);
         target.value = value;
       }
@@ -201,7 +203,7 @@ export default createComponent({
       }
     },
 
-    renderInput() {
+    genInput() {
       const inputSlot = this.slots('input');
 
       if (inputSlot) {
@@ -239,7 +241,7 @@ export default createComponent({
       return <input type={this.type} {...inputProps} />;
     },
 
-    renderLeftIcon() {
+    genLeftIcon() {
       const showLeftIcon = this.slots('left-icon') || this.leftIcon;
       if (showLeftIcon) {
         return (
@@ -250,13 +252,23 @@ export default createComponent({
       }
     },
 
-    renderRightIcon() {
+    genRightIcon() {
       const { slots } = this;
       const showRightIcon = slots('right-icon') || this.rightIcon;
       if (showRightIcon) {
         return (
           <div class={bem('right-icon')} onClick={this.onClickRightIcon}>
             {slots('right-icon') || <Icon name={this.rightIcon} />}
+          </div>
+        );
+      }
+    },
+
+    genWordLimit() {
+      if (this.showWordLimit && this.maxlength) {
+        return (
+          <div class={bem('word-limit')}>
+            {this.value.length}/{this.maxlength}
           </div>
         );
       }
@@ -267,7 +279,7 @@ export default createComponent({
     const { slots, labelAlign } = this;
 
     const scopedSlots = {
-      icon: this.renderLeftIcon
+      icon: this.genLeftIcon
     };
     if (slots('label')) {
       scopedSlots.title = () => slots('label');
@@ -288,7 +300,6 @@ export default createComponent({
         arrowDirection={this.arrowDirection}
         class={bem({
           error: this.error,
-          disabled: this.$attrs.disabled,
           [`label-${labelAlign}`]: labelAlign,
           'min-height': this.type === 'textarea' && !this.autosize
         })}
@@ -296,13 +307,14 @@ export default createComponent({
         onClick={this.onClick}
       >
         <div class={bem('body')}>
-          {this.renderInput()}
+          {this.genInput()}
           {this.showClear && (
             <Icon name="clear" class={bem('clear')} onTouchstart={this.onClear} />
           )}
-          {this.renderRightIcon()}
+          {this.genRightIcon()}
           {slots('button') && <div class={bem('button')}>{slots('button')}</div>}
         </div>
+        {this.genWordLimit()}
         {this.errorMessage && (
           <div class={bem('error-message', this.errorMessageAlign)}>
             {this.errorMessage}

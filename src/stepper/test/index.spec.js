@@ -1,5 +1,5 @@
 import Stepper from '..';
-import { mount, later } from '../../../test/utils';
+import { mount, later } from '../../../test';
 
 test('disabled stepper', () => {
   const wrapper = mount(Stepper, {
@@ -17,6 +17,35 @@ test('disable stepper input', () => {
     }
   });
   expect(wrapper).toMatchSnapshot();
+});
+
+test('disable button', async () => {
+  const wrapper = mount(Stepper, {
+    propsData: {
+      value: 5
+    }
+  });
+
+  const plus = wrapper.find('.van-stepper__plus');
+  const minus = wrapper.find('.van-stepper__minus');
+
+  minus.trigger('click');
+
+  expect(wrapper.emitted('overlimit')).toBeFalsy();
+  expect(wrapper.emitted('minus')).toBeTruthy();
+  expect(wrapper.emitted('change')[0]).toEqual([4, { name: '' }]);
+
+  wrapper.setProps({
+    disablePlus: true,
+    disableMinus: true
+  });
+
+  await later();
+
+  minus.trigger('click');
+  expect(wrapper.emitted('overlimit')[0][0]).toBe('minus');
+  plus.trigger('click');
+  expect(wrapper.emitted('overlimit')[1][0]).toBe('plus');
 });
 
 test('click button', () => {
@@ -212,4 +241,33 @@ test('decimal-length prop', () => {
   const plus = wrapper.find('.van-stepper__plus');
   plus.trigger('click');
   expect(wrapper.emitted('input')[1][0]).toEqual('1.20');
+});
+
+test('should limit decimal-length when input', () => {
+  const wrapper = mount(Stepper, {
+    propsData: {
+      value: 1,
+      step: 0.2,
+      decimalLength: 1
+    }
+  });
+
+  const input = wrapper.find('input');
+  input.element.value = '1.25';
+  input.trigger('input');
+
+  expect(input.element.value).toEqual('1.2');
+});
+
+test('name prop', () => {
+  const wrapper = mount(Stepper);
+
+  const plus = wrapper.find('.van-stepper__plus');
+
+  plus.trigger('click');
+  expect(wrapper.emitted('change')[0][1]).toEqual({ name: '' });
+
+  wrapper.setProps({ name: 'name' });
+  plus.trigger('click');
+  expect(wrapper.emitted('change')[1][1]).toEqual({ name: 'name' });
 });

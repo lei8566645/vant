@@ -26,7 +26,9 @@ export type ActionSheetProps = PopupMixinProps & {
   title?: string;
   actions?: ActionSheetItem[];
   duration: number;
+  closeIcon: string;
   cancelText?: string;
+  description?: string;
   closeOnClickAction?: boolean;
   safeAreaInsetBottom?: boolean;
 };
@@ -51,7 +53,11 @@ function ActionSheet(
       return (
         <div class={[bem('header'), BORDER_BOTTOM]}>
           {title}
-          <Icon name="close" class={bem('close')} onClick={onCancel} />
+          <Icon
+            name={props.closeIcon}
+            class={bem('close')}
+            onClick={onCancel}
+          />
         </div>
       );
     }
@@ -97,6 +103,7 @@ function ActionSheet(
 
     return (
       <button
+        type="button"
         class={[bem('item', { disabled }), item.className, BORDER_TOP]}
         style={{ color: item.color }}
         onClick={onClickOption}
@@ -109,12 +116,16 @@ function ActionSheet(
   function CancelText() {
     if (cancelText) {
       return (
-        <button class={bem('cancel')} onClick={onCancel}>
+        <button type="button" class={bem('cancel')} onClick={onCancel}>
           {cancelText}
         </button>
       );
     }
   }
+
+  const Description = props.description && (
+    <div class={bem('description')}>{props.description}</div>
+  );
 
   return (
     <Popup
@@ -132,6 +143,7 @@ function ActionSheet(
       {...inherit(ctx, true)}
     >
       {Header()}
+      {Description}
       {props.actions && props.actions.map(Option)}
       {Content()}
       {CancelText()}
@@ -145,11 +157,16 @@ ActionSheet.props = {
   actions: Array,
   duration: Number,
   cancelText: String,
+  description: String,
   getContainer: [String, Function],
   closeOnClickAction: Boolean,
   round: {
     type: Boolean,
     default: true
+  },
+  closeIcon: {
+    type: String,
+    default: 'close'
   },
   safeAreaInsetBottom: {
     type: Boolean,

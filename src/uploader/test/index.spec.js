@@ -1,5 +1,5 @@
 import Uploader from '..';
-import { mount, later, triggerDrag } from '../../../test/utils';
+import { mount, later, triggerDrag } from '../../../test';
 
 window.File = function() {
   this.size = 10000;
@@ -37,12 +37,27 @@ test('disabled', () => {
   expect(afterRead).toHaveBeenCalledTimes(0);
 });
 
-it('read text', done => {
+it('result-type as text', done => {
   const wrapper = mount(Uploader, {
     propsData: {
       resultType: 'text',
       afterRead: readFile => {
         expect(readFile.content).toEqual(mockFileDataUrl);
+        done();
+      }
+    }
+  });
+
+  wrapper.vm.onChange(file);
+});
+
+it('result-type as file', done => {
+  const wrapper = mount(Uploader, {
+    propsData: {
+      resultType: 'file',
+      afterRead: readFile => {
+        expect(readFile.file).toBeTruthy();
+        expect(readFile.content).toBeFalsy();
         done();
       }
     }
@@ -255,6 +270,19 @@ it('preview-size prop', async () => {
   expect(wrapper).toMatchSnapshot();
 });
 
+it('deletable prop', () => {
+  const wrapper = mount(Uploader, {
+    propsData: {
+      fileList: [{ url: IMAGE }]
+    }
+  });
+
+  expect(wrapper.find('.van-uploader__preview-delete').element).toBeTruthy();
+
+  wrapper.setProps({ deletable: false });
+  expect(wrapper.find('.van-uploader__preview-delete').element).toBeFalsy();
+});
+
 it('delete preview image', () => {
   const wrapper = mount(Uploader, {
     propsData: {
@@ -342,6 +370,24 @@ it('click to preview image', () => {
 
   const imagePreviewNode2 = document.querySelector('.van-image-preview');
   expect(imagePreviewNode2.querySelectorAll('.van-image-preview__image').length).toEqual(1);
+});
+
+it('closeImagePreview method', () => {
+  const close = jest.fn();
+  const wrapper = mount(Uploader, {
+    mocks: {
+      imagePreview: {
+        close
+      }
+    }
+  });
+
+  wrapper.vm.closeImagePreview();
+  expect(close).toHaveBeenCalledTimes(1);
+
+  // should not throw error
+  const wrapper2 = mount(Uploader);
+  wrapper2.vm.closeImagePreview();
 });
 
 it('click-preview event', () => {

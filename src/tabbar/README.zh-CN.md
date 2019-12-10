@@ -81,7 +81,7 @@ export default {
     <img
       slot="icon"
       slot-scope="props"
-      :src="props.active ? icon.active : icon.normal"
+      :src="props.active ? icon.active : icon.inactive"
     >
   </van-tabbar-item>
   <van-tabbar-item icon="search">标签</van-tabbar-item>
@@ -95,8 +95,8 @@ export default {
     return {
       active: 0,
       icon: {
-        normal: '//img.yzcdn.cn/icon-normal.png',
-        active: '//img.yzcdn.cn/icon-active.png'
+        active: 'https://img.yzcdn.cn/vant/user-active.png',
+        inactive: 'https://img.yzcdn.cn/vant/user-inactive.png'
       }
     }
   }
@@ -116,6 +116,27 @@ export default {
   <van-tabbar-item icon="freinds-o">标签</van-tabbar-item>
   <van-tabbar-item icon="setting-o">标签</van-tabbar-item>
 </van-tabbar>
+```
+
+### 监听切换事件
+
+```html
+<van-tabbar v-model="active" @change="onChange">
+  <van-tabbar-item icon="home-o">标签1</van-tabbar-item>
+  <van-tabbar-item icon="search">标签2</van-tabbar-item>
+  <van-tabbar-item icon="freinds-o">标签3</van-tabbar-item>
+  <van-tabbar-item icon="setting-o">标签4</van-tabbar-item>
+</van-tabbar>
+```
+
+```js
+export default {
+  methods: {
+    onChange(index) {
+      Notify({ type: 'primary', message: index });
+    }
+  }
+}
 ```
 
 ### 路由模式
@@ -169,12 +190,12 @@ export default {
 | 参数 | 说明 | 类型 | 默认值 | 版本 |
 |------|------|------|------|------|
 | name | 标签名称，作为匹配的标识符 | *string \| number* | 当前标签的索引值 | - |
-| icon | 图标名称或图片链接，可选值见 [Icon 组件](/#/zh-CN/icon)| *string* | - | - |
+| icon | 图标名称或图片链接，可选值见 [Icon 组件](#/zh-CN/icon)| *string* | - | - |
 | dot | 是否显示图标右上角小红点 | *boolean* | `false` | - |
 | info | 图标右上角徽标的内容 | *string \| number* | - | - |
 | url | 点击后跳转的链接地址 | *string* | - | - |
 | to | 点击后跳转的目标路由对象，同 vue-router 的 [to 属性](https://router.vuejs.org/zh/api/#to) | *string \| object* | - | - |
-| replace | 跳转时是否替换当前页面历史 | *boolean* | `false` | - |
+| replace | 是否在跳转时替换当前页面历史 | *boolean* | `false` | - |
 
 ### TabbarItem Slots
 

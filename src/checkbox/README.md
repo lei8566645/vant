@@ -33,6 +33,12 @@ export default {
 <van-checkbox v-model="checked" disabled>Checkbox</van-checkbox>
 ```
 
+### Custom Shape
+
+```html
+<van-checkbox v-model="checked" shape="square">Checkbox</van-checkbox>
+```
+
 ### Custom Color
 
 ```html
@@ -49,7 +55,7 @@ Use icon slot to custom icon
   <img
     slot="icon"
     slot-scope="props"
-    :src="props.checked ? icon.active : icon.inactive"
+    :src="props.checked ? activeIcon : inactiveIcon"
   >
 </van-checkbox>
 ```
@@ -59,10 +65,8 @@ export default {
   data() {
     return {
       checked: true,
-      icon: {
-        active: 'https://img.yzcdn.cn/vant/user-active.png',
-        inactive: 'https://img.yzcdn.cn/vant/user-inactive.png'
-      }
+      activeIcon: 'https://img.yzcdn.cn/vant/user-active.png',
+      inactiveIcon: 'https://img.yzcdn.cn/vant/user-inactive.png'
     };
   }
 };
@@ -74,13 +78,9 @@ When Checkboxes are inside a CheckboxGroup, the checked checkboxes's name is an 
 
 ```html
 <van-checkbox-group v-model="result">
-  <van-checkbox
-    v-for="(item, index) in list"
-    :key="item"
-    :name="item"
-  >
-    Checkbox {{ item }}
-  </van-checkbox>
+  <van-checkbox name="a">Checkbox a</van-checkbox>
+  <van-checkbox name="b">Checkbox b</van-checkbox>
+  <van-checkbox name="c">Checkbox c</van-checkbox>
 </van-checkbox-group>
 ```
 
@@ -88,7 +88,6 @@ When Checkboxes are inside a CheckboxGroup, the checked checkboxes's name is an 
 export default {
   data() {
     return {
-      list: ['a', 'b', 'c'],
       result: ['a', 'b']
     };
   }
@@ -99,14 +98,42 @@ export default {
 
 ```html
 <van-checkbox-group v-model="result" :max="2">
-  <van-checkbox
-    v-for="(item, index) in list"
-    :name="item"
-    :key="item"
-  >
-    Checkbox {{ item }}
-  </van-checkbox>
+  <van-checkbox name="a">Checkbox a</van-checkbox>
+  <van-checkbox name="b">Checkbox b</van-checkbox>
+  <van-checkbox name="c">Checkbox c</van-checkbox>
 </van-checkbox-group>
+```
+
+### Toggle All
+
+```html
+<van-checkbox-group v-model="result" ref="checkboxGroup">
+  <van-checkbox name="a">Checkbox a</van-checkbox>
+  <van-checkbox name="b">Checkbox b</van-checkbox>
+  <van-checkbox name="c">Checkbox c</van-checkbox>
+</van-checkbox-group>
+
+<van-button type="primary" @click="checkAll">Check All</van-button>
+<van-button type="info" @click="toggleAll">Toggle All</van-button>
+```
+
+```js
+export default {
+  data() {
+    return {
+      result: []
+    }
+  },
+
+  methods: {
+    checkAll() {
+      this.$refs.checkboxGroup.toggleAll(true);
+    },
+    toggleAll() {
+      this.$refs.checkboxGroup.toggleAll();
+    }
+  }
+}
 ```
 
 ### Inside a Cell
@@ -155,6 +182,7 @@ export default {
 | label-position | Can be set to `left` | *string* | `right` | - |
 | icon-size | Icon size | *string \| number* | `20px` | - |
 | checked-color | Checked color | *string* | `#1989fa` | - | - |
+| bind-group | Whether to bind with CheckboxGroup | *boolean* | `true` | 2.2.4 |
 
 ### CheckboxGroup Props
 
@@ -186,10 +214,18 @@ export default {
 | default | Custom label | - |
 | icon | Custom icon | checked: whether to be checked |
 
-### Checkbox Methods
+### CheckboxGroup Methods
 
-Use ref to get checkbox instance and call instance methods
+Use [ref](https://vuejs.org/v2/api/#ref) to get CheckboxGroup instance and call instance methods
 
 | Name | Description | Attribute | Return value |
 |------|------|------|------|
-| toggle | Toggle check status | - | - |
+| toggleAll | Toggle check status of all checkboxes | checked?: boolean | - |
+
+### Checkbox Methods
+
+Use [ref](https://vuejs.org/v2/api/#ref) to get Checkbox instance and call instance methods
+
+| Name | Description | Attribute | Return value |
+|------|------|------|------|
+| toggle | Toggle check status | checked?: boolean | - |

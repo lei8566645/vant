@@ -40,6 +40,10 @@ export default createComponent({
       type: Number,
       default: Number.MAX_VALUE
     },
+    deletable: {
+      type: Boolean,
+      default: true
+    },
     previewImage: {
       type: Boolean,
       default: true
@@ -114,27 +118,39 @@ export default createComponent({
         }
 
         Promise.all(files.map(file => readFile(file, this.resultType))).then(contents => {
-          const fileList = files.map((file, index) => ({
-            file,
-            content: contents[index]
-          }));
+          const fileList = files.map((file, index) => {
+            const result = { file };
+
+            if (contents[index]) {
+              result.content = contents[index];
+            }
+
+            return result;
+          });
 
           this.onAfterRead(fileList, oversize);
         });
       } else {
         readFile(files, this.resultType).then(content => {
-          this.onAfterRead({ file: files, content }, oversize);
+          const result = { file: files };
+
+          if (content) {
+            result.content = content;
+          }
+
+          this.onAfterRead(result, oversize);
         });
       }
     },
 
     onAfterRead(files, oversize) {
+      this.resetInput();
+
       if (oversize) {
         this.$emit('oversize', files, this.getDetail());
         return;
       }
 
-      this.resetInput();
       this.$emit('input', [...this.fileList, ...toArray(files)]);
 
       if (this.afterRead) {
@@ -183,24 +199,29 @@ export default createComponent({
         return;
       }
 
-      const imageFiles = this.fileList
-        .filter(item => isImageFile(item))
-        .map(item => item.content || item.url);
+      const imageFiles = this.fileList.filter(item => isImageFile(item));
+      const imageContents = imageFiles.map(item => item.content || item.url);
 
-      ImagePreview({
-        images: imageFiles,
+      this.imagePreview = ImagePreview({
+        images: imageContents,
         closeOnPopstate: true,
-        startPosition: imageFiles.indexOf(item.content || item.url),
+        startPosition: imageFiles.indexOf(item),
         onClose: () => {
           this.$emit('close-preview');
         }
       });
     },
 
-    renderPreviewItem(item, index) {
-      const DeleteIcon = (
+    closeImagePreview() {
+      if (this.imagePreview) {
+        this.imagePreview.close();
+      }
+    },
+
+    genPreviewItem(item, index) {
+      const DeleteIcon = this.deletable && (
         <Icon
-          name="delete"
+          name="clear"
           class={bem('preview-delete')}
           onClick={event => {
             event.stopPropagation();
@@ -216,6 +237,7 @@ export default createComponent({
           class={bem('preview-image')}
           width={this.previewSize}
           height={this.previewSize}
+          radius={4}
           onClick={() => {
             this.onPreviewImage(item);
           }}
@@ -248,13 +270,13 @@ export default createComponent({
       );
     },
 
-    renderPreviewList() {
+    genPreviewList() {
       if (this.previewImage) {
-        return this.fileList.map(this.renderPreviewItem);
+        return this.fileList.map(this.genPreviewItem);
       }
     },
 
-    renderUpload() {
+    genUpload() {
       if (this.fileList.length >= this.maxCount) {
         return;
       }
@@ -305,8 +327,8 @@ export default createComponent({
     return (
       <div class={bem()}>
         <div class={bem('wrapper')}>
-          {this.renderPreviewList()}
-          {this.renderUpload()}
+          {this.genPreviewList()}
+          {this.genUpload()}
         </div>
       </div>
     );

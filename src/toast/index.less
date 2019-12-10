@@ -35,7 +35,8 @@
     }
   }
 
-  &--text {
+  &--text,
+  &--html {
     width: fit-content;
     min-width: @toast-text-min-width;
     min-height: unset;
@@ -60,7 +61,8 @@
   }
 
   &__loading {
-    padding: 5px;
+    padding: @padding-base;
+    color: @toast-loading-icon-color;
   }
 
   &__text {

@@ -8,6 +8,7 @@
   &__cancel {
     display: block;
     width: 100%;
+    padding: 0;
     font-size: @action-sheet-item-font-size;
     line-height: @action-sheet-item-height;
     text-align: center;
@@ -32,7 +33,7 @@
   }
 
   &__subname {
-    margin-left: 5px;
+    margin-left: @padding-base;
     color: @action-sheet-subname-color;
     font-size: @action-sheet-subname-font-size;
   }
@@ -45,9 +46,17 @@
   }
 
   &__header {
-    font-weight: 500;
+    font-weight: @font-weight-bold;
     font-size: @action-sheet-header-font-size;
     line-height: @action-sheet-header-height;
+    text-align: center;
+  }
+
+  &__description {
+    padding: @padding-md;
+    color: @action-sheet-description-color;
+    font-size: @action-sheet-description-font-size;
+    line-height: @action-sheet-description-line-height;
     text-align: center;
   }
 

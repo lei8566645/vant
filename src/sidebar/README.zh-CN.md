@@ -46,6 +46,46 @@ export default {
 </van-sidebar>
 ```
 
+### 禁用选项
+
+通过`disabled`属性禁用选项
+
+```html
+<van-sidebar v-model="activeKey">
+  <van-sidebar-item title="标签名称" />
+  <van-sidebar-item title="标签名称" disabled />
+  <van-sidebar-item title="标签名称" />
+</van-sidebar>
+```
+
+
+### 监听切换事件
+
+设置`change`方法来监听切换导航项时的事件
+
+```html
+<van-sidebar v-model="activeKey" @change="onChange">
+  <van-sidebar-item title="标签名1" />
+  <van-sidebar-item title="标签名2" />
+  <van-sidebar-item title="标签名3" />
+</van-sidebar>
+```
+
+```js
+export default {
+  data() {
+    return {
+      activeKey: 0
+    };
+  },
+  methods: {
+    onChange(index) {
+      Notify({ type: 'primary', message: index });
+    }
+  }
+}
+```
+
 ## API
 
 ### Sidebar Props
@@ -70,7 +110,7 @@ export default {
 | disabled | 是否禁用该项 | *boolean* | `false` | 2.2.0 |
 | url | 点击后跳转的链接地址 | *string* | - | - |
 | to | 点击后跳转的目标路由对象，同 vue-router 的 [to 属性](https://router.vuejs.org/zh/api/#to) | *string \| object* | - | 2.0.4 |
-| replace | 跳转时是否替换当前页面历史 | *boolean* | `false` | 2.0.4 |
+| replace | 是否在跳转时替换当前页面历史 | *boolean* | `false` | 2.0.4 |
 
 ### SidebarItem Events
 

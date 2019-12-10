@@ -42,6 +42,41 @@ export default {
 </van-sidebar>
 ```
 
+### Disabled
+
+```html
+<van-sidebar v-model="activeKey">
+  <van-sidebar-item title="Title" />
+  <van-sidebar-item title="Title" disabled />
+  <van-sidebar-item title="Title" />
+</van-sidebar>
+```
+
+### Change Event
+
+```html
+<van-sidebar v-model="activeKey" @change="onChange">
+  <van-sidebar-item title="Title1" />
+  <van-sidebar-item title="Title2" />
+  <van-sidebar-item title="Title3" />
+</van-sidebar>
+```
+
+```js
+export default {
+  data() {
+    return {
+      activeKey: 0
+    };
+  },
+  methods: {
+    onChange(index) {
+      Notify({ type: 'primary', message: index });
+    }
+  }
+}
+```
+
 ## API
 
 ### Sidebar Props

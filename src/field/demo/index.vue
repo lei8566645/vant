@@ -2,10 +2,7 @@
   <demo-section>
     <demo-block :title="$t('basicUsage')">
       <van-cell-group>
-        <van-field
-          v-model="value"
-          :placeholder="$t('usernamePlaceholder')"
-        />
+        <van-field v-model="value" :placeholder="$t('usernamePlaceholder')" />
       </van-cell-group>
     </demo-block>
 
@@ -59,7 +56,25 @@
       </van-cell-group>
     </demo-block>
 
-    <demo-block :title="$t('title5')">
+    <demo-block :title="$t('title6')">
+      <van-cell-group>
+        <van-field
+          center
+          clearable
+          v-model="sms"
+          :label="$t('sms')"
+          :placeholder="$t('smsPlaceholder')"
+        >
+          <template #button>
+            <van-button size="small" type="primary">
+              {{ $t('sendSMS') }}
+            </van-button>
+          </template>
+        </van-field>
+      </van-cell-group>
+    </demo-block>
+
+    <demo-block :title="$t('textareaAutosize')">
       <van-cell-group>
         <van-field
           v-model="message"
@@ -72,24 +87,18 @@
       </van-cell-group>
     </demo-block>
 
-    <demo-block :title="$t('title6')">
+    <demo-block v-if="!$attrs.weapp" :title="$t('showWordLimit')">
       <van-cell-group>
         <van-field
-          center
-          clearable
-          v-model="sms"
-          :label="$t('sms')"
-          :placeholder="$t('smsPlaceholder')"
-        >
-          <template #button>
-            <van-button
-              size="small"
-              type="primary"
-            >
-              {{ $t('sendSMS') }}
-            </van-button>
-          </template>
-        </van-field>
+          v-model="message2"
+          :label="$t('message')"
+          :placeholder="$t('messagePlaceholder')"
+          rows="2"
+          autosize
+          maxlength="50"
+          type="textarea"
+          show-word-limit
+        />
       </van-cell-group>
     </demo-block>
   </demo-section>
@@ -102,12 +111,13 @@ export default {
       title2: '自定义类型',
       title3: '禁用输入框',
       title4: '错误提示',
-      title5: '高度自适应',
       title6: '插入按钮',
       message: '留言',
       phone: '手机号',
       sms: '短信验证码',
       sendSMS: '发送验证码',
+      showWordLimit: '显示字数统计',
+      textareaAutosize: '高度自适应',
       smsPlaceholder: '请输入短信验证码',
       phonePlaceholder: '请输入手机号',
       messagePlaceholder: '请输入留言',
@@ -115,15 +125,16 @@ export default {
       phoneError: '手机号格式错误'
     },
     'en-US': {
-      title2: 'Custom type',
+      title2: 'Custom Type',
       title3: 'Disabled',
-      title4: 'Error info',
-      title5: 'Auto resize',
-      title6: 'Insert button',
+      title4: 'Error Info',
+      title6: 'Insert Button',
       message: 'Message',
       phone: 'Phone',
       sms: 'SMS',
       sendSMS: 'Send SMS',
+      showWordLimit: 'Show Word Limit',
+      textareaAutosize: 'Auto Resize',
       smsPlaceholder: 'SMS',
       phonePlaceholder: 'Phone',
       messagePlaceholder: 'Message',
@@ -140,6 +151,7 @@ export default {
       username: '',
       username2: '',
       message: '',
+      message2: '',
       phone: '1365577'
     };
   }

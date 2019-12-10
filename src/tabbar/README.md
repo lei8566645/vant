@@ -75,7 +75,7 @@ Use `icon` slot to custom icon
     <img
       slot="icon"
       slot-scope="props"
-      :src="props.active ? icon.active : icon.normal"
+      :src="props.active ? icon.active : icon.inactive"
     >
   </van-tabbar-item>
   <van-tabbar-item icon="search">Tab</van-tabbar-item>
@@ -89,8 +89,8 @@ export default {
     return {
       active: 0,
       icon: {
-        normal: '//img.yzcdn.cn/icon-normal.png',
-        active: '//img.yzcdn.cn/icon-active.png'
+        active: 'https://img.yzcdn.cn/vant/user-active.png',
+        inactive: 'https://img.yzcdn.cn/vant/user-inactive.png'
       }
     }
   }
@@ -110,6 +110,28 @@ export default {
   <van-tabbar-item icon="freinds-o">Tab</van-tabbar-item>
   <van-tabbar-item icon="setting-o">Tab</van-tabbar-item>
 </van-tabbar>
+```
+
+
+### Change Event
+
+```html
+<van-tabbar v-model="active" @change="onChange">
+  <van-tabbar-item icon="home-o">Tab1</van-tabbar-item>
+  <van-tabbar-item icon="search">Tab2</van-tabbar-item>
+  <van-tabbar-item icon="freinds-o">Tab3</van-tabbar-item>
+  <van-tabbar-item icon="setting-o">Tab4</van-tabbar-item>
+</van-tabbar>
+```
+
+```js
+export default {
+  methods: {
+    onChange(index) {
+      Notify({ type: 'primary', message: index });
+    }
+  }
+}
 ```
 
 ### Route Mode

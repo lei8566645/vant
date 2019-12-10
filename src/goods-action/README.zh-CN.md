@@ -50,7 +50,7 @@ export default {
 <van-goods-action>
   <van-goods-action-icon icon="chat-o" text="客服" />
   <van-goods-action-icon icon="cart-o" text="购物车" info="5" />
-  <van-goods-action-icon icon="shop-o" text="店铺" info=12" />
+  <van-goods-action-icon icon="shop-o" text="店铺" info="12" />
   <van-goods-action-button type="warning" text="加入购物车" />
   <van-goods-action-button type="danger" text="立即购买" />
 </van-goods-action>
@@ -87,7 +87,7 @@ export default {
 | info | 图标右上角徽标的内容 | *string \| number* | - | - |
 | url | 点击后跳转的链接地址 | *string* | - | - |
 | to | 点击后跳转的目标路由对象，同 vue-router 的 [to 属性](https://router.vuejs.org/zh/api/#to) | *string \| object* | - | - |
-| replace | 跳转时是否替换当前页面历史 | *boolean* | `false` | - |
+| replace | 是否在跳转时替换当前页面历史 | *boolean* | `false` | - |
 
 ### GoodsActionButton Props
 
@@ -100,7 +100,7 @@ export default {
 | loading | 是否显示为加载状态 | *boolean* | `false` | - | - |
 | url | 点击后跳转的链接地址 | *string* | - | - |
 | to | 点击后跳转的目标路由对象，同 vue-router 的 [to 属性](https://router.vuejs.org/zh/api/#to) | *string \| object* | - | - |
-| replace | 跳转时是否替换当前页面历史 | *boolean* | `false` | - |
+| replace | 是否在跳转时替换当前页面历史 | *boolean* | `false` | - |
 
 ### GoodsActionIcon Slots
 

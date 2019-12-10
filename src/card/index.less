@@ -1,5 +1,4 @@
 @import '../style/var';
-@import '../style/mixins/ellipsis';
 
 .van-card {
   position: relative;
@@ -23,6 +22,7 @@
     width: @card-thumb-size;
     height: @card-thumb-size;
     margin-right: @padding-xs;
+    border-radius: @card-thumb-border-radius;
   }
 
   &__content {
@@ -30,6 +30,7 @@
     display: flex;
     flex: 1;
     flex-direction: column;
+    justify-content: space-between;
     min-width: 0; /* hack for flex box ellipsis */
     min-height: @card-thumb-size;
 
@@ -45,10 +46,8 @@
 
   &__title {
     max-height: 32px;
-    font-weight: 500;
+    font-weight: @font-weight-bold;
     line-height: @card-title-line-height;
-
-    .multi-ellipsis(2);
   }
 
   &__desc {
@@ -64,7 +63,17 @@
   &__price {
     display: inline-block;
     color: @card-price-color;
-    font-weight: 500;
+    font-weight: @font-weight-bold;
+    font-size: @card-price-font-size;
+  }
+
+  &__price-integer {
+    font-size: @card-price-integer-font-size;
+    font-family: @card-price-font-family;
+  }
+
+  &__price-decimal {
+    font-family: @card-price-font-family;
   }
 
   &__origin-price {
@@ -77,6 +86,7 @@
 
   &__num {
     float: right;
+    color: @card-num-color;
   }
 
   &__tag {

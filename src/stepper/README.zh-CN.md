@@ -125,9 +125,12 @@ export default {
 | v-model | 当前输入值 | *string \| number* | min | - |
 | min | 最小值 | *string \| number* | `1` | - |
 | max | 最大值 | *string \| number* | - | - |
-| step | 步长 | *string \| number* | `1` | - |
+| step | 步长，每次点击时改变的值 | *string \| number* | `1` | - |
+| name | 标识符，可以在`change`事件回调参数中获取 | *string \| number* | - | 2.2.11 |
 | integer | 是否只允许输入整数 | *boolean* | `false` | - |
 | disabled | 是否禁用步进器 | *boolean* | `false` | - |
+| disable-plus | 是否禁用增加按钮 | *boolean* | `false` | 2.2.16 |
+| disable-minus | 是否禁用减少按钮 | *boolean* | `false` | 2.2.16 |
 | disable-input | 是否禁用输入框 | *boolean* | `false` | - |
 | async-change | 是否开启异步变更，开启后需要手动控制输入值 | *boolean* | `false` | - |
 | input-width | 输入框宽度，默认单位为`px` | *string \| number* | `32px` | - |
@@ -140,9 +143,9 @@ export default {
 
 | 事件名 | 说明 | 回调参数 |
 |------|------|------|
-| change | 当绑定值变化时触发的事件 | 当前组件的值 |
+| change | 当绑定值变化时触发的事件 | value: 当前组件的值, detail: 额外信息，包含 name 的字段 |
 | overlimit | 点击不可用的按钮时触发 | - |
 | plus | 点击增加按钮时触发 | - |
 | minus | 点击减少按钮时触发 | - |
-| focus | 输入框聚焦时触发 | - |
-| blur | 输入框失焦时触发 | - |
+| focus | 输入框聚焦时触发 | event: Event |
+| blur | 输入框失焦时触发 | event: Event |

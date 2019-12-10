@@ -1,5 +1,5 @@
 import SubmitBar from '..';
-import { mount } from '../../../test/utils';
+import { mount } from '../../../test';
 
 test('submit event', () => {
   const submit = jest.fn();
@@ -83,5 +83,17 @@ test('suffix-label prop', () => {
     }
   });
 
+  expect(wrapper).toMatchSnapshot();
+});
+
+test('text-align prop', () => {
+  const wrapper = mount(SubmitBar, {
+    context: {
+      props: {
+        price: 111,
+        textAlign: 'left'
+      }
+    }
+  });
   expect(wrapper).toMatchSnapshot();
 });

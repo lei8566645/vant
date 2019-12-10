@@ -11,6 +11,12 @@ function equal(value1, value2) {
   return String(value1) === String(value2);
 }
 
+// add num and avoid float number
+function add(num1, num2) {
+  const cardinal = 10 ** 10;
+  return Math.round((num1 + num2) * cardinal) / cardinal;
+}
+
 export default createComponent({
   props: {
     value: null,
@@ -19,8 +25,14 @@ export default createComponent({
     inputWidth: [Number, String],
     buttonSize: [Number, String],
     asyncChange: Boolean,
+    disablePlus: Boolean,
+    disableMinus: Boolean,
     disableInput: Boolean,
     decimalLength: Number,
+    name: {
+      type: [Number, String],
+      default: ''
+    },
     min: {
       type: [Number, String],
       default: 1
@@ -62,11 +74,11 @@ export default createComponent({
 
   computed: {
     minusDisabled() {
-      return this.disabled || this.currentValue <= this.min;
+      return this.disabled || this.disableMinus || this.currentValue <= this.min;
     },
 
     plusDisabled() {
-      return this.disabled || this.currentValue >= this.max;
+      return this.disabled || this.disablePlus || this.currentValue >= this.max;
     },
 
     inputStyle() {
@@ -104,7 +116,7 @@ export default createComponent({
 
     currentValue(val) {
       this.$emit('input', val);
-      this.$emit('change', val);
+      this.$emit('change', val, { name: this.name });
     }
   },
 
@@ -143,7 +155,13 @@ export default createComponent({
         return;
       }
 
-      const formatted = this.filter(value);
+      let formatted = this.filter(value);
+
+      // limit max decimal length
+      if (isDef(this.decimalLength) && formatted.indexOf('.') !== -1) {
+        const pair = formatted.split('.');
+        formatted = `${pair[0]}.${pair[1].slice(0, this.decimalLength)}`;
+      }
 
       if (!equal(value, formatted)) {
         event.target.value = formatted;
@@ -155,7 +173,7 @@ export default createComponent({
     emitChange(value) {
       if (this.asyncChange) {
         this.$emit('input', value);
-        this.$emit('change', value);
+        this.$emit('change', value, { name: this.name });
       } else {
         this.currentValue = value;
       }
@@ -171,14 +189,7 @@ export default createComponent({
 
       const diff = type === 'minus' ? -this.step : +this.step;
 
-      let value = +this.currentValue + diff;
-
-      // avoid float number
-      if (!isDef(this.decimalLength)) {
-        value = Math.round(value * 100) / 100;
-      }
-
-      value = this.format(value);
+      const value = this.format(add(+this.currentValue, diff));
 
       this.emitChange(value);
       this.$emit(type);
@@ -244,6 +255,7 @@ export default createComponent({
       <div class={bem()}>
         <button
           vShow={this.showMinus}
+          type="button"
           style={this.buttonStyle}
           class={bem('minus', { disabled: this.minusDisabled })}
           {...createListeners('minus')}
@@ -264,6 +276,7 @@ export default createComponent({
         />
         <button
           vShow={this.showPlus}
+          type="button"
           style={this.buttonStyle}
           class={bem('plus', { disabled: this.plusDisabled })}
           {...createListeners('plus')}
