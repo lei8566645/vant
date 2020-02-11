@@ -18,12 +18,12 @@ export const CheckboxMixin = ({ parent, bem, role }) => ({
     labelDisabled: Boolean,
     shape: {
       type: String,
-      default: 'round'
+      default: 'round',
     },
     bindGroup: {
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
   },
 
   computed: {
@@ -36,11 +36,13 @@ export const CheckboxMixin = ({ parent, bem, role }) => ({
     },
 
     iconStyle() {
-      const checkedColor = this.checkedColor || (this.parent && this.parent.checkedColor);
+      const checkedColor =
+        this.checkedColor || (this.parent && this.parent.checkedColor);
+
       if (checkedColor && this.checked && !this.isDisabled) {
         return {
           borderColor: checkedColor,
-          backgroundColor: checkedColor
+          backgroundColor: checkedColor,
         };
       }
     },
@@ -51,60 +53,76 @@ export const CheckboxMixin = ({ parent, bem, role }) => ({
       }
 
       return 0;
-    }
+    },
   },
 
   methods: {
     onClick(event) {
-      const { label } = this.$refs;
       const { target } = event;
-      const labelClicked = label && (label === target || label.contains(target));
+      const { icon } = this.$refs;
+      const iconClicked = icon === target || icon.contains(target);
 
-      if (!this.isDisabled && !(labelClicked && this.labelDisabled)) {
+      if (!this.isDisabled && (iconClicked || !this.labelDisabled)) {
         this.toggle();
       }
 
       this.$emit('click', event);
-    }
+    },
+
+    genIcon() {
+      const { checked } = this;
+      const iconSize = this.iconSize || (this.parent && this.parent.iconSize);
+
+      return (
+        <div
+          ref="icon"
+          class={bem('icon', [
+            this.shape,
+            { disabled: this.isDisabled, checked },
+          ])}
+          style={{ fontSize: addUnit(iconSize) }}
+        >
+          {this.slots('icon', { checked }) || (
+            <Icon name="success" style={this.iconStyle} />
+          )}
+        </div>
+      );
+    },
+
+    genLabel() {
+      const slot = this.slots();
+
+      if (slot) {
+        return (
+          <span
+            class={bem('label', [
+              this.labelPosition,
+              { disabled: this.isDisabled },
+            ])}
+          >
+            {slot}
+          </span>
+        );
+      }
+    },
   },
 
   render() {
-    const { slots, checked } = this;
-
-    const CheckIcon = slots('icon', { checked }) || (
-      <Icon name="success" style={this.iconStyle} />
-    );
-
-    const Label = slots() && (
-      <span
-        ref="label"
-        class={bem('label', [this.labelPosition, { disabled: this.isDisabled }])}
-      >
-        {slots()}
-      </span>
-    );
-
-    const iconSize = this.iconSize || (this.parent && this.parent.iconSize);
-
-    const Children = [
-      <div
-        class={bem('icon', [this.shape, { disabled: this.isDisabled, checked }])}
-        style={{ fontSize: addUnit(iconSize) }}
-      >
-        {CheckIcon}
-      </div>
-    ];
+    const Children = [this.genIcon()];
 
     if (this.labelPosition === 'left') {
-      Children.unshift(Label);
+      Children.unshift(this.genLabel());
     } else {
-      Children.push(Label);
+      Children.push(this.genLabel());
     }
 
     return (
       <div
         role={role}
-        class={bem()}
+        class={bem({
+          disabled: this.isDisabled,
+          'label-disabled': this.labelDisabled,
+        })}
         tabindex={this.tabindex}
         aria-checked={String(this.checked)}
         onClick={this.onClick}
@@ -112,5 +130,5 @@ export const CheckboxMixin = ({ parent, bem, role }) => ({
         {Children}
       </div>
     );
-  }
+  },
 });

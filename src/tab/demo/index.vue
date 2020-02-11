@@ -67,7 +67,7 @@
       </van-tabs>
     </demo-block>
 
-    <demo-block v-if="!$attrs.weapp" :title="$t('title7')">
+    <demo-block v-if="!isWeapp" :title="$t('title7')">
       <van-tabs :active="active">
         <van-tab v-for="index in 2" :key="index">
           <template #title>
@@ -93,6 +93,14 @@
         </van-tab>
       </van-tabs>
     </demo-block>
+
+    <demo-block v-if="!isWeapp" :title="$t('title10')">
+      <van-tabs scrollspy sticky>
+        <van-tab :title="$t('tab') + index" v-for="index in 8" :key="index">
+          {{ $t('content') }} {{ index }}
+        </van-tab>
+      </van-tabs>
+    </demo-block>
   </demo-section>
 </template>
 
@@ -109,8 +117,9 @@ export default {
       title7: '自定义标签',
       title8: '切换动画',
       title9: '滑动切换',
+      title10: '滚动导航',
       disabled: ' 已被禁用',
-      matchByName: '通过名称匹配'
+      matchByName: '通过名称匹配',
     },
     'en-US': {
       tab: 'Tab ',
@@ -123,16 +132,17 @@ export default {
       title7: 'Custom Tab',
       title8: 'Switch Animation',
       title9: 'Swipeable',
+      title10: 'Scrollspy',
       disabled: ' is disabled',
-      matchByName: 'Match By Name'
-    }
+      matchByName: 'Match By Name',
+    },
   },
 
   data() {
     return {
       active: 2,
       activeName: 'b',
-      tabs: [1, 2, 3, 4]
+      tabs: [1, 2, 3, 4],
     };
   },
 
@@ -143,8 +153,8 @@ export default {
 
     onClick(index, title) {
       this.$toast(title);
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -152,7 +162,7 @@ export default {
 @import '../../style/var';
 
 .demo-tab {
-  margin-bottom: 300px;
+  margin-bottom: 80vh;
 
   .van-tab .van-icon {
     margin-right: 5px;

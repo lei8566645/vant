@@ -9,7 +9,9 @@
 
       <van-popup
         v-model="showList"
+        round
         position="bottom"
+        style="height: 90%; padding-top: 4px;"
       >
         <van-coupon-list
           :coupons="coupons"
@@ -31,25 +33,25 @@ export default {
       coupon: {
         name: '优惠券名称',
         reason: '优惠券不可用原因',
-        description: '描述信息'
+        description: '描述信息',
       },
-      exchange: '兑换成功'
+      exchange: '兑换成功',
     },
     'en-US': {
       coupon: {
         name: 'Coupon name',
         reason: 'Coupon unavailable reason',
-        description: 'Description'
+        description: 'Description',
       },
-      exchange: 'Success'
-    }
+      exchange: 'Success',
+    },
   },
 
   data() {
     return {
       showList: false,
       chosenCoupon: -1,
-      exchangedCoupons: []
+      exchangedCoupons: [],
     };
   },
 
@@ -73,7 +75,7 @@ export default {
         startAt: 1489104000,
         endAt: 1514592000,
         valueDesc: '1.5',
-        unitDesc: '元'
+        unitDesc: '元',
       };
     },
 
@@ -83,7 +85,7 @@ export default {
         id: 2,
         value: 12,
         valueDesc: '8.8',
-        unitDesc: '折'
+        unitDesc: '折',
       };
     },
 
@@ -91,7 +93,7 @@ export default {
       return {
         ...this.coupon,
         id: 3,
-        reason: this.$t('coupon.reason')
+        reason: this.$t('coupon.reason'),
       };
     },
 
@@ -101,9 +103,9 @@ export default {
         valueDesc: '1',
         unitDesc: '折',
         id: 4,
-        reason: this.$t('coupon.reason')
+        reason: this.$t('coupon.reason'),
       };
-    }
+    },
   },
 
   methods: {
@@ -115,20 +117,12 @@ export default {
       this.$toast(this.$t('exchange'));
       this.exchangedCoupons.push({
         ...this.coupon,
-        id: this.randomId()
+        id: this.randomId(),
       });
     },
     randomId(max = 999999) {
       return Math.floor(Math.random() * max) + 1;
-    }
-  }
+    },
+  },
 };
 </script>
-
-<style lang="less">
-.demo-coupon-list {
-  .van-popup {
-    height: 100%;
-  }
-}
-</style>

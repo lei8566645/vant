@@ -15,15 +15,17 @@ function triggerZoom(el, x, y) {
 const images = [
   'https://img.yzcdn.cn/1.png',
   'https://img.yzcdn.cn/2.png',
-  'https://img.yzcdn.cn/3.png'
+  'https://img.yzcdn.cn/3.png',
 ];
 
 test('render image', async () => {
   const wrapper = mount(ImagePreviewVue, {
-    propsData: { images, value: true }
+    propsData: { images, value: true },
   });
 
   expect(wrapper).toMatchSnapshot();
+
+  await later();
 
   const swipe = wrapper.find('.van-swipe__track');
   triggerDrag(swipe, 500, 0);
@@ -36,20 +38,31 @@ test('render image', async () => {
   expect(wrapper.emitted('change')[0][0]).toEqual(2);
 });
 
-test('async close', () => {
+test('async close prop', async () => {
   const wrapper = mount(ImagePreviewVue, {
     propsData: {
       images,
       value: true,
-      asyncClose: true
-    }
+      asyncClose: true,
+    },
+    listeners: {
+      input(value) {
+        wrapper.setProps({ value });
+      },
+    },
   });
 
   const swipe = wrapper.find('.van-swipe__track');
+
+  // should not emit input or close event when tapped
   triggerDrag(swipe, 0, 0);
+  await later(300);
   expect(wrapper.emitted('input')).toBeFalsy();
+  expect(wrapper.emitted('close')).toBeFalsy();
+
   wrapper.vm.close();
-  expect(wrapper.emitted('input')[0][0]).toBeFalsy();
+  expect(wrapper.emitted('input')[0]).toBeTruthy();
+  expect(wrapper.emitted('close')[0]).toBeTruthy();
 });
 
 test('function call', done => {
@@ -81,25 +94,21 @@ test('double click', async done => {
   done();
 });
 
-test('onClose option', async done => {
+test('onClose option', () => {
   const onClose = jest.fn();
   const instance = ImagePreview({
     images,
     startPostion: 1,
-    onClose
+    onClose,
   });
 
-  instance.$emit('input', true);
-  expect(onClose).toHaveBeenCalledTimes(0);
+  instance.close();
 
-  await later(300);
-
-  const wrapper = document.querySelector('.van-image-preview');
-  const swipe = wrapper.querySelector('.van-swipe__track');
-  triggerDrag(swipe, 0, 0);
   expect(onClose).toHaveBeenCalledTimes(1);
-  expect(onClose).toHaveBeenCalledWith({ index: 0, url: 'https://img.yzcdn.cn/1.png' });
-  done();
+  expect(onClose).toHaveBeenCalledWith({
+    index: 0,
+    url: 'https://img.yzcdn.cn/1.png',
+  });
 });
 
 test('onChange option', async done => {
@@ -109,7 +118,7 @@ test('onChange option', async done => {
     onChange(index) {
       expect(index).toEqual(2);
       done();
-    }
+    },
   });
 
   const swipe = instance.$el.querySelector('.van-swipe__track');
@@ -126,7 +135,7 @@ test('zoom', async () => {
   Element.prototype.getBoundingClientRect = jest.fn(() => ({ width: 100 }));
 
   const wrapper = mount(ImagePreviewVue, {
-    propsData: { images, value: true }
+    propsData: { images, value: true },
   });
 
   const image = wrapper.find('img');
@@ -140,8 +149,8 @@ test('set show-index prop to false', () => {
   const wrapper = mount(ImagePreviewVue, {
     propsData: {
       value: true,
-      showIndex: false
-    }
+      showIndex: false,
+    },
   });
 
   expect(wrapper).toMatchSnapshot();
@@ -153,7 +162,7 @@ test('index slot', () => {
       <van-image-preview :value="true">
         <template #index>Custom Index</template>
       </van-image-preview>
-    `
+    `,
   });
 
   expect(wrapper).toMatchSnapshot();
@@ -165,7 +174,7 @@ test('cover slot', () => {
       <van-image-preview :value="true">
         <template #cover>Custom Cover Content</template>
       </van-image-preview>
-    `
+    `,
   });
 
   expect(wrapper).toMatchSnapshot();
@@ -176,8 +185,8 @@ test('closeOnPopstate', () => {
     propsData: {
       images,
       value: true,
-      closeOnPopstate: true
-    }
+      closeOnPopstate: true,
+    },
   });
 
   trigger(window, 'popstate');
@@ -185,7 +194,7 @@ test('closeOnPopstate', () => {
 
   wrapper.setProps({
     value: true,
-    closeOnPopstate: false
+    closeOnPopstate: false,
   });
 
   trigger(window, 'popstate');
@@ -196,12 +205,12 @@ test('lazy-load prop', () => {
   const wrapper = mount(ImagePreviewVue, {
     propsData: {
       images,
-      lazyLoad: true
-    }
+      lazyLoad: true,
+    },
   });
 
   wrapper.setProps({
-    value: true
+    value: true,
   });
 
   expect(wrapper).toMatchSnapshot();

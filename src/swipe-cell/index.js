@@ -1,6 +1,9 @@
+// Utils
 import { createNamespace } from '../utils';
 import { range } from '../utils/format/number';
 import { preventDefault } from '../utils/dom/event';
+
+// Mixins
 import { TouchMixin } from '../mixins/touch';
 import { ClickOutsideMixin } from '../mixins/click-outside';
 
@@ -12,37 +15,44 @@ export default createComponent({
     TouchMixin,
     ClickOutsideMixin({
       event: 'touchstart',
-      method: 'onClick'
-    })
+      method: 'onClick',
+    }),
   ],
 
   props: {
+    // @deprecated
+    // should be removed in next major version, use beforeClose instead
     onClose: Function,
     disabled: Boolean,
-    leftWidth: Number,
-    rightWidth: Number,
+    leftWidth: [Number, String],
+    rightWidth: [Number, String],
+    beforeClose: Function,
     stopPropagation: Boolean,
     name: {
       type: [Number, String],
-      default: ''
-    }
+      default: '',
+    },
   },
 
   data() {
     return {
       offset: 0,
-      dragging: false
+      dragging: false,
     };
   },
 
   computed: {
     computedLeftWidth() {
-      return this.leftWidth || this.getWidthByRef('left');
+      return +this.leftWidth || this.getWidthByRef('left');
     },
 
     computedRightWidth() {
-      return this.rightWidth || this.getWidthByRef('right');
-    }
+      return +this.rightWidth || this.getWidthByRef('right');
+    },
+  },
+
+  mounted() {
+    this.bindTouchEvent(this.$el);
   },
 
   methods: {
@@ -60,29 +70,28 @@ export default createComponent({
       const offset =
         position === 'left' ? this.computedLeftWidth : -this.computedRightWidth;
 
-      this.swipeMove(offset);
       this.opened = true;
+      this.offset = offset;
 
       this.$emit('open', {
         position,
-        detail: this.name
+        name: this.name,
+        // @deprecated
+        // should be removed in next major version
+        detail: this.name,
       });
     },
 
     // @exposed-api
-    close() {
+    close(position) {
       this.offset = 0;
-    },
 
-    swipeMove(offset = 0) {
-      this.offset = range(
-        offset,
-        -this.computedRightWidth,
-        this.computedLeftWidth
-      );
-
-      if (!this.offset) {
+      if (this.opened) {
         this.opened = false;
+        this.$emit('close', {
+          position,
+          name: this.name,
+        });
       }
     },
 
@@ -112,7 +121,11 @@ export default createComponent({
           preventDefault(event, this.stopPropagation);
         }
 
-        this.swipeMove(this.deltaX + this.startOffset);
+        this.offset = range(
+          this.deltaX + this.startOffset,
+          -this.computedRightWidth,
+          this.computedLeftWidth
+        );
       }
     },
 
@@ -150,7 +163,7 @@ export default createComponent({
       ) {
         this.open('left');
       } else {
-        this.swipeMove(0);
+        this.close();
       }
     },
 
@@ -158,10 +171,16 @@ export default createComponent({
       this.$emit('click', position);
 
       if (this.opened && !this.lockClick) {
-        if (this.onClose) {
+        if (this.beforeClose) {
+          this.beforeClose({
+            position,
+            name: this.name,
+            instance: this,
+          });
+        } else if (this.onClose) {
           this.onClose(position, this, { name: this.name });
         } else {
-          this.swipeMove(0);
+          this.close(position);
         }
       }
     },
@@ -176,49 +195,46 @@ export default createComponent({
     },
 
     genLeftPart() {
-      if (this.slots('left')) {
+      const content = this.slots('left');
+
+      if (content) {
         return (
           <div
             ref="left"
             class={bem('left')}
             onClick={this.getClickHandler('left', true)}
           >
-            {this.slots('left')}
+            {content}
           </div>
         );
       }
     },
 
     genRightPart() {
-      if (this.slots('right')) {
+      const content = this.slots('right');
+
+      if (content) {
         return (
           <div
             ref="right"
             class={bem('right')}
             onClick={this.getClickHandler('right', true)}
           >
-            {this.slots('right')}
+            {content}
           </div>
         );
       }
-    }
+    },
   },
 
   render() {
     const wrapperStyle = {
       transform: `translate3d(${this.offset}px, 0, 0)`,
-      transitionDuration: this.dragging ? '0s' : '.6s'
+      transitionDuration: this.dragging ? '0s' : '.6s',
     };
 
     return (
-      <div
-        class={bem()}
-        onClick={this.getClickHandler('cell')}
-        onTouchstart={this.onTouchStart}
-        onTouchmove={this.onTouchMove}
-        onTouchend={this.onTouchEnd}
-        onTouchcancel={this.onTouchEnd}
-      >
+      <div class={bem()} onClick={this.getClickHandler('cell')}>
         <div class={bem('wrapper')} style={wrapperStyle}>
           {this.genLeftPart()}
           {this.slots()}
@@ -226,5 +242,5 @@ export default createComponent({
         </div>
       </div>
     );
-  }
+  },
 });

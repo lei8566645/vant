@@ -54,15 +54,26 @@
       <van-button type="primary" size="mini">{{ $t('mini') }}</van-button>
     </demo-block>
 
+    <demo-block :title="$t('blockElement')">
+      <van-button type="primary" block>{{ $t('blockElement') }}</van-button>
+    </demo-block>
+
     <demo-block :title="$t('router')">
-      <van-button :text="$t('urlRoute')" type="primary" url="/vant/mobile.html" />
+      <van-button
+        :text="$t('urlRoute')"
+        type="primary"
+        url="/vant/mobile.html"
+      />
       <van-button :text="$t('vueRoute')" type="primary" to="index" />
     </demo-block>
 
     <demo-block :title="$t('customColor')">
       <van-button color="#7232dd" :text="$t('pure')" />
       <van-button plain color="#7232dd" :text="$t('pure')" />
-      <van-button color="linear-gradient(to right, #4bb0ff, #6149f6)" :text="$t('gradient')" />
+      <van-button
+        color="linear-gradient(to right, #4bb0ff, #6149f6)"
+        :text="$t('gradient')"
+      />
     </demo-block>
   </demo-section>
 </template>
@@ -96,7 +107,8 @@ export default {
       vueRoute: '路由跳转',
       customColor: '自定义颜色',
       pure: '单色按钮',
-      gradient: '渐变色按钮'
+      gradient: '渐变色按钮',
+      blockElement: '块级元素',
     },
     'en-US': {
       type: 'Type',
@@ -124,9 +136,10 @@ export default {
       vueRoute: 'Vue Router',
       customColor: 'Custom Color',
       pure: 'Pure',
-      gradient: 'Gradient'
-    }
-  }
+      gradient: 'Gradient',
+      blockElement: 'Block Element',
+    },
+  },
 };
 </script>
 
@@ -134,6 +147,8 @@ export default {
 @import '../../style/var';
 
 .demo-button {
+  background: @white;
+
   .van-button {
     &--large {
       margin-bottom: @padding-md;

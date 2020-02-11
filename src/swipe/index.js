@@ -1,9 +1,12 @@
+// Utils
 import { createNamespace } from '../utils';
 import { preventDefault } from '../utils/dom/event';
-import { TouchMixin } from '../mixins/touch';
-import { BindEventMixin } from '../mixins/bind-event';
 import { doubleRaf } from '../utils/dom/raf';
 import { range } from '../utils/format/number';
+
+// Mixins
+import { TouchMixin } from '../mixins/touch';
+import { BindEventMixin } from '../mixins/bind-event';
 
 const [createComponent, bem] = createNamespace('swipe');
 
@@ -12,45 +15,46 @@ export default createComponent({
     TouchMixin,
     BindEventMixin(function(bind, isBind) {
       bind(window, 'resize', this.resize, true);
+      bind(window, 'visibilitychange', this.onVisibilityChange);
 
       if (isBind) {
         this.initialize();
       } else {
         this.clear();
       }
-    })
+    }),
   ],
 
   props: {
-    width: Number,
-    height: Number,
-    autoplay: Number,
+    width: [Number, String],
+    height: [Number, String],
+    autoplay: [Number, String],
     vertical: Boolean,
     indicatorColor: String,
     loop: {
       type: Boolean,
-      default: true
+      default: true,
     },
     duration: {
-      type: Number,
-      default: 500
+      type: [Number, String],
+      default: 500,
     },
     touchable: {
       type: Boolean,
-      default: true
+      default: true,
     },
     initialSwipe: {
-      type: Number,
-      default: 0
+      type: [Number, String],
+      default: 0,
     },
     showIndicators: {
       type: Boolean,
-      default: true
+      default: true,
     },
     stopPropagation: {
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
   },
 
   data() {
@@ -62,7 +66,7 @@ export default createComponent({
       deltaX: 0,
       deltaY: 0,
       swipes: [],
-      swiping: false
+      swiping: false,
     };
   },
 
@@ -76,12 +80,12 @@ export default createComponent({
     },
 
     autoplay(autoplay) {
-      if (!autoplay) {
-        this.clear();
-      } else {
+      if (autoplay > 0) {
         this.autoPlay();
+      } else {
+        this.clear();
       }
-    }
+    },
   },
 
   computed: {
@@ -118,31 +122,37 @@ export default createComponent({
         [mainAxis]: `${this.trackSize}px`,
         [crossAxis]: this[crossAxis] ? `${this[crossAxis]}px` : '',
         transitionDuration: `${this.swiping ? 0 : this.duration}ms`,
-        transform: `translate${this.vertical ? 'Y' : 'X'}(${this.offset}px)`
+        transform: `translate${this.vertical ? 'Y' : 'X'}(${this.offset}px)`,
       };
     },
 
     indicatorStyle() {
       return {
-        backgroundColor: this.indicatorColor
+        backgroundColor: this.indicatorColor,
       };
     },
 
     minOffset() {
       const rect = this.$el.getBoundingClientRect();
-      return (this.vertical ? rect.height : rect.width) - this.size * this.count;
-    }
+      return (
+        (this.vertical ? rect.height : rect.width) - this.size * this.count
+      );
+    },
+  },
+
+  mounted() {
+    this.bindTouchEvent(this.$refs.track);
   },
 
   methods: {
     // initialize swipe position
-    initialize(active = this.initialSwipe) {
+    initialize(active = +this.initialSwipe) {
       clearTimeout(this.timer);
 
       if (this.$el) {
         const rect = this.$el.getBoundingClientRect();
-        this.computedWidth = this.width || rect.width;
-        this.computedHeight = this.height || rect.height;
+        this.computedWidth = +this.width || rect.width;
+        this.computedHeight = +this.height || rect.height;
       }
 
       this.swiping = true;
@@ -159,11 +169,18 @@ export default createComponent({
       this.initialize(this.activeIndicator);
     },
 
+    onVisibilityChange() {
+      if (document.hidden) {
+        this.clear();
+      } else {
+        this.autoPlay();
+      }
+    },
+
     onTouchStart(event) {
       if (!this.touchable) return;
 
       this.clear();
-      this.swiping = true;
       this.touchStart(event);
       this.correctPosition();
     },
@@ -186,7 +203,7 @@ export default createComponent({
         const offset = this.vertical ? this.offsetY : this.offsetX;
         this.move({
           pace: offset > 0 ? (this.delta > 0 ? -1 : 1) : 0,
-          emitChange: true
+          emitChange: true,
         });
       }
 
@@ -254,10 +271,37 @@ export default createComponent({
     },
 
     // @exposed-api
-    swipeTo(index, options = {}) {
-      this.swiping = true;
-      this.resetTouchStatus();
+    prev() {
       this.correctPosition();
+      this.resetTouchStatus();
+
+      doubleRaf(() => {
+        this.swiping = false;
+        this.move({
+          pace: -1,
+          emitChange: true,
+        });
+      });
+    },
+
+    // @exposed-api
+    next() {
+      this.correctPosition();
+      this.resetTouchStatus();
+
+      doubleRaf(() => {
+        this.swiping = false;
+        this.move({
+          pace: 1,
+          emitChange: true,
+        });
+      });
+    },
+
+    // @exposed-api
+    swipeTo(index, options = {}) {
+      this.correctPosition();
+      this.resetTouchStatus();
 
       doubleRaf(() => {
         let targetIndex;
@@ -267,11 +311,6 @@ export default createComponent({
           targetIndex = index % this.count;
         }
 
-        this.move({
-          pace: targetIndex - this.active,
-          emitChange: true
-        });
-
         if (options.immediate) {
           doubleRaf(() => {
             this.swiping = false;
@@ -279,10 +318,17 @@ export default createComponent({
         } else {
           this.swiping = false;
         }
+
+        this.move({
+          pace: targetIndex - this.active,
+          emitChange: true,
+        });
       });
     },
 
     correctPosition() {
+      this.swiping = true;
+
       if (this.active <= -1) {
         this.move({ pace: this.count });
       }
@@ -299,21 +345,11 @@ export default createComponent({
     autoPlay() {
       const { autoplay } = this;
 
-      if (autoplay && this.count > 1) {
+      if (autoplay > 0 && this.count > 1) {
         this.clear();
         this.timer = setTimeout(() => {
-          this.swiping = true;
-          this.resetTouchStatus();
-          this.correctPosition();
-
-          doubleRaf(() => {
-            this.swiping = false;
-            this.move({
-              pace: 1,
-              emitChange: true
-            });
-            this.autoPlay();
-          });
+          this.next();
+          this.autoPlay();
         }, autoplay);
       }
     },
@@ -338,25 +374,17 @@ export default createComponent({
           </div>
         );
       }
-    }
+    },
   },
 
   render() {
     return (
       <div class={bem()}>
-        <div
-          ref="track"
-          style={this.trackStyle}
-          class={bem('track')}
-          onTouchstart={this.onTouchStart}
-          onTouchmove={this.onTouchMove}
-          onTouchend={this.onTouchEnd}
-          onTouchcancel={this.onTouchEnd}
-        >
+        <div ref="track" style={this.trackStyle} class={bem('track')}>
           {this.slots()}
         </div>
         {this.genIndicator()}
       </div>
     );
-  }
+  },
 });
