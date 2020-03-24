@@ -8,7 +8,7 @@
   &__field {
     padding: @coupon-list-field-padding;
 
-    .van-field__control {
+    .van-field__body {
       height: 34px;
       padding-left: @padding-sm;
       line-height: 34px;
@@ -19,27 +19,56 @@
         color: @gray-5;
       }
     }
+
+    .van-field__clear {
+      margin-right: 0;
+    }
+  }
+
+  &__exchange-bar {
+    display: flex;
+    align-items: center;
+    background-color: @white;
   }
 
   &__exchange {
+    flex: none;
     height: @coupon-list-exchange-button-height;
     font-size: @font-size-lg;
     line-height: @coupon-list-exchange-button-height - 2px;
     border: 0;
   }
 
-  &__list {
-    box-sizing: border-box;
-    padding: @padding-md 0;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
+  .van-tabs__wrap {
+    box-shadow: 0 6px 12px -12px @gray-6;
   }
 
-  &__close {
+  &__list {
+    box-sizing: border-box;
+    padding: @padding-md 0 @padding-lg;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+
+    &--with-bottom {
+      padding-bottom: @padding-md + 50px;
+    }
+  }
+
+  &__bottom {
     position: absolute;
     bottom: 0;
     left: 0;
+    z-index: 999;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 5px @padding-md;
     font-weight: @font-weight-bold;
+    background-color: @white;
+  }
+
+  &__close {
+    height: 40px;
+    line-height: 38px;
   }
 
   &__empty {

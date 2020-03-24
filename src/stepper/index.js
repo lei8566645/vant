@@ -1,6 +1,8 @@
 import { createNamespace, isDef, addUnit } from '../utils';
 import { resetScroll } from '../utils/dom/reset-scroll';
 import { preventDefault } from '../utils/dom/event';
+import { FieldMixin } from '../mixins/field';
+import { formatNumber } from '../field/utils';
 
 const [createComponent, bem] = createNamespace('stepper');
 
@@ -18,6 +20,8 @@ function add(num1, num2) {
 }
 
 export default createComponent({
+  mixins: [FieldMixin],
+
   props: {
     value: null,
     integer: Boolean,
@@ -28,35 +32,39 @@ export default createComponent({
     disablePlus: Boolean,
     disableMinus: Boolean,
     disableInput: Boolean,
-    decimalLength: Number,
+    decimalLength: [Number, String],
     name: {
       type: [Number, String],
-      default: ''
+      default: '',
     },
     min: {
       type: [Number, String],
-      default: 1
+      default: 1,
     },
     max: {
       type: [Number, String],
-      default: Infinity
+      default: Infinity,
     },
     step: {
       type: [Number, String],
-      default: 1
+      default: 1,
     },
     defaultValue: {
       type: [Number, String],
-      default: 1
+      default: 1,
     },
     showPlus: {
       type: Boolean,
-      default: true
+      default: true,
     },
     showMinus: {
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
+    longPress: {
+      type: Boolean,
+      default: true,
+    },
   },
 
   data() {
@@ -68,13 +76,15 @@ export default createComponent({
     }
 
     return {
-      currentValue: value
+      currentValue: value,
     };
   },
 
   computed: {
     minusDisabled() {
-      return this.disabled || this.disableMinus || this.currentValue <= this.min;
+      return (
+        this.disabled || this.disableMinus || this.currentValue <= this.min
+      );
     },
 
     plusDisabled() {
@@ -101,13 +111,18 @@ export default createComponent({
 
         return {
           width: size,
-          height: size
+          height: size,
         };
       }
-    }
+    },
   },
 
   watch: {
+    max: 'check',
+    min: 'check',
+    integer: 'check',
+    decimalLength: 'check',
+
     value(val) {
       if (!equal(val, this.currentValue)) {
         this.currentValue = this.format(val);
@@ -117,23 +132,24 @@ export default createComponent({
     currentValue(val) {
       this.$emit('input', val);
       this.$emit('change', val, { name: this.name });
-    }
+    },
   },
 
   methods: {
-    // filter illegal characters
-    filter(value) {
-      value = String(value).replace(/[^0-9.-]/g, '');
-
-      if (this.integer && value.indexOf('.') !== -1) {
-        value = value.split('.')[0];
+    check() {
+      const val = this.format(this.currentValue);
+      if (!equal(val, this.currentValue)) {
+        this.currentValue = val;
       }
+    },
 
-      return value;
+    // formatNumber illegal characters
+    formatNumber(value) {
+      return formatNumber(String(value), !this.integer);
     },
 
     format(value) {
-      value = this.filter(value);
+      value = this.formatNumber(value);
 
       // format range
       value = value === '' ? 0 : +value;
@@ -150,12 +166,7 @@ export default createComponent({
     onInput(event) {
       const { value } = event.target;
 
-      // allow input to be empty
-      if (value === '') {
-        return;
-      }
-
-      let formatted = this.filter(value);
+      let formatted = this.formatNumber(value);
 
       // limit max decimal length
       if (isDef(this.decimalLength) && formatted.indexOf('.') !== -1) {
@@ -210,12 +221,16 @@ export default createComponent({
 
     longPressStep() {
       this.longPressTimer = setTimeout(() => {
-        this.onChange(this.type);
+        this.onChange();
         this.longPressStep(this.type);
       }, LONG_PRESS_INTERVAL);
     },
 
     onTouchStart() {
+      if (!this.longPress) {
+        return;
+      }
+
       clearTimeout(this.longPressTimer);
       this.isLongPress = false;
 
@@ -227,12 +242,16 @@ export default createComponent({
     },
 
     onTouchEnd(event) {
+      if (!this.longPress) {
+        return;
+      }
+
       clearTimeout(this.longPressTimer);
 
       if (this.isLongPress) {
         preventDefault(event);
       }
-    }
+    },
   },
 
   render() {
@@ -244,11 +263,11 @@ export default createComponent({
         },
         touchstart: () => {
           this.type = type;
-          this.onTouchStart(type);
+          this.onTouchStart();
         },
         touchend: this.onTouchEnd,
-        touchcancel: this.onTouchEnd
-      }
+        touchcancel: this.onTouchEnd,
+      },
     });
 
     return (
@@ -261,15 +280,18 @@ export default createComponent({
           {...createListeners('minus')}
         />
         <input
-          type="number"
+          type={this.integer ? 'tel' : 'text'}
           role="spinbutton"
           class={bem('input')}
           value={this.currentValue}
+          style={this.inputStyle}
+          disabled={this.disabled}
+          readonly={this.disableInput}
+          // set keyboard in mordern browers
+          inputmode={this.integer ? 'numeric' : 'decimal'}
           aria-valuemax={this.max}
           aria-valuemin={this.min}
           aria-valuenow={this.currentValue}
-          disabled={this.disabled || this.disableInput}
-          style={this.inputStyle}
           onInput={this.onInput}
           onFocus={this.onFocus}
           onBlur={this.onBlur}
@@ -283,5 +305,5 @@ export default createComponent({
         />
       </div>
     );
-  }
+  },
 });

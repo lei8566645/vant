@@ -1,8 +1,8 @@
 <template>
   <demo-section>
     <van-tabs v-model="tab" sticky :color="BLUE">
-      <van-tab :title="$t('demo')">
-        <demo-block :title="$t('basicUsage')">
+      <van-tab :title="t('demo')">
+        <demo-block :title="t('basicUsage')">
           <van-col span="6" @click="copy(demoIcon)">
             <van-icon :name="demoIcon" />
           </van-col>
@@ -11,19 +11,19 @@
           </van-col>
         </demo-block>
 
-        <demo-block :title="$t('info')">
+        <demo-block :title="t('badge')">
           <van-col span="6" @click="copy(demoIcon, { dot: true })">
             <van-icon :name="demoIcon" dot />
           </van-col>
-          <van-col span="6" @click="copy(demoIcon, { info: '9' })">
-            <van-icon :name="demoIcon" info="9" />
+          <van-col span="6" @click="copy(demoIcon, { badge: '9' })">
+            <van-icon :name="demoIcon" badge="9" />
           </van-col>
-          <van-col span="6" @click="copy(demoIcon, { info: '99+' })">
-            <van-icon :name="demoIcon" info="99+" />
+          <van-col span="6" @click="copy(demoIcon, { badge: '99+' })">
+            <van-icon :name="demoIcon" badge="99+" />
           </van-col>
         </demo-block>
 
-        <demo-block :title="$t('color')">
+        <demo-block :title="t('color')">
           <van-col span="6" @click="copy(demoIcon, { color: BLUE })">
             <van-icon :name="demoIcon" :color="BLUE" />
           </van-col>
@@ -32,7 +32,7 @@
           </van-col>
         </demo-block>
 
-        <demo-block :title="$t('size')">
+        <demo-block :title="t('size')">
           <van-col span="6" @click="copy(demoIcon, { size: '40' })">
             <van-icon :name="demoIcon" size="40" />
           </van-col>
@@ -42,7 +42,7 @@
         </demo-block>
       </van-tab>
 
-      <van-tab :title="$t('basic')">
+      <van-tab :title="t('basic')">
         <van-col
           v-for="icon in icons.basic"
           :key="icon"
@@ -54,7 +54,7 @@
         </van-col>
       </van-tab>
 
-      <van-tab :title="$t('outline')">
+      <van-tab :title="t('outline')">
         <van-col
           v-for="icon in icons.outline"
           :key="icon"
@@ -66,7 +66,7 @@
         </van-col>
       </van-tab>
 
-      <van-tab :title="$t('filled')">
+      <van-tab :title="t('filled')">
         <van-col
           v-for="icon in icons.filled"
           :key="icon"
@@ -113,26 +113,26 @@ export default {
   i18n: {
     'zh-CN': {
       title: '图标列表',
-      info: '提示信息',
+      badge: '徽标提示',
       basic: '基础图标',
       copied: '复制成功',
       outline: '线框风格',
       filled: '实底风格',
       demo: '用法示例',
       color: '图标颜色',
-      size: '图标大小'
+      size: '图标大小',
     },
     'en-US': {
       title: 'Icon List',
-      info: 'Show Info',
+      badge: 'Show Badge',
       basic: 'Basic',
       copied: 'Copied',
       outline: 'Outline',
       filled: 'Filled',
       demo: 'Demo',
       color: 'Icon Color',
-      size: 'Icon Size'
-    }
+      size: 'Icon Size',
+    },
   },
 
   data() {
@@ -142,7 +142,7 @@ export default {
     return {
       tab: 0,
       demoIcon: 'chat-o',
-      demoImage: 'https://b.yzcdn.cn/vant/icon-demo-1126.png'
+      demoImage: 'https://b.yzcdn.cn/vant/icon-demo-1126.png',
     };
   },
 
@@ -152,8 +152,8 @@ export default {
       if ('dot' in option) {
         tag = `${tag} ${option.dot ? 'dot' : ''}`;
       }
-      if ('info' in option) {
-        tag = `${tag} info="${option.info}"`;
+      if ('badge' in option) {
+        tag = `${tag} badge="${option.badge}"`;
       }
       if ('color' in option) {
         tag = `${tag} color="${option.color}"`;
@@ -168,10 +168,10 @@ export default {
         type: 'success',
         duration: 1500,
         className: 'demo-icon-notify',
-        message: `${this.$t('copied')}：${tag}`
+        message: `${this.t('copied')}：${tag}`,
       });
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -196,10 +196,12 @@ export default {
     float: none;
     text-align: center;
     vertical-align: middle;
+    cursor: pointer;
 
     span {
       display: block;
-      margin: -4px 0 16px;
+      height: 36px;
+      margin: -4px 0 4px;
       padding: 0 5px;
       color: @gray-7;
       font-size: 12px;
@@ -221,6 +223,7 @@ export default {
     width: auto;
     margin: 20px;
     background-color: #fff;
+    border-radius: 12px;
   }
 }
 </style>

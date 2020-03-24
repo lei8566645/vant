@@ -18,6 +18,7 @@ export type ToastOptions = {
   position?: ToastPosition;
   className?: any;
   transition?: string;
+  iconPrefix?: string;
   loadingType?: ToastLoadingType;
   forbidClick?: boolean;
   closeOnClick?: boolean;
@@ -41,7 +42,10 @@ export interface Toast {
   fail(options?: ToastOptions | ToastMessage): VanToast;
   clear(all?: boolean): void;
   install(): void;
-  setDefaultOptions(options: string | ToastOptions): void;
+  setDefaultOptions(
+    type: ToastType | ToastOptions,
+    options?: ToastOptions
+  ): void;
   resetDefaultOptions(options?: string): void;
   allowMultiple(allow: boolean): void;
 }

@@ -1,73 +1,80 @@
+// Utils
 import { createNamespace } from '../utils';
+import { isHidden } from '../utils/dom/style';
 import { preventDefault } from '../utils/dom/event';
-import { TouchMixin } from '../mixins/touch';
-import { BindEventMixin } from '../mixins/bind-event';
 import { doubleRaf } from '../utils/dom/raf';
 import { range } from '../utils/format/number';
+
+// Mixins
+import { TouchMixin } from '../mixins/touch';
+import { ParentMixin } from '../mixins/relation';
+import { BindEventMixin } from '../mixins/bind-event';
 
 const [createComponent, bem] = createNamespace('swipe');
 
 export default createComponent({
   mixins: [
     TouchMixin,
+    ParentMixin('vanSwipe'),
     BindEventMixin(function(bind, isBind) {
       bind(window, 'resize', this.resize, true);
+      bind(window, 'visibilitychange', this.onVisibilityChange);
 
       if (isBind) {
         this.initialize();
       } else {
         this.clear();
       }
-    })
+    }),
   ],
 
   props: {
-    width: Number,
-    height: Number,
-    autoplay: Number,
+    width: [Number, String],
+    height: [Number, String],
+    autoplay: [Number, String],
     vertical: Boolean,
+    lazyRender: Boolean,
     indicatorColor: String,
     loop: {
       type: Boolean,
-      default: true
+      default: true,
     },
     duration: {
-      type: Number,
-      default: 500
+      type: [Number, String],
+      default: 500,
     },
     touchable: {
       type: Boolean,
-      default: true
+      default: true,
     },
     initialSwipe: {
-      type: Number,
-      default: 0
+      type: [Number, String],
+      default: 0,
     },
     showIndicators: {
       type: Boolean,
-      default: true
+      default: true,
     },
     stopPropagation: {
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
   },
 
   data() {
     return {
-      computedWidth: 0,
-      computedHeight: 0,
       offset: 0,
       active: 0,
       deltaX: 0,
       deltaY: 0,
-      swipes: [],
-      swiping: false
+      swiping: false,
+      computedWidth: 0,
+      computedHeight: 0,
     };
   },
 
   watch: {
-    swipes() {
+    children() {
       this.initialize();
     },
 
@@ -76,17 +83,17 @@ export default createComponent({
     },
 
     autoplay(autoplay) {
-      if (!autoplay) {
-        this.clear();
-      } else {
+      if (autoplay > 0) {
         this.autoPlay();
+      } else {
+        this.clear();
       }
-    }
+    },
   },
 
   computed: {
     count() {
-      return this.swipes.length;
+      return this.children.length;
     },
 
     delta() {
@@ -118,37 +125,43 @@ export default createComponent({
         [mainAxis]: `${this.trackSize}px`,
         [crossAxis]: this[crossAxis] ? `${this[crossAxis]}px` : '',
         transitionDuration: `${this.swiping ? 0 : this.duration}ms`,
-        transform: `translate${this.vertical ? 'Y' : 'X'}(${this.offset}px)`
+        transform: `translate${this.vertical ? 'Y' : 'X'}(${this.offset}px)`,
       };
     },
 
     indicatorStyle() {
       return {
-        backgroundColor: this.indicatorColor
+        backgroundColor: this.indicatorColor,
       };
     },
 
     minOffset() {
       const rect = this.$el.getBoundingClientRect();
-      return (this.vertical ? rect.height : rect.width) - this.size * this.count;
-    }
+      return (
+        (this.vertical ? rect.height : rect.width) - this.size * this.count
+      );
+    },
+  },
+
+  mounted() {
+    this.bindTouchEvent(this.$refs.track);
   },
 
   methods: {
     // initialize swipe position
-    initialize(active = this.initialSwipe) {
+    initialize(active = +this.initialSwipe) {
       clearTimeout(this.timer);
 
-      if (this.$el) {
+      if (this.$el && !isHidden(this.$el)) {
         const rect = this.$el.getBoundingClientRect();
-        this.computedWidth = this.width || rect.width;
-        this.computedHeight = this.height || rect.height;
+        this.computedWidth = Math.round(+this.width || rect.width);
+        this.computedHeight = Math.round(+this.height || rect.height);
       }
 
       this.swiping = true;
       this.active = active;
       this.offset = this.count > 1 ? -this.size * this.active : 0;
-      this.swipes.forEach(swipe => {
+      this.children.forEach(swipe => {
         swipe.offset = 0;
       });
       this.autoPlay();
@@ -159,11 +172,18 @@ export default createComponent({
       this.initialize(this.activeIndicator);
     },
 
+    onVisibilityChange() {
+      if (document.hidden) {
+        this.clear();
+      } else {
+        this.autoPlay();
+      }
+    },
+
     onTouchStart(event) {
       if (!this.touchable) return;
 
       this.clear();
-      this.swiping = true;
       this.touchStart(event);
       this.correctPosition();
     },
@@ -186,7 +206,7 @@ export default createComponent({
         const offset = this.vertical ? this.offsetY : this.offsetX;
         this.move({
           pace: offset > 0 ? (this.delta > 0 ? -1 : 1) : 0,
-          emitChange: true
+          emitChange: true,
         });
       }
 
@@ -223,7 +243,7 @@ export default createComponent({
     },
 
     move({ pace = 0, offset = 0, emitChange }) {
-      const { loop, count, active, swipes, trackSize, minOffset } = this;
+      const { loop, count, active, children, trackSize, minOffset } = this;
 
       if (count <= 1) {
         return;
@@ -234,14 +254,14 @@ export default createComponent({
 
       // auto move first and last swipe in loop mode
       if (loop) {
-        if (swipes[0]) {
+        if (children[0]) {
           const outRightBound = targetOffset < minOffset;
-          swipes[0].offset = outRightBound ? trackSize : 0;
+          children[0].offset = outRightBound ? trackSize : 0;
         }
 
-        if (swipes[count - 1]) {
+        if (children[count - 1]) {
           const outLeftBound = targetOffset > 0;
-          swipes[count - 1].offset = outLeftBound ? -trackSize : 0;
+          children[count - 1].offset = outLeftBound ? -trackSize : 0;
         }
       }
 
@@ -254,10 +274,37 @@ export default createComponent({
     },
 
     // @exposed-api
-    swipeTo(index, options = {}) {
-      this.swiping = true;
-      this.resetTouchStatus();
+    prev() {
       this.correctPosition();
+      this.resetTouchStatus();
+
+      doubleRaf(() => {
+        this.swiping = false;
+        this.move({
+          pace: -1,
+          emitChange: true,
+        });
+      });
+    },
+
+    // @exposed-api
+    next() {
+      this.correctPosition();
+      this.resetTouchStatus();
+
+      doubleRaf(() => {
+        this.swiping = false;
+        this.move({
+          pace: 1,
+          emitChange: true,
+        });
+      });
+    },
+
+    // @exposed-api
+    swipeTo(index, options = {}) {
+      this.correctPosition();
+      this.resetTouchStatus();
 
       doubleRaf(() => {
         let targetIndex;
@@ -267,11 +314,6 @@ export default createComponent({
           targetIndex = index % this.count;
         }
 
-        this.move({
-          pace: targetIndex - this.active,
-          emitChange: true
-        });
-
         if (options.immediate) {
           doubleRaf(() => {
             this.swiping = false;
@@ -279,10 +321,17 @@ export default createComponent({
         } else {
           this.swiping = false;
         }
+
+        this.move({
+          pace: targetIndex - this.active,
+          emitChange: true,
+        });
       });
     },
 
     correctPosition() {
+      this.swiping = true;
+
       if (this.active <= -1) {
         this.move({ pace: this.count });
       }
@@ -299,21 +348,11 @@ export default createComponent({
     autoPlay() {
       const { autoplay } = this;
 
-      if (autoplay && this.count > 1) {
+      if (autoplay > 0 && this.count > 1) {
         this.clear();
         this.timer = setTimeout(() => {
-          this.swiping = true;
-          this.resetTouchStatus();
-          this.correctPosition();
-
-          doubleRaf(() => {
-            this.swiping = false;
-            this.move({
-              pace: 1,
-              emitChange: true
-            });
-            this.autoPlay();
-          });
+          this.next();
+          this.autoPlay();
         }, autoplay);
       }
     },
@@ -338,7 +377,7 @@ export default createComponent({
           </div>
         );
       }
-    }
+    },
   },
 
   render() {
@@ -347,16 +386,12 @@ export default createComponent({
         <div
           ref="track"
           style={this.trackStyle}
-          class={bem('track')}
-          onTouchstart={this.onTouchStart}
-          onTouchmove={this.onTouchMove}
-          onTouchend={this.onTouchEnd}
-          onTouchcancel={this.onTouchEnd}
+          class={bem('track', { vertical: this.vertical })}
         >
           {this.slots()}
         </div>
         {this.genIndicator()}
       </div>
     );
-  }
+  },
 });

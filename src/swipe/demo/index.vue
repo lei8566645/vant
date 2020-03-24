@@ -1,6 +1,6 @@
 <template>
   <demo-section>
-    <demo-block :title="$t('basicUsage')">
+    <demo-block :title="t('basicUsage')">
       <van-swipe :autoplay="3000" indicator-color="white">
         <van-swipe-item>1</van-swipe-item>
         <van-swipe-item>2</van-swipe-item>
@@ -9,15 +9,15 @@
       </van-swipe>
     </demo-block>
 
-    <demo-block :title="$t('title2')">
+    <demo-block :title="t('title2')">
       <van-swipe :autoplay="3000">
         <van-swipe-item v-for="(image, index) in images" :key="index">
-          <img v-lazy="image">
+          <img v-lazy="image" />
         </van-swipe-item>
       </van-swipe>
     </demo-block>
 
-    <demo-block :title="$t('title3')">
+    <demo-block :title="t('title3')">
       <van-swipe indicator-color="white" @change="onChange1">
         <van-swipe-item>1</van-swipe-item>
         <van-swipe-item>2</van-swipe-item>
@@ -26,7 +26,7 @@
       </van-swipe>
     </demo-block>
 
-    <demo-block :title="$t('title4')">
+    <demo-block :title="t('title4')">
       <van-swipe
         vertical
         :autoplay="3000"
@@ -41,7 +41,7 @@
       </van-swipe>
     </demo-block>
 
-    <demo-block :title="$t('title5')">
+    <demo-block :title="t('title5')">
       <van-swipe :width="300" :loop="false" indicator-color="white">
         <van-swipe-item>1</van-swipe-item>
         <van-swipe-item>2</van-swipe-item>
@@ -50,7 +50,7 @@
       </van-swipe>
     </demo-block>
 
-    <demo-block :title="$t('title6')">
+    <demo-block :title="t('title6')">
       <van-swipe @change="onChange2">
         <van-swipe-item>1</van-swipe-item>
         <van-swipe-item>2</van-swipe-item>
@@ -74,7 +74,7 @@ export default {
       title4: '纵向滚动',
       title5: '自定义滑块大小',
       title6: '自定义指示器',
-      message: '当前 Swipe 索引：'
+      message: '当前 Swipe 索引：',
     },
     'en-US': {
       title2: 'Image Lazyload',
@@ -82,8 +82,8 @@ export default {
       title4: 'Vertical Scrolling',
       title5: 'Set SwipeItem Size',
       title6: 'Custom indicator',
-      message: 'Current Swipe index:'
-    }
+      message: 'Current Swipe index:',
+    },
   },
 
   data() {
@@ -93,20 +93,20 @@ export default {
         'https://img.yzcdn.cn/vant/apple-1.jpg',
         'https://img.yzcdn.cn/vant/apple-2.jpg',
         'https://img.yzcdn.cn/vant/apple-3.jpg',
-        'https://img.yzcdn.cn/vant/apple-4.jpg'
-      ]
+        'https://img.yzcdn.cn/vant/apple-4.jpg',
+      ],
     };
   },
 
   methods: {
     onChange1(index) {
-      this.$toast(this.$t('message') + index);
+      this.$toast(this.t('message') + index);
     },
 
     onChange2(index) {
       this.current = index;
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -117,8 +117,6 @@ export default {
   padding-bottom: 30px;
 
   .van-swipe {
-    cursor: pointer;
-
     &-item {
       color: @white;
       font-size: 20px;

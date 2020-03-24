@@ -1,6 +1,6 @@
 <template>
   <demo-section>
-    <demo-block :title="$t('basicUsage')">
+    <demo-block :title="t('basicUsage')">
       <van-contact-card
         :type="cardType"
         :name="currentContact.name"
@@ -8,29 +8,21 @@
         @click="showList = true"
       />
 
-      <van-popup
-        v-model="showList"
-        position="bottom"
-        :lazy-render="false"
-      >
+      <van-popup v-model="showList" position="bottom" :lazy-render="false">
         <van-contact-list
           v-model="chosenContactId"
           :list="list"
-          :default-tag-text="$t('defaultTagText')"
+          :default-tag-text="t('defaultTagText')"
           @add="onAdd"
           @edit="onEdit"
           @select="onSelect"
         />
       </van-popup>
 
-      <van-popup
-        v-model="showEdit"
-        position="bottom"
-        :lazy-render="false"
-      >
+      <van-popup v-model="showEdit" position="bottom" :lazy-render="false">
         <van-contact-edit
           show-set-default
-          :set-default-label="$t('defaultLabel')"
+          :set-default-label="t('defaultLabel')"
           :contact-info="editingContact"
           :is-edit="isEdit"
           @save="onSave"
@@ -39,7 +31,7 @@
       </van-popup>
     </demo-block>
 
-    <demo-block :title="$t('uneditable')">
+    <demo-block :title="t('uneditable')">
       <van-contact-card
         type="edit"
         :name="mockContact.name"
@@ -56,13 +48,13 @@ export default {
     'zh-CN': {
       name: '张三',
       defaultLabel: '设为默认联系人',
-      defaultTagText: '默认'
+      defaultTagText: '默认',
     },
     'en-US': {
       name: 'John Snow',
       defaultLabel: 'Set as the default contact',
-      defaultTagText: 'default'
-    }
+      defaultTagText: 'default',
+    },
   },
 
   data() {
@@ -72,17 +64,17 @@ export default {
       showList: false,
       showEdit: false,
       isEdit: false,
-      list: []
+      list: [],
     };
   },
 
   computed: {
     mockContact() {
       return {
-        name: this.$t('name'),
+        name: this.t('name'),
         tel: '13000000000',
         id: 0,
-        isDefault: 1
+        isDefault: 1,
       };
     },
 
@@ -93,7 +85,7 @@ export default {
     currentContact() {
       const id = this.chosenContactId;
       return id !== null ? this.list.filter(item => item.id === id)[0] : {};
-    }
+    },
   },
 
   created() {
@@ -135,8 +127,8 @@ export default {
       if (this.chosenContactId === info.id) {
         this.chosenContactId = null;
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

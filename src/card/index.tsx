@@ -1,5 +1,8 @@
+// Utils
 import { createNamespace, isDef } from '../utils';
 import { emit, inherit } from '../utils/functional';
+
+// Components
 import Tag from '../tag';
 import Image from '../image';
 
@@ -85,7 +88,7 @@ function Card(
               src={thumb}
               width="100%"
               height="100%"
-              fit="contain"
+              fit="cover"
               lazy-load={props.lazyLoad}
             />
           )}
@@ -123,7 +126,7 @@ function Card(
     const priceArr = props.price!.toString().split('.');
     return (
       <div>
-        {props.currency}
+        <span class={bem('price-currency')}>{props.currency}</span>
         <span class={bem('price-integer')}>{priceArr[0]}</span>.
         <span class={bem('price-decimal')}>{priceArr[1]}</span>
       </div>
@@ -175,15 +178,15 @@ function Card(
           <div>
             {Title()}
             {Desc()}
-            {slots.tags && slots.tags()}
+            {slots.tags?.()}
           </div>
           {showBottom && (
             <div class="van-card__bottom">
-              {slots['price-top'] && slots['price-top']()}
+              {slots['price-top']?.()}
               {Price()}
               {OriginPrice()}
               {Num()}
-              {slots.bottom && slots.bottom()}
+              {slots.bottom?.()}
             </div>
           )}
         </div>
@@ -206,8 +209,8 @@ Card.props = {
   originPrice: [Number, String],
   currency: {
     type: String,
-    default: '¥'
-  }
+    default: '¥',
+  },
 };
 
 export default createComponent<CardProps, CardEvents>(Card);

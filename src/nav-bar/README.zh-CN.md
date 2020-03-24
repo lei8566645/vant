@@ -2,7 +2,7 @@
 
 ### 引入
 
-``` javascript
+```js
 import Vue from 'vue';
 import { NavBar } from 'vant';
 
@@ -25,6 +25,8 @@ Vue.use(NavBar);
 ```
 
 ```js
+import { Toast } from 'vant';
+
 export default {
   methods: {
     onClickLeft() {
@@ -43,7 +45,9 @@ export default {
 
 ```html
 <van-nav-bar title="标题" left-text="返回" left-arrow>
-  <van-icon name="search" slot="right" />
+  <template #right>
+    <van-icon name="search"/> 
+  </template>
 </van-nav-bar>
 ```
 
@@ -51,15 +55,15 @@ export default {
 
 ### Props
 
-| 参数 | 说明 | 类型 | 默认值 | 版本 |
-|------|------|------|------|------|
-| title | 标题 | *string* | `''` | - |
-| left-text | 左侧文案 | *string* | `''` | - |
-| right-text | 右侧文案 | *string* | `''` | - |
-| left-arrow | 是否显示左侧箭头 | *boolean* | `false` | - |
-| fixed | 是否固定在顶部 | *boolean* | `false` | - |
-| border | 是否显示下边框 | *boolean* | `true` | - |
-| z-index | 元素 z-index | *number* | `1` | - |
+| 参数 | 说明 | 类型 | 默认值 |
+|------|------|------|------|
+| title | 标题 | *string* | `''` |
+| left-text | 左侧文案 | *string* | `''` |
+| right-text | 右侧文案 | *string* | `''` |
+| left-arrow | 是否显示左侧箭头 | *boolean* | `false` |
+| fixed | 是否固定在顶部 | *boolean* | `false` |
+| border | 是否显示下边框 | *boolean* | `true` |
+| z-index | 元素 z-index | *number \| string* | `1` |
 
 ### Slots
 
