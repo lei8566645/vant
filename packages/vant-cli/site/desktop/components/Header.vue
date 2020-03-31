@@ -3,7 +3,7 @@
     <div class="van-doc-row">
       <div class="van-doc-header__top">
         <a class="van-doc-header__logo">
-          <img :src="config.logo" />
+          <img :src="config.logo">
           <span>{{ config.title }}</span>
         </a>
 
@@ -20,7 +20,7 @@
               target="_blank"
               :href="item.url"
             >
-              <img :src="item.logo" />
+              <img :src="item.logo">
             </a>
           </li>
 
@@ -140,6 +140,7 @@ export default {
 
 .van-doc-header {
   width: 100%;
+  background-color: #001938;
   user-select: none;
 
   &__top {
@@ -148,7 +149,6 @@ export default {
     height: @van-doc-header-top-height;
     padding: 0 @van-doc-padding;
     line-height: @van-doc-header-top-height;
-    background-color: #001938;
 
     &-nav {
       flex: 1;

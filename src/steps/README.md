@@ -85,3 +85,9 @@ export default {
 |------|------|
 | active-icon | Custom active icon |
 | inactive-icon | Custom inactive icon |
+
+### Steps Events
+
+| Event | Description | Arguments |
+|------|------|------|
+| click-step `v2.5.9` | Triggered when a step's title or icon is clicked | *index: number* |

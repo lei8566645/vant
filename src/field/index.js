@@ -101,6 +101,13 @@ export default createComponent({
       );
     },
 
+    showError() {
+      if (this.vanForm && this.vanForm.showError && this.validateMessage) {
+        return true;
+      }
+      return this.error;
+    },
+
     listeners() {
       const listeners = {
         ...this.$listeners,
@@ -474,6 +481,10 @@ export default createComponent({
     },
 
     genMessage() {
+      if (this.vanForm && this.vanForm.showErrorMessage === false) {
+        return;
+      }
+
       const message = this.errorMessage || this.validateMessage;
 
       if (message) {
@@ -536,7 +547,7 @@ export default createComponent({
         scopedSlots={scopedSlots}
         arrowDirection={this.arrowDirection}
         class={bem({
-          error: this.error || this.validateMessage,
+          error: this.showError,
           [`label-${labelAlign}`]: labelAlign,
           'min-height': this.type === 'textarea' && !this.autosize,
         })}

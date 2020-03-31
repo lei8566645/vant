@@ -381,3 +381,53 @@ test('scroll-to-error prop', async () => {
 
   expect(fn).toHaveBeenCalledTimes(1);
 });
+
+test('show-error-message prop', async () => {
+  const wrapper = mountForm({
+    template: `
+      <van-form :show-error-message="showErrorMessage">
+        <van-field name="A" :rules="rulesA" value="" />
+        <van-button native-type="submit" />
+      </van-form>
+    `,
+    data() {
+      return {
+        ...getSimpleRules(),
+        showErrorMessage: false,
+      };
+    },
+  });
+
+  await submitForm(wrapper);
+  expect(wrapper.contains('.van-field__error-message')).toBeFalsy();
+
+  wrapper.setData({ showErrorMessage: true });
+
+  await submitForm(wrapper);
+  expect(wrapper.contains('.van-field__error-message')).toBeTruthy();
+});
+
+test('show-error prop', async () => {
+  const wrapper = mountForm({
+    template: `
+      <van-form :show-error="showError">
+        <van-field name="A" :rules="rulesA" value="" />
+        <van-button native-type="submit" />
+      </van-form>
+    `,
+    data() {
+      return {
+        ...getSimpleRules(),
+        showError: false,
+      };
+    },
+  });
+
+  await submitForm(wrapper);
+  expect(wrapper.contains('.van-field--error')).toBeFalsy();
+
+  wrapper.setData({ showError: true });
+
+  await submitForm(wrapper);
+  expect(wrapper.contains('.van-field--error')).toBeTruthy();
+});

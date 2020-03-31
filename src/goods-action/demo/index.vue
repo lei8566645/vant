@@ -117,6 +117,7 @@ export default {
 .demo-goods-action {
   .van-goods-action {
     position: relative;
+    padding-bottom: 0;
   }
 }
 </style>
